@@ -1,0 +1,189 @@
+<resources>
+    <string name="app_name">Toques de Animais</string>
+    <string name="search_by_animal_name">Buscar por nome</string>
+
+    <string name="start">Iniciar</string>
+    <string name="snake">Cobra</string>
+    <string name="dog">Cachorro</string>
+    <string name="rabbit">Coelho</string>
+    <string name="parrot">Papagaio</string>
+
+    <string name="snake_info">
+        As cobras são répteis alongados e sem membros da subordem Serpentes. Elas são ectotérmicas e cobertas por escamas sobrepostas. Muitas espécies têm crânios com mais articulações do que os lagartos, permitindo engolir presas maiores que a cabeça. Seus órgãos duplos, como rins, são posicionados em linha reta e geralmente têm apenas um pulmão funcional.
+    </string>
+
+    <string name="cat_info">
+        O gato (Felis catus), também chamado de gato doméstico, é um mamífero carnívoro pequeno e domesticado. É a única espécie domesticada da família Felidae. Estudos indicam que foi domesticado no Oriente Próximo por volta de 7500 a.C. É valorizado como animal de estimação e controlador de pragas. Possui corpo ágil, garras retráteis, reflexos rápidos e visão noturna excelente.
+    </string>
+
+    <string name="dog_info">
+        O cão (Canis familiaris) é um descendente domesticado do lobo cinzento. Foi o primeiro animal domesticado pelo homem, há mais de 14.000 anos, antes da agricultura. Devido à convivência com humanos, cães se adaptaram a dietas ricas em amido, diferentemente de outros canídeos.
+    </string>
+
+    <string name="parrot_info">
+        Papagaios (Psittaciformes) são aves com bico curvo forte e pés com garras. Existem cerca de 410 espécies em 101 gêneros, espalhados em regiões tropicais e subtropicais. Um terço das espécies de papagaios está ameaçado de extinção. A maior diversidade ocorre na América do Sul e Australásia.
+    </string>
+
+    <string name="rabbit_info">
+        Coelhos são mamíferos pequenos da família Leporidae, na ordem Lagomorpha. São herbívoros amplamente distribuídos e usados como pets ou animais de caça. Os gêneros Oryctolagus e Sylvilagus incluem espécies domesticadas e selvagens. Espécies raras incluem o coelho-pigmeu e o coelho listrado de Sumatra.
+    </string>
+
+
+    <string name="please_select_a_language">Por favor, selecione um idioma</string>
+    <string name="language">IDIOMA</string>
+
+    <string name="characters">Personagens</string>
+    <string name="select">Selecionar</string>
+    <string name="blaze_vector">Blaze Vector</string>
+    <string name="change">Alterar</string>
+    <string name="play">Tocar</string>
+    <string name="settings">Configurações</string>
+    <string name="get_premium">OBTER PREMIUM</string>
+    <string name="background_music">Música de Fundo</string>
+    <string name="sound_fx">Efeitos de Som</string>
+    <string name="share_us">Compartilhe-nos</string>
+    <string name="more_apps">Mais Apps</string>
+    <string name="rate_us">Avalie-nos</string>
+    <string name="privacy_policy">Política de Privacidade</string>
+    <string name="full_access">ACESSO TOTAL</string>
+
+
+    <string name="get_full_access_to_premium_gun_and_sounds">• Obtenha acesso total a armas e sons premium</string>
+    <string name="get_all_premium_gun_wallpapers_free">• Obtenha todos os papéis de parede premium de armas gratuitamente</string>
+    <string name="no_ads_to_disrupt">• Sem anúncios incômodos</string>
+    <string name="subscribe_for_3_months_9_99_45_off">Assine por 3 meses $9.99 (45% de desconto)</string>
+    <string name="subscribe_for_lifetime_12_99_50_off">Assinatura vitalícia $12.99 (50% de desconto)</string>
+    <string name="start_free_trial">Iniciar teste gratuito de 3 dias</string>
+    <string name="subscribe_monthly_with_price">Assinar mensalmente – %1$s</string>
+    <string name="subscribe_weekly_with_price">Assinar semanalmente – %1$s</string>
+    <string name="trial_disclaimer">Aproveite um teste gratuito de %1$s, depois %2$s por semana. Cancele com pelo menos 24 h de antecedência.</string>
+    <string name="cancel_policy_trial">Cancele com pelo menos 24 h de antecedência. Taxas após o período de teste.</string>
+    <string name="cancel_policy_regular">Cancele a qualquer momento com pelo menos 24 h de antecedência.</string>
+    <string name="subscription_renew">A assinatura será renovada automaticamente. Cancele a qualquer momento.</string>
+    <string name="purchase_successfully">Compra realizada com sucesso</string>
+    <string name="subscribe_weekly">Assinar semanalmente</string>
+    <string name="subscribe_monthly">Assinar mensalmente</string>
+    <string name="premium_error_dialog_message">Há um problema com sua assinatura. Clique em CONTINUAR para ir às configurações no Google Play e corrigir seu método de pagamento.</string>
+
+    <string name="reload">Recarregar</string>
+    <string name="you_are_out_of_bullet">Você ficou sem balas!</string>
+    <string name="reload_bullet">Toque para recarregar a arma</string>
+
+
+    <string name="more">mais</string>
+    <string name="gun_locked">ARMA TRANCADA!</string>
+    <string name="please_watch_a_short_nad_to_unlock">POR FAVOR, ASSISTA A UM ANÚNCIO CURTO\nPARA DESTRAVAR</string>
+    <string name="unlock">DESTRAVAR</string>
+
+    <string name="exit_application">Sair do aplicativo</string>
+    <string name="are_you_sure_you_want_to_exit_this_application">Tem certeza de que deseja sair deste aplicativo?</string>
+    <string name="no">Não</string>
+    <string name="yes">Sim</string>
+    <string name="cancel">Cancelar</string>
+    <string name="exit">Sair</string>
+
+    <string name="single_shot">Tiro único</string>
+    <string name="burst_mode">Modo rajada</string>
+    <string name="auto_hold">Apoio automático</string>
+    <string name="shake">Vibrar</string>
+
+
+    <string name="do_you_want_to_open_network_settings">Deseja abrir as configurações de rede?</string>
+    <string name="no_internet_connection">Sem conexão com a internet!</string>
+    <string name="done">Concluído</string>
+    <string name="set_as_ringtone">Definir como toque</string>
+    <string name="set_as_wallpaper">Definir como papel de parede</string>
+    <string name="pronunciation">Pronúncia</string>
+    <string name="animal_info">Informações do animal</string>
+    <string name="preview">Visualizar</string>
+    <string name="first_fragment_label">Primeiro fragmento</string>
+    <string name="second_fragment_label">Segundo fragmento</string>
+    <string name="next">Próximo</string>
+    <string name="previous">Anterior</string>
+    <string name="crop">Cortar</string>
+    <string name="home_screen">Tela inicial</string>
+    <string name="lock_screen">Tela de bloqueio</string>
+    <string name="home_lock_screen">Tela inicial e de bloqueio</string>
+    <string name="set_as">Definir como</string>
+    <string name="ringtone">Toque</string>
+    <string name="contact_ringtone">Toque de contato</string>
+    <string name="set_contact_ringtone">Definir toque de contato</string>
+    <string name="alarm_tone">Tom de alarme</string>
+    <string name="set_alarm_tone">Definir como tom de alarme</string>
+    <string name="sms_notification_ringtone">Toque de mensagem/notificação</string>
+    <string name="set_sms_notification_ringtone">Definir toque de mensagem/notificação</string>
+    <string name="download_ringtone">Baixar toque</string>
+    <string name="set_ringtone">Definir toque</string>
+    <string name="get_premium_nav">Adquirir Premium!</string>
+    <string name="general">Geral</string>
+    <string name="favorite">Favorito</string>
+    <string name="reset_ringtone">Redefinir toque</string>
+    <string name="other_links">Outros links</string>
+    <string name="feedback">Feedback</string>
+    <string name="sounds_like">Soa como</string>
+    <string name="slow">Lento</string>
+    <string name="got_it">Entendi</string>
+    <string name="animal_of_the_day">Animal do dia</string>
+    <string name="lifespan">Expectativa de vida</string>
+    <string name="wallpaper">Papel de parede</string>
+
+    <string name="premium_ringtones_for_your_device">Toques premium para seu dispositivo</string>
+    <string name="exclusive_wallpaper_for_home_screen">Papéis exclusivos para tela inicial</string>
+    <string name="ads_free_experience_in_app">Experiência sem anúncios no app</string>
+    <string name="subscription_will_auto_renew_cancel_anytime">A assinatura será renovada automaticamente. Cancele a qualquer momento.</string>
+    <string name="upgrade_now">Atualizar agora</string>
+    <string name="monthly">Mensal</string>
+    <string name="lifetime">Vitalício</string>
+    <string name="yearly">Anual</string>
+    <string name="weekly">Semanal</string>
+    <string name="cat_details">
+    O gato (Felis catus), também chamado de gato doméstico ou doméstico, é um pequeno mamífero carnívoro domesticado...
+  </string>
+
+    <string name="shareApp">Este é um dos aplicativos mais divertidos e educativos que permite explorar e curtir sons realistas de animais de uma ampla variedade de criaturas, incluindo leões, pássaros, insetos, animais marinhos e muito mais.</string>
+
+    <string name="suggested_animal">Animal sugerido</string>
+    <string name="cat">Gato</string>
+    <string name="language_nav">Idioma</string>
+    <string name="select_language">Selecionar idioma</string>
+    <string name="onboarding_title_1">Pronto para rugir, chilrear\ne zumbir?</string>
+    <string name="onboarding_title_2">Mergulhe nos sons dos animais</string>
+    <string name="onboarding_desc_1">Descubra, aprenda e aproveite as vozes\ndas criaturas mais fascinantes da natureza.</string>
+    <string name="onboarding_desc_2">Defina sons únicos de animais e toques de pássaros para tornar suas chamadas mais divertidas.</string>
+
+    <string name="upgrade_to_premium">Atualizar para Premium</string>
+
+    
+    <string name="language_desc">Escolha o idioma do app; você pode alterá-lo\nmais tarde nas configurações.</string>
+
+
+
+        <string name="reset_ring">Toques redefinidos para o padrão com sucesso</string>
+        <string name="auto_play">Reprodução automática</string>
+        <string name="don_t_miss_a_roar">Não perca um rugido!</string>
+        <string name="stay_updated_with_new_animal_sounds_fun_facts_and_exciting_features">Fique atualizado com novos sons de animais, curiosidades e recursos emocionantes.</string>
+        <string name="why_enable_notifications">Por que ativar notificações?</string>
+        <string name="get_alerts_when_new_animals_are_added_never_miss_fresh_sound_packs">Receba alertas quando novos animais forem adicionados e nunca perca novos pacotes de sons.</string>
+        <string name="not_now">Agora não</string>
+        <string name="allow">Permitir</string>
+        <string name="start_like_a_pro">COMECE COMO UM PRO</string>
+        <string name="unlock_all_features">Desbloqueie todos os recursos</string>
+        <string name="features">Recursos</string>
+        <string name="premium">Premium</string>
+        <string name="free">Grátis</string>
+        <string name="premium_ringtones">Toques premium</string>
+        <string name="exclusive_wallpaper">Papel de parede exclusivo</string>
+        <string name="high_quality_sounds">Sons de alta qualidade</string>
+        <string name="remove_ads">Remover anúncios</string>
+        <string name="weekly_subscription">Assinatura semanal</string>
+        <string name="most_popular">Mais popular</string>
+        <string name="monthly_subscription">Assinatura mensal</string>
+        <string name="continuee">Continuar</string>
+        <string name="_3_days_free_trial">3 DIAS DE TESTE GRATUITO</string>
+        <string name="free_trial_disclaimer">%1$s/semana após o teste gratuito de 3 dias</string>
+        <string name="cancel_anytime_at_least_24_hours_before_renewal_trial">O pagamento será cobrado em sua conta do Google Play no final da confirmação de compra se você não iniciar um teste. A assinatura renova automaticamente, a menos que seja cancelada com pelo menos 24 horas de antecedência.</string>
+        <string name="cancel_anytime_at_least_24_hours_before_renewal_without_trial">As assinaturas renovam automaticamente, a menos que sejam canceladas com pelo menos 24 horas de antecedência do término do período atual. Você pode gerenciar e cancelar sua assinatura a qualquer momento pelo Google Play Store.</string>
+
+
+
+</resources>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">पशु रिंगटोन</string>
+    <string name="search_by_animal_name">नाम से खोजें</string>
+
+    <string name="start">शुरू करें</string>
+    <string name="snake">सांप</string>
+    <string name="dog">कुत्ता</string>
+    <string name="rabbit">खरगोश</string>
+    <string name="parrot">तोता</string>
+
+    <string name="snake_info">
+        सांप Serpentes उपगण के लंबे बिना अंगों वाले सरीसृप होते हैं। यह स्क्वामेट्स में आते हैं और ठंडे खून वाले, अंडों से पैदा होने वाले कशेरुकी होते हैं जिनका शरीर ओवरलैपिंग तराजुओं से ढका होता है। कई सांपों की खोपड़ी में अपने पूर्वजों की तुलना में ज्यादा जोड़ होते हैं जिससे वे अपने सिर से बड़े शिकार को निगल सकते हैं। उनके पतले शरीर के कारण, उनके दोहरे अंग जैसे किडनी सामने-पीछे होते हैं, एक ही लाइन में नहीं, और अधिकांश के पास केवल एक कार्यशील फेफड़ा होता है।
+    </string>
+
+    <string name="cat_info">
+        बिल्ली (Felis catus), जिसे घरेलू या पालतू बिल्ली भी कहा जाता है, एक छोटा मांसाहारी स्तनपायी जानवर है। यह फ़ेलीडे परिवार की एकमात्र पालतू प्रजाति है। पुरातत्व और आनुवंशिकी में प्रगति से पता चला है कि बिल्लियों को लगभग 7500 ईसा पूर्व निकट पूर्व में पालतू बनाया गया था। इसे आमतौर पर एक पालतू जानवर और कामकाजी बिल्ली के रूप में रखा जाता है, लेकिन यह जंगली रूप में भी पाई जाती है। यह इंसानों के लिए साथी और चूहों को मारने की क्षमता के कारण मूल्यवान है। इसके पंजे संकुचित होते हैं और छोटे शिकार को पकड़ने में सहायक होते हैं। इसकी शरीर की लचक, तेज प्रतिक्रिया, धारदार दांत, रात में देखने की क्षमता और गंध की शक्ति अत्यंत विकसित होती है। यह सामाजिक है, लेकिन अकेले शिकार करता है और प्रायः सांझ और सुबह सक्रिय रहता है।
+    </string>
+
+    <string name="dog_info">
+        कुत्ता (Canis familiaris या Canis lupus familiaris) भेड़िए की एक पालतू नस्ल है। इसे घरेलू कुत्ता भी कहा जाता है और इसे प्लाइस्टोसीन युग में शिकारियों द्वारा भेड़ियों की एक आबादी से पाला गया था। यह मानव द्वारा पालतू बनाया गया पहला जानवर था, लगभग 14,000 साल पहले और कृषि के विकास से पहले। मनुष्यों के साथ लंबे समय तक संबंध के कारण, कुत्ते स्टार्च-आधारित आहार पर भी जीवित रह सकते हैं जो अन्य कुत्तों के लिए अनुपयुक्त होता।
+    </string>
+
+    <string name="parrot_info">
+        तोते (Psittaciformes), जिन्हें सिटासिन भी कहा जाता है, मजबूत मुड़े हुए चोंच वाले, सीधे खड़े होने वाले और पंजे वाले पक्षी हैं। इन्हें चार परिवारों में वर्गीकृत किया गया है जिनमें लगभग 410 प्रजातियाँ और 101 वंश हैं, जो मुख्यतः उष्णकटिबंधीय और उपोष्णकटिबंधीय क्षेत्रों में पाए जाते हैं। ये परिवार हैं: Psittaculidae (पुरानी दुनिया के तोते), Psittacidae (अफ्रीकी और नई दुनिया के तोते), Cacatuidae (काकाटू) और Strigopidae (न्यूज़ीलैंड के तोते)। तोतों की एक तिहाई प्रजातियाँ विलुप्ति के खतरे में हैं और किसी भी अन्य पक्षी समूह की तुलना में उच्च जोखिम में हैं। तोते सामान्यतः उष्णकटिबंधीय क्षेत्रों में पाए जाते हैं, और दक्षिण अमेरिका और ऑस्ट्रेलेशिया में इनकी सबसे अधिक विविधता है।
+    </string>
+
+    <string name="rabbit_info">
+        खरगोश या बन्नी छोटे स्तनधारी होते हैं जो लेपोरिडे परिवार में आते हैं (जिसमें खरगोश जैसे प्राणी भी शामिल हैं) और लागोमॉर्फा क्रम में आते हैं (जिसमें पिकास भी शामिल हैं)। यह दुनिया भर में एक शाकाहारी, शिकार के जानवर, पालतू और खेतों में पाले जाने वाले पशु के रूप में जाने जाते हैं। सबसे आम खरगोश वंश Oryctolagus और Sylvilagus हैं। Oryctolagus में यूरोपीय खरगोश आता है, जो सभी घरेलू खरगोश नस्लों का पूर्वज है और अंटार्कटिका को छोड़कर सभी महाद्वीपों में
+        </string>
+
+    <string name="characters">किरदार</string>
+    <string name="select">चुनें</string>
+    <string name="blaze_vector">ब्लेज़ वेक्टर</string>
+    <string name="change">बदलें</string>
+    <string name="play">चलाएँ</string>
+    <string name="settings">सेटिंग्स</string>
+    <string name="get_premium">प्रीमियम प्राप्त करें</string>
+    <string name="background_music">पृष्ठभूमि संगीत</string>
+    <string name="sound_fx">साउंड इफेक्ट्स</string>
+    <string name="share_us">हमें शेयर करें</string>
+    <string name="more_apps">अधिक ऐप्स</string>
+    <string name="rate_us">हमें रेट करें</string>
+    <string name="privacy_policy">गोपनीयता नीति</string>
+    <string name="full_access">पूर्ण पहुँच</string>
+
+    <string name="get_full_access_to_premium_gun_and_sounds">• प्रीमियम गन और साउंड्स का पूरा एक्सेस प्राप्त करें</string>
+    <string name="get_all_premium_gun_wallpapers_free">• सभी प्रीमियम गन वॉलपेपर मुफ्त में प्राप्त करें</string>
+    <string name="no_ads_to_disrupt">• बिना किसी विघ्न के (कोई विज्ञापन नहीं)</string>
+    <string name="subscribe_for_3_months_9_99_45_off">3 महीने के लिए सब्सक्राइब करें $9.99 (45% छूट)</string>
+    <string name="subscribe_for_lifetime_12_99_50_off">लाइफटाइम के लिए सब्सक्राइब करें $12.99 (50% छूट)</string>
+
+    <string name="start_free_trial">3 दिन की मुफ्त ट्रायल शुरू करें</string>
+    <string name="subscribe_monthly_with_price">मासिक सदस्यता लें – %1$s</string>
+    <string name="subscribe_weekly_with_price">साप्ताहिक सदस्यता लें – %1$s</string>
+    <string name="trial_disclaimer">%1$s की मुफ्त ट्रायल का आनंद लें, फिर %2$s प्रति सप्ताह। रिन्यूअल से कम से कम 24 घंटे पहले रद्द करें।</string>
+    <string name="cancel_policy_trial">कभी भी रद्द करें, लेकिन रिन्यूअल से 24 घंटे पहले। ट्रायल के बाद शुल्क लिया जाएगा।</string>
+    <string name="cancel_policy_regular">कभी भी रद्द करें, लेकिन रिन्यूअल से कम से कम 24 घंटे पहले।</string>
+    <string name="subscription_renew">सब्सक्रिप्शन अपने आप रिन्यू होगा। आप कभी भी रद्द कर सकते हैं।</string>
+
+    <string name="purchase_successfully">खरीदारी सफल रही</string>
+    <string name="subscribe_weekly">साप्ताहिक सदस्यता लें</string>
+    <string name="subscribe_monthly">मासिक सदस्यता लें</string>
+    <string name="premium_error_dialog_message">आपकी सदस्यता में कोई समस्या है। भुगतान विधि ठीक करने के लिए CONTINUE पर क्लिक करें।</string>
+
+    <string name="reload">रीलोड करें</string>
+    <string name="you_are_out_of_bullet">आपके पास गोलियां खत्म हो गई हैं!</string>
+    <string name="reload_bullet">हथियार को फिर से लोड करने के लिए टैप करें</string>
+
+
+    <string name="more">अधिक</string>
+    <string name="gun_locked">गन लॉक्ड!</string>
+    <string name="please_watch_a_short_nad_to_unlock">कृपया एक छोटा विज्ञापन\nदेखें और अनलॉक करें</string>
+    <string name="unlock">अनलॉक करें</string>
+
+    <string name="exit_application">एप्लिकेशन से बाहर निकलें</string>
+    <string name="are_you_sure_you_want_to_exit_this_application">क्या आप वाकई एप्लिकेशन से बाहर निकलना चाहते हैं?</string>
+    <string name="no">नहीं</string>
+    <string name="yes">हाँ</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="exit">बाहर जाएं</string>
+    <string name="single_shot">सिंगल शॉट</string>
+    <string name="burst_mode">बर्स्ट मोड</string>
+    <string name="auto_hold">ऑटो होल्ड</string>
+    <string name="shake">शेक</string>
+
+
+    <string name="do_you_want_to_open_network_settings">क्या आप नेटवर्क सेटिंग्स खोलना चाहते हैं?</string>
+    <string name="no_internet_connection">इंटरनेट कनेक्शन नहीं है!</string>
+    <string name="done">समाप्त</string>
+    <string name="set_as_ringtone">रिंगटोन के रूप में सेट करें</string>
+    <string name="set_as_wallpaper">वॉलपेपर के रूप में सेट करें</string>
+    <string name="pronunciation">उच्चारण</string>
+    <string name="animal_info">पशु जानकारी</string>
+    <string name="preview">पूर्वदर्शन</string>
+    <string name="first_fragment_label">पहला अनुभाग</string>
+    <string name="second_fragment_label">दूसरा अनुभाग</string>
+    <string name="next">अगला</string>
+    <string name="previous">पिछला</string>
+    <string name="crop">क्रॉप करें</string>
+    <string name="home_screen">होम स्क्रीन</string>
+    <string name="lock_screen">लॉक स्क्रीन</string>
+    <string name="home_lock_screen">होम और लॉक स्क्रीन</string>
+    <string name="set_as">के रूप में सेट करें</string>
+    <string name="ringtone">रिंगटोन</string>
+    <string name="contact_ringtone">संपर्क रिंगटोन</string>
+    <string name="set_contact_ringtone">संपर्क रिंगटोन सेट करें</string>
+    <string name="alarm_tone">अलार्म टोन</string>
+    <string name="set_alarm_tone">अलार्म टोन सेट करें</string>
+    <string name="sms_notification_ringtone">SMS/ नोटिफिकेशन रिंगटोन</string>
+    <string name="set_sms_notification_ringtone">SMS/ नोटिफिकेशन रिंगटोन सेट करें</string>
+    <string name="download_ringtone">रिंगटोन डाउनलोड करें</string>
+    <string name="set_ringtone">रिंगटोन सेट करें</string>
+    <string name="get_premium_nav">प्रीमियम प्राप्त करें!</string>
+    <string name="general">सामान्य</string>
+    <string name="favorite">पसंदीदा</string>
+    <string name="reset_ringtone">रिंगटोन रीसेट करें</string>
+    <string name="other_links">अन्य लिंक</string>
+    <string name="feedback">प्रतिक्रिया</string>
+    <string name="sounds_like">जैसा सुनाई देता है</string>
+    <string name="slow">धीमा</string>
+    <string name="got_it">समझ गया</string>
+    <string name="animal_of_the_day">दिन का पशु</string>
+    <string name="lifespan">आयु</string>
+    <string name="wallpaper">वॉलपेपर</string>
+
+    <string name="premium_ringtones_for_your_device">आपके डिवाइस के लिए प्रीमियम रिंगटोन</string>
+    <string name="exclusive_wallpaper_for_home_screen">होम स्क्रीन के लिए एक्सक्लूसिव वॉलपेपर</string>
+    <string name="ads_free_experience_in_app">ऐप में विज्ञापन रहित अनुभव</string>
+    <string name="subscription_will_auto_renew_cancel_anytime">सब्सक्रिप्शन अपने आप रिन्यू होगा। कभी भी रद्द करें।</string>
+    <string name="upgrade_now">अब उन्नयन करें</string>
+    <string name="monthly">मासिक</string>
+    <string name="lifetime">आजीवन</string>
+    <string name="yearly">वार्षिक</string>
+    <string name="weekly">साप्ताहिक</string>
+    <string name="cat_details">बिल्ली (Felis catus), जिसे घरोᅟᅡवाली बिल्ली के नाम से भी जाना जाता है, एक छोटा पालतू मांसाहारी स्तनपायी है...
+    </string>
+
+    <string name="shareApp">यह सबसे मज़ेदार और शैक्षिक ऐप्स में से एक है जो आपको शेर, पक्षियों, कीड़ों, समुद्री जानवरों और अन्य जीवों की यथार्थवादी आवाज़ों का आनंद लेने और उन्हें खोजने की अनुमति देता है।</string>
+
+    <string name="suggested_animal">सुझाया गया जानवर</string>
+    <string name="cat">बिल्ली</string>
+    <string name="language_nav">भाषा</string>
+    <string name="select_language">भाषा चुनें</string>
+    <string name="onboarding_title_1">गर्जने, चहचहाने और भनभनाने के लिए तैयार?</string>
+    <string name="onboarding_title_2">जानवरों की ध्वनियों में खुद को डुबोएं</string>
+    <string name="onboarding_desc_1">प्रकृति के सबसे आकर्षक जीवों की आवाज़ों को खोजें,\nसीखें और उनका आनंद लें।</string>
+    <string name="onboarding_desc_2">कॉल को मज़ेदार बनाने के लिए अद्वितीय पशु ध्वनियों और पक्षी रिंगटोनों को सेट करें।</string>
+
+
+    <string name="please_select_a_language">कृपया एक भाषा चुनें</string>
+    <string name="language">भाषा</string>
+
+
+    <string name="upgrade_to_premium">प्रीमियम में अपग्रेड करें</string>
+    <string name="language_desc">ऐप की भाषा चुनें; आप इसे बाद में\nसेटिंग्स में बदल सकते हैं।</string>
+
+
+    <string name="reset_ring">रिंगटोन सफलतापूर्वक डिफ़ॉल्ट पर रीसेट हो गई</string>
+    <string name="auto_play">ऑटो प्ले</string>
+    <string name="don_t_miss_a_roar">गर्जना मिस मत करो!</string>
+    <string name="stay_updated_with_new_animal_sounds_fun_facts_and_exciting_features">नए जानवरों की आवाज़ों, मज़ेदार तथ्यों और रोमांचक फीचर्स से अपडेट रहें।</string>
+    <string name="why_enable_notifications">नोटिफिकेशन सक्षम क्यों करें?</string>
+    <string name="get_alerts_when_new_animals_are_added_never_miss_fresh_sound_packs">जब नए जानवर जोड़े जाएं तो अलर्ट पाएं और नए साउंड पैक कभी मिस न करें।</string>
+    <string name="not_now">अभी नहीं</string>
+    <string name="allow">अनुमति दें</string>
+    <string name="start_like_a_pro">प्रो की तरह शुरू करें</string>
+    <string name="unlock_all_features">सभी फीचर्स अनलॉक करें</string>
+    <string name="features">फीचर्स</string>
+    <string name="premium">प्रीमियम</string>
+    <string name="free">फ्री</string>
+    <string name="premium_ringtones">प्रीमियम रिंगटोन</string>
+    <string name="exclusive_wallpaper">विशेष वॉलपेपर</string>
+    <string name="high_quality_sounds">उच्च गुणवत्ता वाली आवाज़ें</string>
+    <string name="remove_ads">विज्ञापन हटाएं</string>
+    <string name="weekly_subscription">साप्ताहिक सदस्यता</string>
+    <string name="most_popular">सबसे लोकप्रिय</string>
+    <string name="monthly_subscription">मासिक सदस्यता</string>
+    <string name="continuee">जारी रखें</string>
+    <string name="_3_days_free_trial">3 दिन का मुफ्त ट्रायल</string>
+    <string name="free_trial_disclaimer">3 दिन के मुफ्त ट्रायल के बाद %1$s/सप्ताह</string>
+    <string name="cancel_anytime_at_least_24_hours_before_renewal_trial">यदि आप ट्रायल शुरू नहीं करते हैं, तो खरीदारी की पुष्टि के अंत में भुगतान आपके Google Play खाते से लिया जाएगा। सदस्यता स्वतः नवीनीकृत हो जाएगी जब तक कि इसे कम से कम 24 घंटे पहले रद्द न किया जाए।</string>
+    <string name="cancel_anytime_at_least_24_hours_before_renewal_without_trial">सदस्यता स्वतः नवीनीकृत हो जाएगी जब तक कि इसे अवधि समाप्त होने से कम से कम 24 घंटे पहले रद्द न किया जाए। आप किसी भी समय Google Play Store के माध्यम से सदस्यता प्रबंधित या रद्द कर सकते हैं।</string>
+
+
+</resources>

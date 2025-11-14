@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+        <string name="app_name">نغمات الحيوانات</string>
+        <string name="search_by_animal_name">ابحث باسم الحيوان</string>
+
+        <string name="start">ابدأ</string>
+        <string name="snake">ثعبا</string>
+        <string name="dog">كلب</string>
+        <string name="rabbit">أرنب</string>
+        <string name="parrot">ببغاء</string>
+
+        <string name="snake_info">
+        الثعابين هي زواحف طويلة بلا أطراف تنتمي إلى تحت رتبة Serpentes. تصنف تطوريًا ضمن الزواحف الحرشفية، وتعد كائنات فقارية أمينية بدم بارد مغطاة بحراشف متداخلة مثل باقي أفراد المجموعة. تمتلك العديد من أنواع الثعابين جماجم تحتوي على مفاصل أكثر مقارنة بأسلافها من السحالي، مما يمكنها من ابتلاع فرائس أكبر من رؤوسها. ولتكيفها مع أجسامها النحيلة، تظهر الأعضاء المزدوجة كالكليتين متراصفة أمام بعضها بدلًا من أن تكون جنبًا إلى جنب، ومعظمها يحتوي على رئة واحدة فقط تعمل.
+    </string>
+
+        <string name="cat_info">
+        القط (Felis catus)، ويعرف أيضًا بالقط المنزلي أو الأليف، هو حيوان ثديي صغير آكل للحوم. يُعد النوع الوحيد المستأنس من عائلة السنوريات. أظهرت الدراسات الأثرية والوراثية أن استئناس القطط حدث في الشرق الأدنى حوالي عام 7500 قبل الميلاد. يُربى عادة كحيوان أليف أو للعمل، كما يمكن أن يعيش كقط بري يتجنب الاتصال البشري. يُقدَّر القط لصحبته ولقدرته على صيد القوارض. مخالبه القابلة للسحب تساعده على صيد فرائس صغيرة مثل الفئران. يتميز بجسم قوي ومرن، وردود فعل سريعة، وأسنان حادة، كما يتمتع برؤية ليلية جيدة وحاسة شم قوية. هو كائن اجتماعي، لكنه صياد منفرد ونشط في الغسق والفجر.
+    </string>
+
+        <string name="dog_info">
+        الكلب (Canis familiaris أو Canis lupus familiaris) هو سلالة مستأنسة من الذئب الرمادي. ويُعرف أيضًا بالكلب المنزلي، وتم تربيته من مجموعة من الذئاب خلال أواخر العصر الجليدي من قِبل الصيادين وجامعي الثمار. يُعتبر الكلب أول نوع تم استئناسه من قبل البشر، منذ أكثر من 14,000 سنة، وقبل ظهور الزراعة. بسبب العلاقة الطويلة مع البشر، طورت الكلاب القدرة على التكيف مع نظام غذائي غني بالنشويات، وهو غير مناسب لمعظم الكلبيات الأخرى.
+    </string>
+
+        <string name="parrot_info">
+        الببغاوات (Psittaciformes)، والمعروفة أيضًا باسم الببغاوات الحقيقية، هي طيور ذات منقار معقوف قوي، ووضعية منتصبة، وأقدام مخلبية. تصنف في أربع عائلات تشمل حوالي 410 نوعًا في 101 جنسًا، وتوجد غالبًا في المناطق الاستوائية وشبه الاستوائية. العائلات الأربع هي: Psittaculidae (ببغاوات العالم القديم)، وPsittacidae (ببغاوات إفريقيا والعالم الجديد)، وCacatuidae (الكاكاتو)، وStrigopidae (ببغاوات نيوزيلندا). ثلث أنواع الببغاوات مهددة بالانقراض، وتتمتع بأعلى مخاطر الانقراض بالمقارنة مع مجموعات الطيور الأخرى. تعيش الببغاوات عادة في المناطق الاستوائية، وتنتشر بشكل كبير في أمريكا الجنوبية وأسترالاسيا.
+    </string>
+
+        <string name="rabbit_info">
+        الأرانب أو الأرانب الصغيرة هي ثدييات صغيرة تنتمي إلى عائلة Leporidae (التي تشمل أيضًا الأرانب البرية)، وهي من رتبة Lagomorpha (التي تشمل أيضًا البيكاس). تشتهر الأرانب حول العالم كحيوانات عاشبة صغيرة، وفريسة، وكحيوانات أليفة، مما كان له تأثير واسع على النظم البيئية والثقافات. تشمل أجناس الأرانب الأكثر انتشارًا Oryctolagus وSylvilagus. النوع الأول، Oryctolagus، يتضمن الأرنب الأوروبي، والذي يُعد سلف السلالات المستأنسة العديدة، وتم إدخاله في جميع القارات ما عدا القارة القطبية الجنوبية. أما Sylvilagus فيشمل أكثر من 13 نوعًا بريًا من الأرانب، من بينها الأرانب القطنية. وتشمل الأنواع الأخرى محدودة التوزيع الأرنب القزم، أرنب البركان، وأرنب سومطرة المخطط.
+    </string>
+
+
+
+    <string name="characters">الشخصيات</string>
+    <string name="select">اختر</string>
+    <string name="blaze_vector">بليز فيكتور</string>
+    <string name="change">تغيير</string>
+    <string name="play">تشغيل</string>
+    <string name="settings">الإعدادات</string>
+    <string name="background_music">الموسيقى الخلفية</string>
+    <string name="get_premium">احصل على المميز</string>
+    <string name="sound_fx">تأثيرات صوتية</string>
+    <string name="share_us">شاركنا</string>
+    <string name="more_apps">المزيد من التطبيقات</string>
+    <string name="rate_us">قيِّمنا</string>
+    <string name="privacy_policy">سياسة الخصوصية</string>
+    <string name="full_access">الوصول الكامل</string>
+    <string name="get_full_access_to_premium_gun_and_sounds">• احصل على وصول كامل إلى الأسلحة والصوتيات المميزة</string>
+    <string name="get_all_premium_gun_wallpapers_free">• احصل على جميع خلفيات الأسلحة المميزة مجانًا</string>
+    <string name="no_ads_to_disrupt">• بدون إعلانات مزعجة</string>
+    <string name="subscribe_for_3_months_9_99_45_off">اشترك لمدة 3 أشهر بـ $9.99 (خصم 45%)</string>
+    <string name="subscribe_for_lifetime_12_99_50_off">اشترك مدى الحياة بـ $12.99 (خصم 50%)</string>
+
+    <string name="start_free_trial">ابدأ تجربة مجانية لمدة 3 أيام</string>
+    <string name="subscribe_monthly_with_price">اشترك شهريًا – %1$s</string>
+    <string name="subscribe_weekly_with_price">اشترك أسبوعيًا – %1$s</string>
+    <string name="trial_disclaimer">استمتع بتجربة مجانية لمدة %1$s، ثم %2$s أسبوعيًا. يمكنك الإلغاء في أي وقت قبل 24 ساعة من التجديد.</string>
+    <string name="cancel_policy_trial">يمكنك الإلغاء في أي وقت قبل 24 ساعة من التجديد. ستبدأ الرسوم بعد انتهاء الفترة التجريبية.</string>
+    <string name="cancel_policy_regular">يمكنك الإلغاء في أي وقت قبل 24 ساعة من التجديد.</string>
+    <string name="subscription_renew">سيتم تجديد الاشتراك تلقائيًا. يمكنك الإلغاء في أي وقت.</string>
+
+    <string name="purchase_successfully">تم الشراء بنجاح</string>
+    <string name="subscribe_weekly">اشترك أسبوعيًا</string>
+    <string name="subscribe_monthly">اشترك شهريًا</string>
+    <string name="premium_error_dialog_message">هناك مشكلة في اشتراكك. انقر على "متابعة" للانتقال إلى إعدادات الاشتراك في Google Play وتحديث طريقة الدفع.</string>
+
+    <string name="reload">إعادة التلقيم</string>
+    <string name="you_are_out_of_bullet">لقد نفدت الذخيرة!</string>
+    <string name="reload_bullet">انقر لإعادة تلقيم السلاح</string>
+
+
+    <string name="more">المزيد</string>
+    <string name="gun_locked">السلاح مقفل!</string>
+    <string name="please_watch_a_short_nad_to_unlock">يرجى مشاهدة إعلان قصير\nلفتح المحتوى</string>
+    <string name="unlock">افتح</string>
+
+    <string name="exit_application">الخروج من التطبيق</string>
+    <string name="are_you_sure_you_want_to_exit_this_application">هل أنت متأكد أنك تريد الخروج من التطبيق؟</string>
+    <string name="no">لا</string>
+    <string name="yes">نعم</string>
+    <string name="cancel">إلغاء</string>
+    <string name="exit">خروج</string>
+    <string name="single_shot">طلقة واحدة</string>
+    <string name="burst_mode">وضع الطلقات المتعددة</string>
+    <string name="auto_hold">تثبيت تلقائي</string>
+    <string name="shake">اهتزاز</string>
+
+
+
+        <string name="do_you_want_to_open_network_settings">هل تريد فتح إعدادات الشبكة؟</string>
+        <string name="no_internet_connection">لا يوجد اتصال بالإنترنت!</string>
+        <string name="done">تم</string>
+        <string name="set_as_ringtone">تعيين كنغمة رنين</string>
+        <string name="set_as_wallpaper">تعيين كخلفية</string>
+        <string name="pronunciation">النطق</string>
+        <string name="animal_info">معلومات الحيوان</string>
+        <string name="preview">معاينة</string>
+        <string name="first_fragment_label">الجزء الأول</string>
+        <string name="second_fragment_label">الجزء الثاني</string>
+        <string name="next">التالي</string>
+        <string name="previous">السابق</string>
+        <string name="crop">اقتصاص</string>
+        <string name="home_screen">الشاشة الرئيسية</string>
+        <string name="lock_screen">شاشة القفل</string>
+        <string name="home_lock_screen">الشاشة الرئيسية والقفل</string>
+        <string name="set_as">تعيين كـ</string>
+        <string name="ringtone">نغمة رنين</string>
+        <string name="contact_ringtone">نغمة الاتصال</string>
+        <string name="set_contact_ringtone">تعيين نغمة الاتصال</string>
+        <string name="alarm_tone">نغمة المنبه</string>
+        <string name="set_alarm_tone">تعيين كنغمة منبه</string>
+        <string name="sms_notification_ringtone">نغمة الإشعارات / الرسائل</string>
+        <string name="set_sms_notification_ringtone">تعيين نغمة الرسائل / الإشعارات</string>
+        <string name="download_ringtone">تحميل النغمة</string>
+        <string name="set_ringtone">تعيين النغمة</string>
+        <string name="get_premium_nav">احصل على بريميوم!</string>
+        <string name="general">عام</string>
+        <string name="favorite">المفضلة</string>
+        <string name="reset_ringtone">إعادة ضبط النغمة</string>
+        <string name="other_links">روابط أخرى</string>
+        <string name="feedback">ملاحظات</string>
+        <string name="sounds_like">يشبه صوت</string>
+        <string name="slow">بطيء</string>
+        <string name="got_it">فهمت</string>
+        <string name="animal_of_the_day">حيوان اليوم</string>
+        <string name="lifespan">مدة الحياة</string>
+        <string name="wallpaper">خلفية</string>
+
+        <string name="premium_ringtones_for_your_device">نغمات بريميوم لجهازك</string>
+        <string name="exclusive_wallpaper_for_home_screen">خلفيات حصرية للشاشة الرئيسية</string>
+        <string name="ads_free_experience_in_app">تجربة خالية من الإعلانات في التطبيق</string>
+        <string name="subscription_will_auto_renew_cancel_anytime">سيتم تجديد الاشتراك تلقائيًا. يمكنك الإلغاء في أي وقت.</string>
+        <string name="upgrade_now">الترقية الآن</string>
+        <string name="monthly">شهري</string>
+        <string name="lifetime">مدى الحياة</string>
+        <string name="yearly">سنوي</string>
+        <string name="weekly">أسبوعي</string>
+
+        <string name="cat_details">
+        القط (Felis catus)، المعروف أيضًا باسم القط المنزلي أو قط البيت، هو حيوان ثديي لاحم صغير مستأنس. وهو النوع المستأنس الوحيد في عائلة السنوريات. أظهرت التطورات في علم الآثار وعلم الوراثة أن استئناس القط حدث في الشرق الأدنى حوالي 7500 قبل الميلاد. يُحتفظ به عادة كحيوان أليف وقط عمل، ولكنه أيضًا يعيش بحرية كقط بري يتجنب البشر. يقدّره الناس لصحبته وقدرته على صيد القوارض. مخالبه القابلة للسحب مناسبة لصيد الفرائس الصغيرة مثل الفئران والجرذان. يتمتع بجسم قوي ومرن وردود فعل سريعة وأسنان حادة، كما أن رؤيته الليلية وحاسة الشم لديه متطورة. هو نوع اجتماعي، لكنه صياد منفرد ومفترس نشط في الفجر والغسق.
+    </string>
+
+    <string name="shareApp">هذا أحد أكثر التطبيقات متعة وتعليمًا التي تتيح لك استكشاف والاستمتاع بأصوات الحيوانات الواقعية من مجموعة واسعة من المخلوقات بما في ذلك الأسود والطيور والحشرات والحيوانات البحرية والمزيد.</string>
+
+    <string name="suggested_animal">الحيوان المقترح</string>
+    <string name="cat">قط</string>
+    <string name="language_nav">اللغة</string>
+    <string name="select_language">اختر اللغة</string>
+    <string name="onboarding_title_1">هل أنت مستعد للزئير، والتغريد، والطنين؟</string>
+    <string name="onboarding_title_2">انغمس في أصوات الحيوانات</string>
+    <string name="onboarding_desc_1">اكتشف، وتعلّم، واستمتع بأصوات\nأكثر الكائنات إثارة في الطبيعة.</string>
+    <string name="onboarding_desc_2">عيّن أصوات الحيوانات والطيور كنغمات مميزة للمكالمات.</string>
+
+    <string name="please_select_a_language">يرجى اختيار اللغة</string>
+    <string name="language">اللغة</string>
+
+    <string name="upgrade_to_premium">الترقية إلى بريميوم</string>
+    <string name="language_desc">اختر لغة التطبيق؛ يمكنك تغييرها\nلاحقًا من الإعدادات.</string>
+
+    <string name="reset_ring">تمت إعادة ضبط النغمة إلى الوضع الافتراضي بنجاح</string>
+    <string name="auto_play">تشغيل تلقائي</string>
+    <string name="don_t_miss_a_roar">لا تفوت الزئير!</string>
+    <string name="stay_updated_with_new_animal_sounds_fun_facts_and_exciting_features">ابقَ على اطلاع بأصوات الحيوانات الجديدة والحقائق الممتعة والميزات المثيرة.</string>
+    <string name="why_enable_notifications">لماذا تفعيل الإشعارات؟</string>
+    <string name="get_alerts_when_new_animals_are_added_never_miss_fresh_sound_packs">احصل على تنبيهات عند إضافة حيوانات جديدة ولا تفوت حزم الأصوات الجديدة.</string>
+    <string name="not_now">ليس الآن</string>
+    <string name="allow">السماح</string>
+    <string name="start_like_a_pro">ابدأ كمحترف</string>
+    <string name="unlock_all_features">افتح جميع الميزات</string>
+    <string name="features">الميزات</string>
+    <string name="premium">بريميوم</string>
+    <string name="free">مجاني</string>
+    <string name="premium_ringtones">نغمات بريميوم</string>
+    <string name="exclusive_wallpaper">خلفيات حصرية</string>
+    <string name="high_quality_sounds">أصوات عالية الجودة</string>
+    <string name="remove_ads">إزالة الإعلانات</string>
+    <string name="weekly_subscription">اشتراك أسبوعي</string>
+    <string name="most_popular">الأكثر شيوعًا</string>
+    <string name="monthly_subscription">اشتراك شهري</string>
+    <string name="continuee">متابعة</string>
+    <string name="_3_days_free_trial">٣ أيام تجربة مجانية</string>
+    <string name="free_trial_disclaimer">%1$s/أسبوع بعد ٣ أيام التجربة المجانية</string>
+    <string name="cancel_anytime_at_least_24_hours_before_renewal_trial">سيتم خصم الدفعة من حسابك في Google Play عند نهاية تأكيد الشراء إذا لم تبدأ التجربة. يتم تجديد الاشتراك تلقائيًا ما لم يتم إلغاؤه قبل 24 ساعة على الأقل.</string>
+    <string name="cancel_anytime_at_least_24_hours_before_renewal_without_trial">يتم تجديد الاشتراك تلقائيًا ما لم يتم إلغاؤه قبل 24 ساعة على الأقل من انتهاء الفترة. يمكنك إدارة أو إلغاء الاشتراك في أي وقت عبر Google Play Store.</string>
+
+
+</resources>

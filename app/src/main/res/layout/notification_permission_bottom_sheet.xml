@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_sheet_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageView
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_bell" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/urbanist_bold"
+        android:text="@string/don_t_miss_a_roar"
+        android:textColor="@color/accent_color"
+        android:textSize="24sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/urbanist_medium"
+        android:gravity="center"
+        android:text="@string/stay_updated_with_new_animal_sounds_fun_facts_and_exciting_features"
+        android:textColor="@color/text_color_dark_gray"
+        android:textSize="14sp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/urbanist_bold"
+        android:text="@string/why_enable_notifications"
+        android:textColor="@color/text_color_dark_gray"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/urbanist_medium"
+        android:gravity="center"
+        android:text="@string/get_alerts_when_new_animals_are_added_never_miss_fresh_sound_packs"
+        android:textColor="@color/text_color_dark_gray"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/bg_round_accent"
+        android:backgroundTint="@color/accent_light"
+        android:fontFamily="@font/urbanist_italic"
+        android:gravity="center"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="8dp"
+        android:text="@string/get_alerts_when_new_animals_are_added_never_miss_fresh_sound_packs"
+        android:textColor="@color/text_color_dark_gray"
+        android:textSize="12sp" />
+
+
+    <LinearLayout
+        android:id="@+id/tv_allow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/tv_not_now"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_round_gray"
+            android:backgroundTint="@color/light_bg_2"
+            android:fontFamily="@font/urbanist_semi_bold"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="@string/not_now"
+            android:textColor="@color/text_color_dark_gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_round_gray"
+            android:backgroundTint="@color/accent_color"
+            android:fontFamily="@font/urbanist_semi_bold"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="@string/allow"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</LinearLayout>

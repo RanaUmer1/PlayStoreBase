@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+        <string name="app_name">Звуки Животных</string>
+        <string name="search_by_animal_name">Поиск по названию</string>
+
+        <string name="start">Начать</string>
+        <string name="snake">Змея</string>
+        <string name="dog">Собака</string>
+        <string name="rabbit">Кролик</string>
+        <string name="parrot">Попугай</string>
+
+        <string name="snake_info">
+        Змеи — это удлинённые бесконечные рептилии подотряда Serpentes. Они относятся к отряду чешуйчатых и являются холоднокровными позвоночными с перекрывающимися чешуйками. У многих змей череп состоит из большего количества суставов, чем у ящериц, что позволяет глотать добычу, превышающую размер головы. Их парные органы расположены один за другим, а не рядом, и у большинства работает только одно лёгкое.
+    </string>
+
+        <string name="cat_info">
+        Кошка (Felis catus) — мелкое домашнее хищное млекопитающее. Единственный одомашненный вид семейства кошачьих. Исследования показывают, что кошки были одомашнены на Ближнем Востоке около 7500 г. до н.э. Ценятся за дружелюбие и способность ловить грызунов. У кошек гибкое тело, острые зубы и отличное ночное зрение.
+    </string>
+
+        <string name="dog_info">
+        Собака (Canis familiaris) — одомашненный потомок серого волка. Первая приручённая человеком животная более 14 000 лет назад, до начала земледелия. Благодаря длительным отношениям с людьми, собаки научились переваривать крахмалосодержащую пищу.
+    </string>
+
+        <string name="parrot_info">
+        Попугаи (Psittaciformes) — птицы с изогнутым клювом, прямой осанкой и цепкими лапами. Существует около 410 видов в 101 роде, в основном в тропических регионах. Треть всех видов находится под угрозой исчезновения. Больше всего разнообразия — в Южной Америке и Австралазии.
+    </string>
+
+        <string name="rabbit_info">
+        Кролики — это мелкие млекопитающие из семейства Leporidae. Известны как травоядные, охотничьи и домашние животные. Самые распространённые роды — Oryctolagus и Sylvilagus. Первый включает европейского кролика, предка домашних пород. Второй — более 13 диких видов, включая кролика-карлика и суматранского полосатого.
+    </string>
+
+    <string name="please_select_a_language">Пожалуйста, выберите язык</string>
+    <string name="language">ЯЗЫК</string>
+
+
+
+    <string name="characters">Персонажи</string>
+    <string name="select">Выбрать</string>
+    <string name="blaze_vector">Blaze Vector</string>
+    <string name="change">Сменить</string>
+    <string name="play">Играть</string>
+    <string name="settings">Настройки</string>
+    <string name="get_premium">ПОЛУЧИТЬ PREMIUM</string>
+    <string name="background_music">Фоновая Музыка</string>
+    <string name="sound_fx">Звук Эффектов</string>
+    <string name="share_us">Поделиться нами</string>
+    <string name="more_apps">Другие приложения</string>
+    <string name="rate_us">Оцените нас</string>
+    <string name="privacy_policy">Политика конфиденциальности</string>
+    <string name="full_access">ПОЛНЫЙ ДОСТУП</string>
+
+
+    <string name="get_full_access_to_premium_gun_and_sounds">• Получите полный доступ к премиальному оружию и звукам</string>
+    <string name="get_all_premium_gun_wallpapers_free">• Получите все премиум-обои с оружием бесплатно</string>
+    <string name="no_ads_to_disrupt">• Без назойливой рекламы</string>
+    <string name="subscribe_for_3_months_9_99_45_off">Подписка на 3 месяца $9.99 (скидка 45%)</string>
+    <string name="subscribe_for_lifetime_12_99_50_off">Подписка навсегда $12.99 (скидка 50%)</string>
+    <string name="start_free_trial">Начать 3-дневную бесплатную пробную версию</string>
+    <string name="subscribe_monthly_with_price">Подписка на месяц – %1$s</string>
+    <string name="subscribe_weekly_with_price">Подписка на неделю – %1$s</string>
+    <string name="trial_disclaimer">Наслаждайтесь бесплатной пробной версией %1$s, затем %2$s в неделю. Отмените за 24 часа до продления.</string>
+    <string name="cancel_policy_trial">Отмените за 24 часа до продления. Списание начнётся после окончания пробного периода.</string>
+    <string name="cancel_policy_regular">Вы можете отменить подписку в любое время за 24 часа до продления.</string>
+    <string name="subscription_renew">Подписка будет автоматически продлена. Вы можете отменить её в любое время.</string>
+    <string name="purchase_successfully">Покупка прошла успешно</string>
+    <string name="subscribe_weekly">Подписка на неделю</string>
+    <string name="subscribe_monthly">Подписка на месяц</string>
+    <string name="premium_error_dialog_message">Проблема с вашей подпиской. Нажмите ПРОДОЛЖИТЬ, чтобы открыть настройки Google Play и исправить способ оплаты.</string>
+
+    <string name="reload">Перезарядить</string>
+    <string name="you_are_out_of_bullet">У вас закончились патроны!</string>
+    <string name="reload_bullet">Нажмите, чтобы перезарядить оружие</string>
+
+
+    <string name="more">ещё</string>
+    <string name="gun_locked">ОРУЖИЕ ЗАБЛОКИРОВАНО!</string>
+    <string name="please_watch_a_short_nad_to_unlock">ПОЖАЛУЙСТА, ПОСМОТРИТЕ КОРОТКУЮ\nРЕКЛАМУ, ЧТОБЫ РАЗБЛОКИРОВАТЬ</string>
+    <string name="unlock">РАЗБЛОКИРОВАТЬ</string>
+
+    <string name="exit_application">Выйти из приложения</string>
+    <string name="are_you_sure_you_want_to_exit_this_application">Вы уверены, что хотите выйти из приложения?</string>
+    <string name="no">Нет</string>
+    <string name="yes">Да</string>
+    <string name="cancel">Отмена</string>
+    <string name="exit">Выйти</string>
+
+    <string name="single_shot">Одиночный выстрел</string>
+    <string name="burst_mode">Очередь</string>
+    <string name="auto_hold">Автоудержание</string>
+    <string name="shake">Вибрация</string>
+
+
+
+        <string name="do_you_want_to_open_network_settings">Вы хотите открыть настройки сети?</string>
+        <string name="no_internet_connection">Нет интернет‑соединения!</string>
+        <string name="done">Готово</string>
+        <string name="set_as_ringtone">Установить как рингтон</string>
+        <string name="set_as_wallpaper">Установить как обои</string>
+        <string name="pronunciation">Произношение</string>
+        <string name="animal_info">Информация о животном</string>
+        <string name="preview">Предпросмотр</string>
+        <string name="first_fragment_label">Первый фрагмент</string>
+        <string name="second_fragment_label">Второй фрагмент</string>
+        <string name="next">Далее</string>
+        <string name="previous">Назад</string>
+        <string name="crop">Обрезать</string>
+        <string name="home_screen">Главный экран</string>
+        <string name="lock_screen">Экран блокировки</string>
+        <string name="home_lock_screen">Главный и экран блокировки</string>
+        <string name="set_as">Установить как</string>
+        <string name="ringtone">Рингтон</string>
+        <string name="contact_ringtone">Рингтон контакта</string>
+        <string name="set_contact_ringtone">Установить рингтон контакта</string>
+        <string name="alarm_tone">Тон будильника</string>
+        <string name="set_alarm_tone">Установить тон будильника</string>
+        <string name="sms_notification_ringtone">Рингтон SMS/уведомлений</string>
+        <string name="set_sms_notification_ringtone">Установить рингтон SMS/уведомлений</string>
+        <string name="download_ringtone">Скачать рингтон</string>
+        <string name="set_ringtone">Установить рингтон</string>
+        <string name="get_premium_nav">Получить Premium!</string>
+        <string name="general">Общие</string>
+        <string name="favorite">Избранное</string>
+        <string name="reset_ringtone">Сбросить рингтон</string>
+        <string name="other_links">Другие ссылки</string>
+        <string name="feedback">Обратная связь</string>
+        <string name="sounds_like">Звучит как</string>
+        <string name="slow">Медленно</string>
+        <string name="got_it">Понял</string>
+        <string name="animal_of_the_day">Животное дня</string>
+        <string name="lifespan">Продолжительность жизни</string>
+        <string name="wallpaper">Обои</string>
+
+        <string name="premium_ringtones_for_your_device">Премиум‑рингтоны для вашего устройства</string>
+        <string name="exclusive_wallpaper_for_home_screen">Эксклюзивные обои для главного экрана</string>
+        <string name="ads_free_experience_in_app">Приложение без рекламы</string>
+        <string name="subscription_will_auto_renew_cancel_anytime">Подписка будет продляться автоматически. Отмените в любое время.</string>
+        <string name="upgrade_now">Обновить сейчас</string>
+        <string name="monthly">Ежемесячно</string>
+        <string name="lifetime">Пожизненно</string>
+        <string name="yearly">Ежегодно</string>
+        <string name="weekly">Еженедельно</string>
+        <string name="cat_details">Кошка (Felis catus), также известная как домашняя кошка, — это небольшое приручённое плотоядное млекопитающее. Это единственный приручённый вид семейства кошачьих (Felidae). Достижения в археологии и генетике показали, что одомашнивание кошек произошло на Ближнем Востоке около 7500 г. до н.э. Обычно её держат как домашнего любимца и рабочего питомца, но также она встречается в дикой природе, избегая контакта с человеком. Она ценится за своё общество и способность уничтожать вредителей. Её втягивающиеся когти адаптированы для охоты на мелкую добычу, такую как мыши и крысы. У неё сильное, гибкое тело, быстрые рефлексы и острые зубы, а ночное зрение и обоняние развиты. Это социальный вид, но одиночный охотник и сумеречный хищник.</string>
+    <string name="shareApp">Это одно из самых увлекательных и познавательных приложений, которое позволяет исследовать и наслаждаться реалистичными звуками животных от различных существ, включая львов, птиц, насекомых, морских животных и других.</string>
+
+    <string name="suggested_animal">Рекомендуемое животное</string>
+    <string name="cat">Кот</string>
+    <string name="language_nav">Язык</string>
+    <string name="select_language">Выберите язык</string>
+    <string name="onboarding_title_1">Готовы рычать, чирикать\nи жужжать?</string>
+    <string name="onboarding_title_2">Погрузитесь в звуки животных</string>
+    <string name="onboarding_desc_1">Откройте, изучите и наслаждайтесь голосами\nсамых удивительных существ природы.</string>
+    <string name="onboarding_desc_2">Установите уникальные звуки животных и рингтоны птиц, чтобы сделать звонки приятными.</string>
+
+    <string name="upgrade_to_premium">Перейти на Премиум</string>
+    <string name="language_desc">Выберите язык приложения; его можно изменить\nпозже в настройках.</string>
+
+
+    <string name="reset_ring">Мелодия звонка успешно сброшена на стандартную</string>
+    <string name="auto_play">Автовоспроизведение</string>
+    <string name="don_t_miss_a_roar">Не пропусти рык!</string>
+    <string name="stay_updated_with_new_animal_sounds_fun_facts_and_exciting_features">Будьте в курсе новых звуков животных, интересных фактов и захватывающих функций.</string>
+    <string name="why_enable_notifications">Почему включить уведомления?</string>
+    <string name="get_alerts_when_new_animals_are_added_never_miss_fresh_sound_packs">Получайте уведомления, когда добавляются новые животные, и не пропустите свежие наборы звуков.</string>
+    <string name="not_now">Не сейчас</string>
+    <string name="allow">Разрешить</string>
+    <string name="start_like_a_pro">Начни как профессионал</string>
+    <string name="unlock_all_features">Откройте все функции</string>
+    <string name="features">Функции</string>
+    <string name="premium">Премиум</string>
+    <string name="free">Бесплатно</string>
+    <string name="premium_ringtones">Премиум-мелодии</string>
+    <string name="exclusive_wallpaper">Эксклюзивные обои</string>
+    <string name="high_quality_sounds">Высококачественные звуки</string>
+    <string name="remove_ads">Убрать рекламу</string>
+    <string name="weekly_subscription">Еженедельная подписка</string>
+    <string name="most_popular">Самое популярное</string>
+    <string name="monthly_subscription">Ежемесячная подписка</string>
+    <string name="continuee">Продолжить</string>
+    <string name="_3_days_free_trial">3 дня бесплатного пробного периода</string>
+    <string name="free_trial_disclaimer">%1$s/неделя после 3-дневного бесплатного пробного периода</string>
+    <string name="cancel_anytime_at_least_24_hours_before_renewal_trial">Платёж будет списан с вашей учетной записи Google Play после подтверждения покупки, если вы не начнёте пробный период. Подписка автоматически продлевается, если её не отменить как минимум за 24 часа.</string>
+    <string name="cancel_anytime_at_least_24_hours_before_renewal_without_trial">Подписка автоматически продлевается, если её не отменить как минимум за 24 часа до окончания периода. Вы можете управлять подпиской или отменить её в любое время через Google Play Store.</string>
+
+</resources>

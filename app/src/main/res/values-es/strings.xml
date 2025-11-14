@@ -1,0 +1,189 @@
+<resources>
+
+        <string name="app_name">Tonos de Animales</string>
+        <string name="search_by_animal_name">Buscar por nombre</string>
+
+        <string name="start">Comenzar</string>
+        <string name="snake">Serpiente</string>
+        <string name="dog">Perro</string>
+        <string name="rabbit">Conejo</string>
+        <string name="parrot">Loro</string>
+
+        <string name="snake_info">
+        Las serpientes son reptiles alargados y sin extremidades del suborden Serpentes. Filogenéticamente pertenecen a los escamosos y son vertebrados ectotérmicos amniotas cubiertos de escamas superpuestas, al igual que otros miembros del grupo. Muchas especies de serpientes tienen cráneos con más articulaciones que sus antepasados lagartos, lo que les permite tragar presas mucho más grandes que sus cabezas (cinética craneal). Para adaptarse a sus cuerpos delgados, los órganos emparejados (como los riñones) aparecen uno delante del otro en lugar de uno al lado del otro, y la mayoría tiene solo un pulmón funcional.
+    </string>
+
+        <string name="cat_info">
+        El gato (Felis catus), también conocido como gato doméstico o gato de casa, es un pequeño mamífero carnívoro domesticado. Es la única especie domesticada de la familia Felidae. Los avances en arqueología y genética han demostrado que la domesticación del gato ocurrió en el Cercano Oriente alrededor del año 7500 a.C. Se mantiene comúnmente como mascota o como gato de trabajo, pero también vive libremente como gato salvaje evitando el contacto humano. Es valorado por su compañía y su capacidad para cazar alimañas. Sus garras retráctiles están adaptadas para cazar presas pequeñas como ratones. Tiene un cuerpo fuerte y flexible, reflejos rápidos, dientes afilados y una buena visión nocturna y sentido del olfato. Es una especie social, pero un cazador solitario y un depredador crepuscular.
+    </string>
+
+        <string name="dog_info">
+        El perro (Canis familiaris o Canis lupus familiaris) es un descendiente domesticado del lobo gris. También llamado perro doméstico, fue criado selectivamente a partir de una población de lobos durante el Pleistoceno tardío por cazadores-recolectores. El perro fue la primera especie domesticada por los humanos, hace más de 14,000 años y antes del desarrollo de la agricultura. Debido a su larga asociación con los humanos, los perros han desarrollado la capacidad de prosperar con una dieta rica en almidón, que sería inadecuada para otros cánidos.
+    </string>
+
+        <string name="parrot_info">
+        Los loros (Psittaciformes), también conocidos como psitácidos, son aves con un pico curvo y fuerte, postura erguida y patas con garras. Se clasifican en cuatro familias que contienen aproximadamente 410 especies en 101 géneros, encontradas principalmente en regiones tropicales y subtropicales. Las cuatro familias son: Psittaculidae (loros del Viejo Mundo), Psittacidae (loros africanos y del Nuevo Mundo), Cacatuidae (cacatúas) y Strigopidae (loros de Nueva Zelanda). Un tercio de todas las especies de loros están en peligro de extinción, con un riesgo agregado de extinción más alto (Índice de la Lista Roja de la UICN) que cualquier otro grupo comparable de aves. Los loros tienen una distribución generalmente pantropical, con varias especies que habitan en regiones templadas. La mayor diversidad de loros se encuentra en América del Sur y Australasia.
+    </string>
+
+        <string name="rabbit_info">
+        Los conejos o liebres pequeñas son pequeños mamíferos de la familia Leporidae (que también incluye a las liebres), dentro del orden Lagomorpha (que también incluye a los picas). Son conocidos en todo el mundo como herbívoros pequeños, animales presa, animales domésticos y mascotas, teniendo un efecto generalizado en ecosistemas y culturas. Los géneros de conejos más extendidos son Oryctolagus y Sylvilagus. El primero, Oryctolagus, incluye el conejo europeo, Oryctolagus cuniculus, que es el antepasado de las muchas razas de conejos domésticos y ha sido introducido en todos los continentes excepto en la Antártida. El segundo, Sylvilagus, incluye más de 13 especies silvestres, entre ellas los conejos de cola de algodón y tapetis. Los conejos salvajes no incluidos en Oryctolagus y Sylvilagus incluyen varias especies de distribución limitada, como el conejo pigmeo, el conejo volcánico y el conejo rayado de Sumatra.
+    </string>
+
+    <string name="please_select_a_language">Por favor selecciona un idioma</string>
+    <string name="language">IDIOMA</string>
+
+
+    <string name="characters">Personajes</string>
+    <string name="select">Seleccionar</string>
+    <string name="blaze_vector">Blaze Vector</string>
+    <string name="change">Cambiar</string>
+    <string name="play">Reproducir</string>
+    <string name="settings">Ajustes</string>
+    <string name="get_premium">OBTENER PREMIUM</string>
+    <string name="background_music">Música de Fondo</string>
+    <string name="sound_fx">Efectos de Sonido</string>
+    <string name="share_us">Compártenos</string>
+    <string name="more_apps">Más Apps</string>
+    <string name="rate_us">Califícanos</string>
+    <string name="privacy_policy">Política de Privacidad</string>
+    <string name="full_access">ACCESO COMPLETO</string>
+
+
+    <string name="get_full_access_to_premium_gun_and_sounds">• Obtén acceso total a armas y sonidos premium</string>
+    <string name="get_all_premium_gun_wallpapers_free">• Obtén gratis todos los fondos de armas premium</string>
+    <string name="no_ads_to_disrupt">• Sin anuncios molestos</string>
+    <string name="subscribe_for_3_months_9_99_45_off">Suscríbete por 3 meses $9.99 (45% de descuento)</string>
+    <string name="subscribe_for_lifetime_12_99_50_off">Suscripción de por vida $12.99 (50% de descuento)</string>
+    <string name="start_free_trial">Comienza prueba gratis de 3 días</string>
+    <string name="subscribe_monthly_with_price">Suscribirse mensualmente – %1$s</string>
+    <string name="subscribe_weekly_with_price">Suscribirse semanalmente – %1$s</string>
+    <string name="trial_disclaimer">Disfruta de una prueba gratis de %1$s, luego %2$s semanal. Cancela al menos 24 h antes de la renovación.</string>
+    <string name="cancel_policy_trial">Cancela al menos 24 h antes de la renovación. Se cobran cargos tras el periodo de prueba.</string>
+    <string name="cancel_policy_regular">Cancela en cualquier momento al menos 24 h antes de la renovación.</string>
+    <string name="subscription_renew">La suscripción se renueva automáticamente. Cancela en cualquier momento.</string>
+    <string name="purchase_successfully">Compra realizada con éxito</string>
+    <string name="subscribe_weekly">Suscribirse semanalmente</string>
+    <string name="subscribe_monthly">Suscribirse mensualmente</string>
+    <string name="premium_error_dialog_message">Hay un problema con tu suscripción. Pulsa CONTINUAR para ir a Google Play y arreglar el pago.</string>
+
+    <string name="reload">Recargar</string>
+    <string name="you_are_out_of_bullet">¡Te has quedado sin balas!</string>
+    <string name="reload_bullet">Toca para recargar el arma</string>
+
+
+    <string name="more">más</string>
+    <string name="gun_locked">¡ARMA BLOQUEADA!</string>
+    <string name="please_watch_a_short_nad_to_unlock">POR FAVOR MIRA UN ANUNCIO CORTO\nPARA DESBLOQUEAR</string>
+    <string name="unlock">DESBLOQUEAR</string>
+
+    <string name="exit_application">Salir de la aplicación</string>
+    <string name="are_you_sure_you_want_to_exit_this_application">¿Estás seguro de que deseas salir de esta aplicación?</string>
+    <string name="no">No</string>
+    <string name="yes">Sí</string>
+    <string name="cancel">Cancelar</string>
+    <string name="exit">Salir</string>
+
+    <string name="single_shot">Disparo único</string>
+    <string name="burst_mode">Modo ráfaga</string>
+    <string name="auto_hold">Auto sostén</string>
+    <string name="shake">Vibrar</string>
+
+
+    <string name="do_you_want_to_open_network_settings">¿Deseas abrir la configuración de red?</string>
+    <string name="no_internet_connection">¡Sin conexión a internet!</string>
+    <string name="done">Hecho</string>
+    <string name="set_as_ringtone">Establecer como tono</string>
+    <string name="set_as_wallpaper">Establecer como fondo de pantalla</string>
+    <string name="pronunciation">Pronunciación</string>
+    <string name="animal_info">Información del animal</string>
+    <string name="preview">Vista previa</string>
+    <string name="first_fragment_label">Primer fragmento</string>
+    <string name="second_fragment_label">Segundo fragmento</string>
+    <string name="next">Siguiente</string>
+    <string name="previous">Anterior</string>
+    <string name="crop">Recortar</string>
+    <string name="home_screen">Pantalla de inicio</string>
+    <string name="lock_screen">Pantalla de bloqueo</string>
+    <string name="home_lock_screen">Pantalla de inicio y bloqueo</string>
+    <string name="set_as">Establecer como</string>
+    <string name="ringtone">Tono</string>
+    <string name="contact_ringtone">Tono de contacto</string>
+    <string name="set_contact_ringtone">Establecer tono de contacto</string>
+    <string name="alarm_tone">Tono de alarma</string>
+    <string name="set_alarm_tone">Establecer como tono de alarma</string>
+    <string name="sms_notification_ringtone">Tono SMS/Notificación</string>
+    <string name="set_sms_notification_ringtone">Establecer tono de SMS/Notificación</string>
+    <string name="download_ringtone">Descargar tono</string>
+    <string name="set_ringtone">Establecer tono</string>
+    <string name="get_premium_nav">¡Obtener Premium!</string>
+    <string name="general">General</string>
+    <string name="favorite">Favorito</string>
+    <string name="reset_ringtone">Restablecer tono</string>
+    <string name="other_links">Otros enlaces</string>
+    <string name="feedback">Comentarios</string>
+    <string name="sounds_like">Suena como</string>
+    <string name="slow">Lento</string>
+    <string name="got_it">Entendido</string>
+    <string name="animal_of_the_day">Animal del día</string>
+    <string name="lifespan">Esperanza de vida</string>
+    <string name="wallpaper">Fondo de pantalla</string>
+
+    <string name="premium_ringtones_for_your_device">Tonos premium para tu dispositivo</string>
+    <string name="exclusive_wallpaper_for_home_screen">Fondos exclusivos para la pantalla de inicio</string>
+    <string name="ads_free_experience_in_app">Experiencia sin anuncios en la app</string>
+    <string name="subscription_will_auto_renew_cancel_anytime">La suscripción se renovará automáticamente. Cancela en cualquier momento.</string>
+    <string name="upgrade_now">Mejorar ahora</string>
+    <string name="monthly">Mensual</string>
+    <string name="lifetime">De por vida</string>
+    <string name="yearly">Anual</string>
+    <string name="weekly">Semanal</string>
+
+    <string name="cat_details">El gato (Felis catus), también llamado gato doméstico o gato de casa, es un pequeño mamífero carnívoro domesticado. Es la única especie domesticada de la familia Felidae. Los avances en arqueología y genética han demostrado que la domesticación del gato ocurrió en el Cercano Oriente alrededor del 7500 a.C. Se mantiene comúnmente como mascota y gato de trabajo, pero también vive en estado salvaje evitando el contacto humano. Es valorado por su compañía y su habilidad para matar roedores. Sus garras retráctiles están adaptadas para cazar presas pequeñas como ratones y ratas. Tiene un cuerpo fuerte y flexible, reflejos rápidos y dientes afilados; su visión nocturna y su sentido del olfato están bien desarrollados. Es una especie social, pero un cazador solitario y un depredador crepuscular.</string>
+
+    <string name="shareApp">Esta es una de las aplicaciones más divertidas y educativas que te permite explorar y disfrutar sonidos realistas de animales de una amplia variedad de criaturas, incluidos leones, aves, insectos, animales marinos y más.</string>
+
+    <string name="suggested_animal">Animal sugerido</string>
+    <string name="cat">Gato</string>
+    <string name="language_nav">Idioma</string>
+    <string name="select_language">Seleccionar idioma</string>
+    <string name="onboarding_title_1">¿Listo para rugir, piar\ny zumbar?</string>
+    <string name="onboarding_title_2">Sumérgete en los sonidos de los animales</string>
+    <string name="onboarding_desc_1">Descubre, aprende y disfruta las voces\nde las criaturas más fascinantes de la naturaleza.</string>
+    <string name="onboarding_desc_2">Configura sonidos únicos de animales y tonos de aves para hacer tus llamadas más divertidas.</string>
+
+    <string name="upgrade_to_premium">Actualizar a Premium</string>
+
+
+    <string name="language_desc">Elige el idioma de la aplicación; puedes cambiarlo\nmás tarde en la configuración.</string>
+
+
+
+        <string name="reset_ring">Tonos restablecidos a los valores predeterminados correctamente</string>
+        <string name="auto_play">Reproducción automática</string>
+        <string name="don_t_miss_a_roar">¡No te pierdas un rugido!</string>
+        <string name="stay_updated_with_new_animal_sounds_fun_facts_and_exciting_features">Mantente al día con nuevos sonidos de animales, datos curiosos y funciones emocionantes.</string>
+        <string name="why_enable_notifications">¿Por qué activar las notificaciones?</string>
+        <string name="get_alerts_when_new_animals_are_added_never_miss_fresh_sound_packs">Recibe alertas cuando se agregan nuevos animales y nunca te pierdas nuevos paquetes de sonidos.</string>
+        <string name="not_now">Ahora no</string>
+        <string name="allow">Permitir</string>
+        <string name="start_like_a_pro">COMIENZA COMO UN PRO</string>
+        <string name="unlock_all_features">Desbloquea todas las funciones</string>
+        <string name="features">Funciones</string>
+        <string name="premium">Premium</string>
+        <string name="free">Gratis</string>
+        <string name="premium_ringtones">Tonos premium</string>
+        <string name="exclusive_wallpaper">Fondos exclusivos</string>
+        <string name="high_quality_sounds">Sonidos de alta calidad</string>
+        <string name="remove_ads">Eliminar anuncios</string>
+        <string name="weekly_subscription">Suscripción semanal</string>
+        <string name="most_popular">Más popular</string>
+        <string name="monthly_subscription">Suscripción mensual</string>
+        <string name="continuee">Continuar</string>
+        <string name="_3_days_free_trial">3 DÍAS DE PRUEBA GRATIS</string>
+        <string name="free_trial_disclaimer">%1$s/semana después de la prueba gratuita de 3 días</string>
+        <string name="cancel_anytime_at_least_24_hours_before_renewal_trial">El pago se cargará a tu cuenta …</string>
+        <string name="cancel_anytime_at_least_24_hours_before_renewal_without_trial">Las suscripciones se renuevan automáticamente …</string>
+
+
+
+</resources>

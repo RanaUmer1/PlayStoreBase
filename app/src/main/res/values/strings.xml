@@ -1,0 +1,229 @@
+<resources>
+    <string name="admob_app_id" translatable="false">ca-app-pub-6412217023250030~5996179048</string>
+
+
+    <string name="app_name">Animal Ringtones</string>
+    <string name="search_by_animal_name">Search by name</string>
+
+    <string name="start">Start</string>
+    <string name="snake">Snake</string>
+
+    <string name="dog">Dog</string>
+    <string name="rabbit">Rabbit</string>
+    <string name="parrot">Parrot</string>
+
+    <string name="snake_info">Snakes are elongated limbless reptiles of the suborder Serpentes. Cladistically squamates, snakes are ectothermic, amniote vertebrates covered in overlapping scales much like other members of the group. Many species of snakes have skulls with several more joints than their lizard ancestors and relatives, enabling them to swallow prey much larger than their heads (cranial kinesis). To accommodate their narrow bodies, snakes paired organs (such as kidneys) appear one in front of the other instead of side by side, and most only have one functional lung.</string>
+
+    <string name="cat_info">
+    The cat (Felis catus), also referred to as the domestic cat or house cat, is a small domesticated carnivorous mammal. It is the only domesticated species of the family Felidae. Advances in archaeology and genetics have shown that the domestication of the cat occurred in the Near East around 7500 BC. It is commonly kept as a pet and working cat, but also ranges freely as a feral cat avoiding human contact. It is valued by humans for companionship and its ability to kill vermin. Its retractable claws are adapted to killing small prey species such as mice and rats. It has a strong, flexible body, quick reflexes, and sharp teeth, and its night vision and sense of smell are well developed. It is a social species, but a solitary hunter and a crepuscular predator.
+    </string>
+
+    <string name="dog_info">
+    The dog (Canis familiaris or Canis lupus familiaris) is a domesticated descendant of the gray wolf. Also called the domestic dog, it was selectively bred from a population of wolves during the Late Pleistocene by hunter-gatherers. The dog was the first species to be domesticated by humans, over 14,000 years ago and before the development of agriculture. Due to their long association with humans, dogs have gained the ability to thrive on a starch-rich diet that would be inadequate for other canids.
+    </string>
+
+
+    <string name="parrot_info">
+    Parrots (Psittaciformes), also known as psittacines (/ˈsɪtəsaɪnz/),[1][2] are birds with a strong curved beak, upright stance, and clawed feet.[a] They are classified in four families that contain roughly 410 species in 101 genera, found mostly in tropical and subtropical regions. The four families are the Psittaculidae (Old World parrots), Psittacidae (African and New World parrots), Cacatuidae (cockatoos), and Strigopidae (New Zealand parrots). One-third of all parrot species are threatened by extinction, with a higher aggregate extinction risk (IUCN Red List Index) than any other comparable bird group.[3] Parrots have a generally pantropical distribution with several species inhabiting temperate regions as well. The greatest diversity of parrots is in South America and Australasia.
+    </string>
+
+
+    <string name="rabbit_info">
+        Rabbits or bunnies are small mammals in the family Leporidae (which also includes the hares), which is in the order Lagomorpha (which also includes pikas). They are familiar throughout the world as a small herbivore, a prey animal, a domesticated form of livestock, and a pet, having a widespread effect on ecologies and cultures. The most widespread rabbit genera are Oryctolagus and Sylvilagus. The former, Oryctolagus, includes the European rabbit, Oryctolagus cuniculus, which is the ancestor of the hundreds of breeds of domestic rabbit and has been introduced on every continent except Antarctica. The latter, Sylvilagus, includes over 13 wild rabbit species, among them the cottontails and tapetis. Wild rabbits not included in Oryctolagus and Sylvilagus include several species of limited distribution, including the pygmy rabbit, volcano rabbit, and Sumatran striped rabbit.
+    </string>
+
+
+    <string name="please_select_a_language">Please select language</string>
+    <string name="language">LANGUAGE</string>
+
+
+    <string name="characters">Characters</string>
+    <string name="select">Select</string>
+    <string name="blaze_vector">Blaze Vector</string>
+    <string name="change">Change</string>
+    <string name="play">Play</string>
+    <string name="settings">Settings</string>
+    <string name="background_music">Background Music</string>
+    <string name="sound_fx">Sound FX</string>
+
+    <string name="get_premium">GET PREMIUM</string>
+    <string name="share_us">Share Us</string>
+    <string name="more_apps">More Apps</string>
+    <string name="rate_us">Rate us</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="full_access">FULL ACCESS</string>
+
+
+    <string name="english" translatable="false">English</string>
+    <string name="spanish" translatable="false">Español</string>
+    <string name="hindi" translatable="false">हिन्दी</string>
+    <string name="indonesian" translatable="false">Bahasa Indonesia</string>
+    <string name="french" translatable="false">Français</string>
+    <string name="persian" translatable="false">فارسی</string>
+    <string name="arabic" translatable="false">العربية</string>
+    <string name="russian" translatable="false">Русский</string>
+    <string name="portuguese" translatable="false">Português</string>
+    <string name="bengali" translatable="false">বাংলা</string>
+    <string name="turkish" translatable="false">Türkçe</string>
+
+
+    <string name="done_in_english" translatable="false">Done</string>
+    <string name="done_in_spanish" translatable="false">Hecho</string>
+    <string name="done_in_french" translatable="false">Terminé</string>
+    <string name="done_in_arabic" translatable="false">تم</string>
+    <string name="done_in_portuguese" translatable="false">Concluído</string>
+    <string name="done_in_russian" translatable="false">Готово</string>
+    <string name="done_in_turkish" translatable="false">Bitti</string>
+    <string name="done_in_persian" translatable="false">انجام شد</string>
+    <string name="done_in_indonesian" translatable="false">Selesai</string>
+    <string name="done_in_bengali" translatable="false">সম্পন্ন</string>
+    <string name="done_in_hindi" translatable="false">पूर्ण</string>
+
+
+    <string name="get_full_access_to_premium_gun_and_sounds">• Get full access to premium gun and sounds</string>
+
+    <string name="get_all_premium_gun_wallpapers_free">• Get all premium gun wallpapers free</string>
+    <string name="no_ads_to_disrupt">• No ads to disrupt</string>
+    <string name="subscribe_for_3_months_9_99_45_off">Subscribe for 3 Months $9.99 (45% off)</string>
+    <string name="subscribe_for_lifetime_12_99_50_off">Subscribe for Lifetime $12.99 (50% off)</string>
+
+    <string name="start_free_trial">Start 3 day Free Trial</string>
+    <string name="subscribe_monthly_with_price">Subscribe Monthly – %1$s</string>
+    <string name="subscribe_weekly_with_price">Subscribe Weekly – %1$s</string>
+    <string name="trial_disclaimer">Enjoy a %1$s free trial, then %2$s weekly. Cancel anytime at least 24 hours before renewal.</string>
+    <string name="cancel_policy_trial">Cancel anytime at least 24 hours before renewal. Charges begin after the trial ends.</string>
+    <string name="cancel_policy_regular">Cancel anytime at least 24 hours before renewal.</string>
+    <string name="subscription_renew">Subscription will auto-renew. Cancel anytime.</string>
+
+
+    <string name="purchase_successfully">Purchase Successfully</string>
+    <string name="subscribe_weekly">"Subscribe Weekly "</string>
+    <string name="subscribe_monthly">"Subscribe Monthly "</string>
+    <string name="premium_error_dialog_message">There is a problem with your subscription. Click CONTINUE to go to the Google Play subscription settings to fix your payment method.</string>
+
+    <string name="reload">Reload</string>
+    <string name="you_are_out_of_bullet">You are out of bullets!</string>
+    <string name="reload_bullet">Tap to reload weapon</string>
+
+
+    <string name="more">more</string>
+    <string name="gun_locked">GUN LOCKED!</string>
+    <string name="please_watch_a_short_nad_to_unlock">PLEASE WATCH A SHORT\nAD TO UNLOCK</string>
+    <string name="unlock">UNLOCK</string>
+
+    <string name="exit_application">Exit Application</string>
+    <string name="are_you_sure_you_want_to_exit_this_application">Are you sure you want to exit this application?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
+    <string name="exit">Exit</string>
+    <string name="single_shot">Single Shot</string>
+    <string name="burst_mode">Burst Mode</string>
+    <string name="auto_hold">Auto Hold</string>
+    <string name="shake">Shake</string>
+
+
+    <string name="do_you_want_to_open_network_settings">Do you want to open network settings?</string>
+    <string name="no_internet_connection">No internet connection !</string>
+    <string name="done">Done</string>
+    <string name="set_as_ringtone">Set as Ringtone</string>
+    <string name="set_as_wallpaper">Set as Wallpaper</string>
+    <string name="pronunciation">Pronunciation</string>
+    <string name="animal_info">Animal Info</string>
+    <string name="preview">Preview</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+
+    <string name="previous">Previous</string>
+
+
+    <string name="crop">Crop</string>
+    <string name="home_screen">Home Screen</string>
+    <string name="lock_screen">Lock Screen</string>
+    <string name="home_lock_screen">Home &amp; Lock Screen</string>
+    <string name="set_as">Set as</string>
+    <string name="ringtone">Ringtone</string>
+    <string name="contact_ringtone">Contact Ringtone</string>
+    <string name="set_contact_ringtone">Set Contact Ringtone</string>
+    <string name="alarm_tone">Alarm Tone</string>
+    <string name="set_alarm_tone">Set as Alarm Tone</string>
+    <string name="sms_notification_ringtone">SMS/ Notification Ringtone</string>
+    <string name="set_sms_notification_ringtone">Set SMS/ Notification Ringtone</string>
+    <string name="download_ringtone">Download Ringtone</string>
+    <string name="set_ringtone">Set Ringtone</string>
+    <string name="get_premium_nav">Get Premium!</string>
+    <string name="general">General</string>
+    <string name="favorite">Favorite</string>
+    <string name="reset_ringtone">Reset Ringtone</string>
+    <string name="other_links">Other Links</string>
+    <string name="feedback">Feedback</string>
+    <string name="sounds_like">Sounds like</string>
+    <string name="slow">Slow</string>
+    <string name="got_it">Got it</string>
+    <string name="animal_of_the_day">Animal of the Day</string>
+    <string name="lifespan">Lifespan</string>
+    <string name="wallpaper">Wallpaper</string>
+
+    <string name="premium_ringtones_for_your_device">Premium Ringtones for your device</string>
+    <string name="exclusive_wallpaper_for_home_screen">Exclusive Wallpaper for home screen</string>
+    <string name="ads_free_experience_in_app">Ads free experience in app</string>
+    <string name="subscription_will_auto_renew_cancel_anytime">Subscription will auto-renew. Cancel anytime.</string>
+    <string name="upgrade_now">Upgrade Now</string>
+    <string name="monthly">Monthly</string>
+    <string name="lifetime">Lifetime</string>
+    <string name="yearly">Yearly</string>
+    <string name="weekly">Weekly</string>
+
+
+    <string name="cat_details">
+
+        The cat (Felis catus), also referred to as the domestic cat or house cat, is a small domesticated carnivorous mammal. It is the only domesticated species of the family Felidae. Advances in archaeology and genetics have shown that the domestication of the cat occurred in the Near East around 7500 BC. It is commonly kept as a pet and working cat, but also ranges freely as a feral cat avoiding human contact. It is valued by humans for companionship and its ability to kill vermin. Its retractable claws are adapted to killing small prey species such as mice and rats. It has a strong, flexible body, quick reflexes, and sharp teeth, and its night vision and sense of smell are well developed. It is a social species, but a solitary hunter and a crepuscular predator.
+    </string>
+
+    <string name="shareApp">
+This is one of the most fun and educational apps that lets you explore and enjoy realistic animal sounds from a wide range of creatures including: lions, birds, insects, marine animals, and more.
+</string>
+
+    <string name="suggested_animal">Suggested Animal</string>
+    <string name="cat">Cat</string>
+    <string name="language_nav">Language</string>
+    <string name="select_language">Select Language</string>
+
+    <string name="onboarding_title_1">Ready to Roar, Chirp,\nand Buzz?</string>
+    <string name="onboarding_title_2">Immerse Yourself in Animal\'s Sounds</string>
+    <string name="onboarding_desc_1">Discover, learn, and enjoy the voices of\nnature’s most fascinating creatures.</string>
+    <string name="onboarding_desc_2">Set Unique Animal Sounds and Bird Ringtones to Make Call Delightful.</string>
+
+
+    <string name="upgrade_to_premium">Upgrade To premium</string>
+    <string name="language_desc">Choose your app language; you can change \n it later in settings.</string>
+
+    <string name="reset_ring">Ringtones reset to default successfully</string>
+    <string name="auto_play">Auto Play</string>
+    <string name="don_t_miss_a_roar">Don’t Miss a Roar!</string>
+    <string name="stay_updated_with_new_animal_sounds_fun_facts_and_exciting_features">Stay updated with new animal sounds, fun facts, and exciting features.</string>
+    <string name="why_enable_notifications">Why enable notifications?</string>
+    <string name="get_alerts_when_new_animals_are_added_never_miss_fresh_sound_packs"><![CDATA[Get alerts when new animals are added & never miss fresh sound packs.]]></string>
+    <string name="not_now">Not Now</string>
+    <string name="allow">Allow</string>
+    <string name="start_like_a_pro">START LIKE A PRO</string>
+    <string name="unlock_all_features">Unlock All Features</string>
+    <string name="features">Features</string>
+    <string name="premium">Premium</string>
+    <string name="free">Free</string>
+    <string name="premium_ringtones">Premium Ringtones</string>
+    <string name="exclusive_wallpaper">Exclusive Wallpaper</string>
+    <string name="high_quality_sounds">High Quality Sounds</string>
+    <string name="remove_ads">Remove Ads</string>
+    <string name="weekly_subscription">Weekly Subscription</string>
+    <string name="most_popular">Most Popular</string>
+    <string name="monthly_subscription">Monthly Subscription</string>
+    <string name="continuee">Continue</string>
+    <string name="_3_days_free_trial">3 DAYS FREE TRIAL</string>
+    <string name="free_trial_disclaimer">%1$s/weekly after FREE 3-day trial</string>
+
+    <string name="cancel_anytime_at_least_24_hours_before_renewal_trial">Payment will be charged to your Google Play account at the end of your trail confirmation of purchase if you are not starting a trial. Subscription automatically renews unless it is canceled at least 24 hours before the end of your trial or current period. Your account will be charged.</string>
+    <string name="cancel_anytime_at_least_24_hours_before_renewal_without_trial">Subscriptions renew automatically unless canceled at least 24 hours before the current period ends. Your account will be billed for renewal within hours prior to the end of the current period. You can manage and cancel your subscription at any time through the Google Play Store.</string>
+</resources>

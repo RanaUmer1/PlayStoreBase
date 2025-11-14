@@ -1,0 +1,48 @@
+[
+    {
+        "id": "04",
+        "name":"Land Animals",
+        "sequence":"04"
+    },
+    {
+        "id": "01",
+        "name":"Birds",
+        "sequence":"01"
+    },
+    {
+        "id": "02",
+        "name":"Farm",
+        "sequence":"02"
+    },
+    {
+        "id": "03",
+        "name":"Insects",
+        "sequence":"03"
+    },
+    {
+        "id": "05",
+        "name":"Mammals",
+        "sequence":"05"
+    },
+    {
+        "id": "06",
+        "name":"Pets",
+        "sequence":"06"
+    },
+    {
+        "id": "07",
+        "name":"Reptiles",
+        "sequence":"07"
+    },
+    {
+        "id": "08",
+        "name":"Water Animals",
+        "sequence":"08"
+    },
+    {
+        "id": "09",
+        "name":"Wild Animals",
+        "sequence":"09"
+    }
+    
+]

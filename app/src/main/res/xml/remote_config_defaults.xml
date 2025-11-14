@@ -1,0 +1,16 @@
+<defaultsMap>
+    <!-- Example of setting default values for different types -->
+    <entry>
+        <key>animal_sound_resumeAd_delay</key>
+        <value>30</value>
+    </entry>
+
+    <entry>
+        <key>animal_sound_isApplovin</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>animal_sound_startAd</key>
+        <value>1</value>
+    </entry>
+</defaultsMap>

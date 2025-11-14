@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/bg_bottom_sheet"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp">
+
+
+    <ImageView
+        android:id="@+id/btnClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:paddingVertical="16dp"
+        android:src="@drawable/ic_close" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/urbanist_bold"
+        android:text="@string/set_as"
+        android:textColor="@color/text_color_primary"
+        android:textSize="20sp" />
+
+
+    <TextView
+        android:id="@+id/tv_ringtone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/urbanist_semi_bold"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:text="@string/ringtone"
+        android:textColor="@color/text_color_primary"
+        android:textSize="14sp"
+        app:drawableStartCompat="@drawable/ic_notifications" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/stroke_lang_item" />
+
+    <TextView
+        android:id="@+id/tv_contact_ring"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/urbanist_semi_bold"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:text="@string/contact_ringtone"
+        android:textColor="@color/text_color_primary"
+        android:textSize="14sp"
+        app:drawableStartCompat="@drawable/ic_ring" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/stroke_lang_item" />
+
+    <TextView
+        android:id="@+id/tv_alarm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/urbanist_semi_bold"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:text="@string/alarm_tone"
+        android:textColor="@color/text_color_primary"
+        android:textSize="14sp"
+        app:drawableStartCompat="@drawable/ic_alarm" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/stroke_lang_item" />
+
+    <TextView
+        android:id="@+id/tv_sms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/urbanist_semi_bold"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:text="@string/sms_notification_ringtone"
+        android:textColor="@color/text_color_primary"
+        android:textSize="14sp"
+        app:drawableStartCompat="@drawable/ic_sms" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/stroke_lang_item" />
+
+    <TextView
+        android:id="@+id/tv_download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/urbanist_semi_bold"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:text="@string/download_ringtone"
+        android:textColor="@color/text_color_primary"
+        android:textSize="14sp"
+        app:drawableStartCompat="@drawable/ic_download" />
+
+
+</LinearLayout>
+
+
+

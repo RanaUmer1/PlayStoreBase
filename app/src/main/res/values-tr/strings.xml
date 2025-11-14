@@ -1,0 +1,190 @@
+<resources>
+
+
+    <string name="app_name">Hayvan Zil Sesleri</string>
+    <string name="search_by_animal_name">İsme göre ara</string>
+
+    <string name="start">Başla</string>
+    <string name="snake">Yılan🐍</string>
+    <string name="dog">Köpek🐶</string>
+    <string name="rabbit">Tavşan🐰</string>
+    <string name="parrot">Papağan🦜</string>
+
+    <string name="snake_info">
+        Yılanlar, Serpentes alt takımı içinde yer alan uzun, bacaksız sürüngenlerdir. Soğukkanlı ve amniyotik omurgalılardır. Birçok türün kafatası, daha fazla eklem içerir ve avlarını bütün olarak yutmalarına imkân tanır. Dar vücut yapıları nedeniyle organları sıra hâlinde dizilmiştir ve çoğunda sadece bir akciğer çalışır.
+    </string>
+
+    <string name="cat_info">
+        Kedi (Felis catus), evcil veya ev kedisi olarak bilinen, küçük bir etobur memelidir. Felidae ailesinin evcilleştirilmiş tek türüdür. Arkeolojik ve genetik kanıtlar, kedilerin MÖ 7500 civarında Yakın Doğu’da evcilleştirildiğini gösteriyor. Zararlıları avlamadaki yetenekleri ve arkadaş canlısı olmaları nedeniyle değerlidirler.
+    </string>
+
+    <string name="dog_info">
+        Köpek (Canis familiaris), gri kurdun evcilleştirilmiş bir torunudur. İnsanlar tarafından evcilleştirilen ilk türdür ve 14.000 yıldan daha uzun bir süre önce evcilleştirilmiştir. İnsanlarla uzun süreli birlikteliği sayesinde, köpekler nişastalı diyetleri sindirebilecek şekilde evrimleşmiştir.
+    </string>
+
+    <string name="parrot_info">
+        Papağanlar (Psittaciformes), kıvrık gagalı, dik duruşlu ve pençeli kuşlardır. Yaklaşık 410 tür ve 101 cins bulunur. Papağanlar çoğunlukla tropikal bölgelerde yaşar. Türlerin üçte biri yok olma tehlikesi altındadır. En fazla tür çeşitliliği Güney Amerika ve Avustralya dadır.
+    </string>
+
+    <string name="rabbit_info">
+        Tavşanlar, Leporidae ailesine ait küçük memelilerdir. Oryctolagus ve Sylvilagus en yaygın cinsleridir. Oryctolagus, tüm evcil tavşanların atası olan Avrupa tavşanını içerir. Sylvilagus ise 13 ten fazla vahşi türü kapsar. Bazı türler yalnızca sınırlı bölgelerde bulunur, örneğin cüce tavşan ve Sumatra çizgili tavşanı.
+    </string>
+
+    <string name="please_select_a_language">Lütfen bir dil seçin</string>
+    <string name="language">DİL</string>
+
+
+    <string name="characters">Karakterler</string>
+    <string name="select">Seç</string>
+    <string name="blaze_vector">Blaze Vector</string>
+    <string name="change">Değiştir</string>
+    <string name="play">Oyna</string>
+    <string name="settings">Ayarlar</string>
+    <string name="get_premium">PREMİYUM AL</string>
+    <string name="background_music">Arka Plan Müziği</string>
+    <string name="sound_fx">Ses Efektleri</string>
+    <string name="share_us">Bizi Paylaş</string>
+    <string name="more_apps">Daha Fazla Uygulama</string>
+    <string name="rate_us">Bizi Oyla</string>
+    <string name="privacy_policy">Gizlilik Politikası</string>
+    <string name="full_access">TAM ERİŞİM</string>
+
+
+    <string name="get_full_access_to_premium_gun_and_sounds">• Premium silah ve seslere tam erişim</string>
+    <string name="get_all_premium_gun_wallpapers_free">• Tüm premium silah duvar kağıtlarına ücretsiz erişin</string>
+    <string name="no_ads_to_disrupt">• Rahatsız edici reklam yok</string>
+    <string name="subscribe_for_3_months_9_99_45_off">3 Aylık Abonelik $9.99 (%%45 indirim)</string>
+    <string name="subscribe_for_lifetime_12_99_50_off">Ömürlük Abonelik $12.99 (%%50 indirim)</string>
+    <string name="start_free_trial">3 günlük ücretsiz deneme başlat</string>
+    <string name="subscribe_monthly_with_price">Aylık Abonelik – %1$s</string>
+    <string name="subscribe_weekly_with_price">Haftalık Abonelik – %1$s</string>
+    <string name="trial_disclaimer">%1$s ücretsiz denemeyi kullanın, ardından her hafta %2$s. Yenilemeden 24 saat önce iptal edin.</string>
+    <string name="cancel_policy_trial">Yenilemeden en az 24 saat önce iptal edin. Deneme sonunda ücretlendirme yapılır.</string>
+    <string name="cancel_policy_regular">Yenilemeden en az 24 saat önce istediğiniz zaman iptal edin.</string>
+    <string name="subscription_renew">Abonelik otomatik yenilenir. Her zaman iptal edilebilir.</string>
+    <string name="purchase_successfully">Satın alma başarıyla tamamlandı</string>
+    <string name="subscribe_weekly">Haftalık Abonelik</string>
+    <string name="subscribe_monthly">Aylık Abonelik</string>
+    <string name="premium_error_dialog_message">Aboneliğinizle ilgili bir sorun var. Ödeme yöntemini düzeltmek için DEVAM et e basın ve Google Play abonelik ayarlarına gidin.</string>
+
+    <string name="reload">Yeniden yükle</string>
+    <string name="you_are_out_of_bullet">Mermin bitti!</string>
+    <string name="reload_bullet">Silahı yeniden yüklemek için dokunun</string>
+
+
+    <string name="more">daha fazla</string>
+    <string name="gun_locked">SİLAH KİLİTLİ!</string>
+    <string name="please_watch_a_short_nad_to_unlock">LÜTFEN KİLİDİ AÇMAK İÇİN KISA BİR REKLAM İZLEYİN</string>
+    <string name="unlock">KİLİDİ AÇ</string>
+
+    <string name="exit_application">Uygulamadan Çık</string>
+    <string name="are_you_sure_you_want_to_exit_this_application">Bu uygulamadan çıkmak istediğinizden emin misiniz?</string>
+    <string name="no">Hayır</string>
+    <string name="yes">Evet</string>
+    <string name="cancel">İptal</string>
+    <string name="exit">Çıkış</string>
+
+    <string name="single_shot">Tek Atış</string>
+    <string name="burst_mode">Seri Atış</string>
+    <string name="auto_hold">Otomatik Tutma</string>
+    <string name="shake">Titreşim</string>
+
+
+    <string name="do_you_want_to_open_network_settings">Ağ ayarlarını açmak ister misiniz?</string>
+    <string name="no_internet_connection">İnternet bağlantısı yok!</string>
+    <string name="done">Tamamlandı</string>
+    <string name="set_as_ringtone">Zil sesi olarak ayarla</string>
+    <string name="set_as_wallpaper">Duvar kağıdı olarak ayarla</string>
+    <string name="pronunciation">Telaffuz</string>
+    <string name="animal_info">Hayvan Bilgisi</string>
+    <string name="preview">Önizleme</string>
+    <string name="first_fragment_label">Birinci öğe</string>
+    <string name="second_fragment_label">İkinci öğe</string>
+    <string name="next">Sonraki</string>
+    <string name="previous">Önceki</string>
+    <string name="crop">Kırp</string>
+    <string name="home_screen">Ana ekran</string>
+    <string name="lock_screen">Kilitleme ekranı</string>
+    <string name="home_lock_screen">Ana  Kilit Ekranı</string>
+    <string name="set_as">Olarak belirle</string>
+    <string name="ringtone">Zil sesi</string>
+    <string name="contact_ringtone">Kişi zil sesi</string>
+    <string name="set_contact_ringtone">Kişi zil sesi ayarla</string>
+    <string name="alarm_tone">Alarm sesi</string>
+    <string name="set_alarm_tone">Alarm sesi olarak ayarla</string>
+    <string name="sms_notification_ringtone">SMS / Bildirim sesi</string>
+    <string name="set_sms_notification_ringtone">SMS / Bildirim sesi ayarla</string>
+    <string name="download_ringtone">Zil sesini indir</string>
+    <string name="set_ringtone">Zil sesi ayarla</string>
+    <string name="get_premium_nav">Premium Al!</string>
+    <string name="general">Genel</string>
+    <string name="favorite">Favori</string>
+    <string name="reset_ringtone">Zil sesini sıfırla</string>
+    <string name="other_links">Diğer bağlantılar</string>
+    <string name="feedback">Geri bildirim</string>
+    <string name="sounds_like">Gibi ses çıkarır</string>
+    <string name="slow">Yavaş</string>
+    <string name="got_it">Anladım</string>
+    <string name="animal_of_the_day">Günün hayvanı</string>
+    <string name="lifespan">Ömür</string>
+    <string name="wallpaper">Duvar kağıdı</string>
+
+    <string name="premium_ringtones_for_your_device">Cihazınız için premium zil sesleri</string>
+    <string name="exclusive_wallpaper_for_home_screen">Ana ekran için özel duvar kağıtları</string>
+    <string name="ads_free_experience_in_app">Reklamsız deneyim</string>
+    <string name="subscription_will_auto_renew_cancel_anytime">Abonelik otomatik yenilenecektir. Her zaman iptal edebilirsiniz.</string>
+    <string name="upgrade_now">Şimdi yükselt</string>
+    <string name="monthly">Aylık</string>
+    <string name="lifetime">Ömür boyu</string>
+    <string name="yearly">Yıllık</string>
+    <string name="weekly">Haftalık</string>
+    <string name="cat_details">
+    Kedi (Felis catus), evcil kedi olarak da bilinen, küçük bir evcil etobur memelidir...
+  </string>
+
+    <string name="shareApp">Bu, aslanlar, kuşlar, böcekler, deniz hayvanları ve daha fazlası dahil olmak üzere birçok canlıdan gerçekçi hayvan seslerini keşfetmenizi ve keyfini çıkarmanızı sağlayan en eğlenceli ve eğitici uygulamalardan biridir.</string>
+
+    <string name="suggested_animal">Önerilen Hayvan</string>
+    <string name="cat">Kedi</string>
+    <string name="language_nav">Dil</string>
+    <string name="select_language">Dil Seç</string>
+    <string name="onboarding_title_1">Kükremeye, cıvıldamaya\nve vızıldamaya hazır mısınız?</string>
+    <string name="onboarding_title_2">Hayvan seslerine kendinizi bırakın</string>
+    <string name="onboarding_desc_1">Doğanın en büyüleyici canlılarının\nseslerini keşfedin, öğrenin ve keyfini çıkarın.</string>
+    <string name="onboarding_desc_2">Çağrılarınızı eğlenceli hale getirmek için eşsiz hayvan ve kuş seslerini ayarlayın.</string>
+
+
+    <string name="upgrade_to_premium">Premium\'a Yükselt</string>
+    <string name="language_desc">Uygulama dilinizi seçin; daha sonra\nayarlar kısmından değiştirebilirsiniz.</string>
+
+
+
+
+        <string name="reset_ring">Zil sesleri varsayılana başarıyla sıfırlandı</string>
+        <string name="auto_play">Otomatik oynatma</string>
+        <string name="don_t_miss_a_roar">Bir kükremeyi kaçırma!</string>
+        <string name="stay_updated_with_new_animal_sounds_fun_facts_and_exciting_features">Yeni hayvan sesleri, eğlenceli bilgiler ve heyecan verici özelliklerle güncel kal.</string>
+        <string name="why_enable_notifications">Neden bildirimleri etkinleştirmeliyim?</string>
+        <string name="get_alerts_when_new_animals_are_added_never_miss_fresh_sound_packs">Yeni hayvanlar eklendiğinde uyarılar al ve yeni ses paketlerini asla kaçırma.</string>
+        <string name="not_now">Şimdi değil</string>
+        <string name="allow">İzin ver</string>
+        <string name="start_like_a_pro">PRO GİBİ BAŞLA</string>
+        <string name="unlock_all_features">Tüm özelliklerin kilidini aç</string>
+        <string name="features">Özellikler</string>
+        <string name="premium">Premium</string>
+        <string name="free">Ücretsiz</string>
+        <string name="premium_ringtones">Premium zil sesleri</string>
+        <string name="exclusive_wallpaper">Özel duvar kağıdı</string>
+        <string name="high_quality_sounds">Yüksek kaliteli sesler</string>
+        <string name="remove_ads">Reklamları kaldır</string>
+        <string name="weekly_subscription">Haftalık abonelik</string>
+        <string name="most_popular">En popüler</string>
+        <string name="monthly_subscription">Aylık abonelik</string>
+        <string name="continuee">Devam et</string>
+        <string name="_3_days_free_trial">3 GÜNLÜK ÜCRETSİZ DENEME</string>
+        <string name="free_trial_disclaimer">%1$s/hafta, 3 günlük ücretsiz denemeden sonra</string>
+        <string name="cancel_anytime_at_least_24_hours_before_renewal_trial">Bir deneme başlatmazsanız ödeme, satın alma onayınızın sonunda Google Play hesabınıza yansıtılır. Abonelik, iptal edilmediği sürece otomatik olarak yenilenir.</string>
+        <string name="cancel_anytime_at_least_24_hours_before_renewal_without_trial">Abonelikler, iptal edilmediği sürece otomatik olarak yenilenir. Aboneliğinizi Google Play Store üzerinden istediğiniz zaman yönetebilir veya iptal edebilirsiniz.</string>
+
+
+</resources>

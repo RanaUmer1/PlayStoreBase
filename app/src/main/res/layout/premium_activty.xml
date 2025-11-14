@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:id="@+id/fl_premium_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/premiumcard" />
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="16dp"
+            android:src="@drawable/iv_close" />
+
+    </FrameLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_upgrade_now"
+        app:layout_constraintTop_toBottomOf="@id/fl_premium_card">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_free_try"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <LinearLayout
+                android:id="@+id/ll_premium_points"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.8">
+
+                <TextView
+                    android:id="@+id/iv_upgrade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:fontFamily="@font/animal_wild"
+                    android:gravity="center"
+                    android:letterSpacing="0.02"
+                    android:paddingVertical="8dp"
+                    android:text="@string/upgrade_to_premium"
+                    android:textColor="@color/accent_color"
+                    android:textSize="40sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:drawablePadding="8dp"
+                    android:drawableTint="#90918B"
+                    android:fontFamily="@font/urbanist_semi_bold"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="12dp"
+                    android:text="@string/premium_ringtones_for_your_device"
+                    android:textColor="@color/text_color_primary"
+                    android:textSize="14sp"
+                    app:drawableStartCompat="@drawable/ic_notifications" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+
+                    android:background="?android:attr/selectableItemBackground"
+                    android:drawablePadding="8dp"
+                    android:fontFamily="@font/urbanist_semi_bold"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="12dp"
+                    android:text="@string/exclusive_wallpaper_for_home_screen"
+                    android:textColor="@color/text_color_primary"
+                    android:textSize="14sp"
+                    app:drawableStartCompat="@drawable/ic_wallpaper_premium" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:drawablePadding="8dp"
+                    android:fontFamily="@font/urbanist_semi_bold"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="16dp"
+                    android:text="@string/ads_free_experience_in_app"
+                    android:textColor="@color/text_color_primary"
+                    android:textSize="14sp"
+                    app:drawableStartCompat="@drawable/ic_no_ad" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:gravity="center"
+                android:weightSum="3"
+                app:layout_constraintTop_toBottomOf="@id/ll_premium_points">
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_monthly"
+                    style="@style/PlanCardStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:tag="monthly"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeColor="@color/stroke_lang_item"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_monthly"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/bg_premium_headline"
+                            android:fontFamily="@font/urbanist_medium"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/monthly"
+                            android:textColor="@color/text_color_primary" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:id="@+id/ll_monthly_price"
+                            android:background="@color/white"
+                            android:orientation="horizontal"
+                            android:paddingVertical="20dp">
+
+                            <TextView
+                                android:id="@+id/tv_monthly_unit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/urbanist_medium"
+                                android:gravity="center"
+                                android:padding="2dp"
+                                android:text="$"
+                                android:visibility="gone"
+                                android:textColor="@color/text_color_primary" />
+
+
+                            <TextView
+                                android:id="@+id/tv_monthly_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/urbanist_medium"
+                                android:gravity="center"
+                                android:padding="4dp"
+                                android:text="7.8"
+                                android:textColor="@color/text_color_primary"
+                                android:textSize="16sp" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_weekly"
+                    style="@style/PlanCardStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:tag="lifetime"
+                    app:cardBackgroundColor="@color/accent_color"
+                    app:strokeColor="@color/accent_color"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_weekly"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:fontFamily="@font/urbanist_medium"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/weekly"
+                            android:textColor="@color/text_color_primary" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/accent_color"
+                            android:gravity="center"
+                            android:id="@+id/ll_weekly_price"
+                            android:orientation="horizontal"
+                            android:paddingVertical="20dp">
+
+                            <TextView
+                                android:id="@+id/tv_weekly_unit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/urbanist_medium"
+                                android:gravity="center"
+                                android:padding="2dp"
+                                android:text="$"
+                                android:visibility="gone"
+                                android:textColor="@color/white" />
+
+                            <TextView
+                                android:id="@+id/tv_weekly_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/urbanist_medium"
+                                android:gravity="center"
+                                android:padding="4dp"
+                                android:text="4.5"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_yearly"
+                    style="@style/PlanCardStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:tag="yearly"
+                    android:visibility="gone"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeColor="@color/stroke_lang_item"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/bg_premium_headline"
+                            android:fontFamily="@font/urbanist_medium"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/yearly"
+                            android:textColor="@color/text_color_primary" />
+
+                        <TextView
+                            android:id="@+id/tv_yearly_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/urbanist_medium"
+                            android:gravity="center"
+                            android:padding="12dp"
+                            android:text="Rs1,200.0"
+                            android:textColor="@color/text_color_primary"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/urbanist_medium"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="PKR"
+                            android:textColor="@color/text_color_primary" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_upgrade_now"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/bg_round_accent"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/urbanist_semi_bold"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="@string/upgrade_now"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/tv_privacy" />
+
+    <TextView
+        android:id="@+id/tv_privacy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:text="@string/subscription_will_auto_renew_cancel_anytime"
+        android:textColor="@color/grey_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

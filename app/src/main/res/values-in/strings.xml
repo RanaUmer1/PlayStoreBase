@@ -1,0 +1,188 @@
+<resources>
+
+
+    <string name="app_name">Nada Dering Hewan</string>
+    <string name="search_by_animal_name">Cari berdasarkan nama</string>
+
+    <string name="start">Mulai</string>
+    <string name="snake">Ular</string>
+    <string name="dog">Anjing</string>
+    <string name="rabbit">Kelinci</string>
+    <string name="parrot">Burung Beo</string>
+
+    <string name="snake_info">
+        Ular adalah reptil panjang tanpa kaki dari subordo Serpentes. Secara kladistik termasuk squamata, ular adalah vertebrata ektotermik dan amniotik yang ditutupi sisik yang tumpang tindih. Banyak spesies ular memiliki tengkorak dengan lebih banyak sendi daripada nenek moyangnya yang mirip kadal, memungkinkan mereka menelan mangsa yang lebih besar dari kepala mereka. Karena tubuhnya yang ramping, organ-organ berpasangan seperti ginjal tersusun depan belakang, dan sebagian besar hanya memiliki satu paru-paru yang berfungsi.
+    </string>
+
+    <string name="cat_info">
+        Kucing (Felis catus), juga dikenal sebagai kucing domestik atau kucing rumahan, adalah mamalia karnivora kecil yang dijinakkan. Ini adalah satu-satunya spesies domestik dari keluarga Felidae. Bukti arkeologi dan genetika menunjukkan bahwa kucing dijinakkan di Timur Dekat sekitar 7500 SM. Umumnya dipelihara sebagai hewan peliharaan atau untuk membasmi tikus, dan juga hidup liar menghindari kontak manusia. Kucing dihargai karena persahabatan dan kemampuannya membunuh hama. Cakar yang dapat ditariknya memungkinkan berburu mangsa kecil. Tubuhnya yang fleksibel, refleks cepat, penglihatan malam yang baik, dan penciuman yang tajam menjadikannya pemburu yang efektif.
+    </string>
+
+    <string name="dog_info">
+        Anjing (Canis familiaris atau Canis lupus familiaris) adalah keturunan domestik dari serigala abu-abu. Disebut juga anjing domestik, anjing dipelihara dari serigala oleh pemburu pada zaman Pleistosen Akhir. Anjing adalah spesies pertama yang dijinakkan oleh manusia, lebih dari 14.000 tahun yang lalu, sebelum pertanian berkembang. Karena hubungannya yang lama dengan manusia, anjing dapat bertahan hidup dengan diet kaya pati.
+    </string>
+
+    <string name="parrot_info">
+        Burung beo (Psittaciformes), juga dikenal sebagai psittacines, adalah burung dengan paruh bengkok yang kuat, postur tegak, dan kaki bercakar. Mereka diklasifikasikan dalam empat keluarga dengan sekitar 410 spesies dalam 101 genus, kebanyakan hidup di daerah tropis dan subtropis. Sekitar sepertiga dari semua spesies beo terancam punah. Beo tersebar di daerah tropis, terutama di Amerika Selatan dan Australasia.
+    </string>
+
+    <string name="rabbit_info">
+        Kelinci adalah mamalia kecil dari keluarga Leporidae dalam ordo Lagomorpha. Mereka dikenal di seluruh dunia sebagai herbivora kecil, hewan buruan, hewan ternak, dan hewan peliharaan. Genus kelinci yang paling umum adalah Oryctolagus dan Sylvilagus. Oryctolagus termasuk kelinci Eropa, leluhur semua kelinci domestik. Sylvilagus mencakup lebih dari 13 spesies liar. Spesies lain mencakup kelinci kerdil dan kelinci bergaris Sumatera.
+    </string>
+
+    <string name="please_select_a_language">Silakan pilih bahasa</string>
+    <string name="language">BAHASA</string>
+
+
+    <string name="characters">Karakter</string>
+    <string name="select">Pilih</string>
+    <string name="blaze_vector">Blaze Vector</string>
+    <string name="change">Ubah</string>
+    <string name="play">Putar</string>
+    <string name="settings">Pengaturan</string>
+    <string name="get_premium">DAPATKAN PREMIUM</string>
+    <string name="background_music">Musik Latar</string>
+    <string name="sound_fx">Efek Suara</string>
+    <string name="share_us">Bagikan Kami</string>
+    <string name="more_apps">Aplikasi Lain</string>
+    <string name="rate_us">Nilai Kami</string>
+    <string name="privacy_policy">Kebijakan Privasi</string>
+    <string name="full_access">AKSES PENUH</string>
+
+
+    <string name="get_full_access_to_premium_gun_and_sounds">• Dapatkan akses penuh ke senjata dan suara premium</string>
+    <string name="get_all_premium_gun_wallpapers_free">• Dapatkan semua wallpaper senjata premium secara gratis</string>
+    <string name="no_ads_to_disrupt">• Tanpa iklan yang mengganggu</string>
+    <string name="subscribe_for_3_months_9_99_45_off">Berlangganan 3 Bulan $9.99 (diskon 45%)</string>
+    <string name="subscribe_for_lifetime_12_99_50_off">Berlangganan Seumur Hidup $12.99 (diskon 50%)</string>
+    <string name="start_free_trial">Mulai Uji Coba Gratis 3 hari</string>
+    <string name="subscribe_monthly_with_price">Langganan Bulanan – %1$s</string>
+    <string name="subscribe_weekly_with_price">Langganan Mingguan – %1$s</string>
+    <string name="trial_disclaimer">Nikmati uji coba gratis %1$s, lalu %2$s per minggu. Batalkan setidaknya 24 jam sebelum perpanjangan.</string>
+    <string name="cancel_policy_trial">Batalkan kapan saja minimal 24 jam sebelum perpanjangan. Biaya dimulai setelah uji coba berakhir.</string>
+    <string name="cancel_policy_regular">Batalkan kapan saja minimal 24 jam sebelum perpanjangan.</string>
+    <string name="subscription_renew">Langganan akan diperpanjang otomatis. Batalkan kapan saja.</string>
+    <string name="purchase_successfully">Pembelian Berhasil</string>
+    <string name="subscribe_weekly">Langganan Mingguan</string>
+    <string name="subscribe_monthly">Langganan Bulanan</string>
+    <string name="premium_error_dialog_message">Terjadi masalah dengan langganan Anda. Klik LANJUTKAN untuk membuka pengaturan langganan Google Play dan memperbaiki metode pembayaran.</string>
+
+    <string name="reload">Isi Ulang</string>
+    <string name="you_are_out_of_bullet">Peluru habis!</string>
+    <string name="reload_bullet">Ketuk untuk isi ulang senjata</string>
+
+
+    <string name="more">lebih</string>
+    <string name="gun_locked">SENJATA TERKUNCI!</string>
+    <string name="please_watch_a_short_nad_to_unlock">SILAKAN TONTON IKLAN PENDEK\nUNTUK MEMBUKA</string>
+    <string name="unlock">BUKA</string>
+
+    <string name="exit_application">Keluar Aplikasi</string>
+    <string name="are_you_sure_you_want_to_exit_this_application">Apakah Anda yakin ingin keluar dari aplikasi ini?</string>
+    <string name="no">Tidak</string>
+    <string name="yes">Ya</string>
+    <string name="cancel">Batal</string>
+    <string name="exit">Keluar</string>
+
+    <string name="single_shot">Satu Tembakan</string>
+    <string name="burst_mode">Mode Tembakan Cepat</string>
+    <string name="auto_hold">Tahan Otomatis</string>
+    <string name="shake">Goyang</string>
+
+
+    <string name="do_you_want_to_open_network_settings">Ingin membuka pengaturan jaringan?</string>
+    <string name="no_internet_connection">Tidak ada koneksi internet!</string>
+    <string name="done">Selesai</string>
+    <string name="set_as_ringtone">Tetapkan sebagai nada dering</string>
+    <string name="set_as_wallpaper">Tetapkan sebagai wallpaper</string>
+    <string name="pronunciation">Pengucapan</string>
+    <string name="animal_info">Info Hewan</string>
+    <string name="preview">Pratinjau</string>
+    <string name="first_fragment_label">Fragmen Pertama</string>
+    <string name="second_fragment_label">Fragmen Kedua</string>
+    <string name="next">Berikutnya</string>
+    <string name="previous">Sebelumnya</string>
+    <string name="crop">Potong</string>
+    <string name="home_screen">Layar Utama</string>
+    <string name="lock_screen">Layar Kunci</string>
+    <string name="home_lock_screen">Layar Utama  Kunci</string>
+    <string name="set_as">Tetapkan sebagai</string>
+    <string name="ringtone">Nada Dering</string>
+    <string name="contact_ringtone">Nada Kontak</string>
+    <string name="set_contact_ringtone">Tetapkan nada Kontak</string>
+    <string name="alarm_tone">Nada Alarm</string>
+    <string name="set_alarm_tone">Tetapkan sebagai nada alarm</string>
+    <string name="sms_notification_ringtone">Nada SMS/Notifikasi</string>
+    <string name="set_sms_notification_ringtone">Tetapkan nada SMS/Notifikasi</string>
+    <string name="download_ringtone">Unduh Nada Dering</string>
+    <string name="set_ringtone">Tetapkan Nada Dering</string>
+    <string name="get_premium_nav">Dapatkan Premium!</string>
+    <string name="general">Umum</string>
+    <string name="favorite">Favorit</string>
+    <string name="reset_ringtone">Setel ulang nada dering</string>
+    <string name="other_links">Tautan lainnya</string>
+    <string name="feedback">Masukan</string>
+    <string name="sounds_like">Bunyinya seperti</string>
+    <string name="slow">Lambat</string>
+    <string name="got_it">Mengerti</string>
+    <string name="animal_of_the_day">Hewan Hari Ini</string>
+    <string name="lifespan">Umur</string>
+    <string name="wallpaper">Wallpaper</string>
+
+    <string name="premium_ringtones_for_your_device">Nada dering premium untuk perangkat Anda</string>
+    <string name="exclusive_wallpaper_for_home_screen">Wallpaper eksklusif untuk layar utama</string>
+    <string name="ads_free_experience_in_app">Pengalaman bebas iklan</string>
+    <string name="subscription_will_auto_renew_cancel_anytime">Langganan akan diperbarui otomatis. Batalkan kapan saja.</string>
+    <string name="upgrade_now">Tingkatkan sekarang</string>
+    <string name="monthly">Bulanan</string>
+    <string name="lifetime">Seumur hidup</string>
+    <string name="yearly">Tahunan</string>
+    <string name="weekly">Mingguan</string>
+    <string name="cat_details">
+    Kucing (Felis catus), juga dikenal sebagai kucing domestik, adalah mamalia karnivora kecil yang telah dijinakkan...
+  </string>
+
+
+    <string name="shareApp">Ini adalah salah satu aplikasi paling menyenangkan dan edukatif yang memungkinkan Anda menjelajahi dan menikmati suara hewan realistis dari berbagai makhluk termasuk singa, burung, serangga, hewan laut, dan lainnya.</string>
+
+    <string name="suggested_animal">Hewan yang Disarankan</string>
+    <string name="cat">Kucing</string>
+    <string name="language_nav">Bahasa</string>
+    <string name="select_language">Pilih Bahasa</string>
+    <string name="onboarding_title_1">Siap untuk Mengaum, Berkicau,\ndan Berdengung?</string>
+    <string name="onboarding_title_2">Menyelami Suara-suara Hewan</string>
+    <string name="onboarding_desc_1">Temukan, pelajari, dan nikmati suara dari\nmakhluk alam yang paling menakjubkan.</string>
+    <string name="onboarding_desc_2">Atur suara hewan dan nada dering burung unik untuk membuat panggilan lebih menyenangkan.</string>
+
+    <string name="upgrade_to_premium">Tingkatkan ke Premium</string>
+    <string name="language_desc">Pilih bahasa aplikasi Anda; Anda dapat\nmengubahnya nanti di pengaturan.</string>
+
+
+    <string name="reset_ring">Nada dering berhasil diatur ulang ke default</string>
+    <string name="auto_play">Putar otomatis</string>
+    <string name="don_t_miss_a_roar">Jangan lewatkan auman!</string>
+    <string name="stay_updated_with_new_animal_sounds_fun_facts_and_exciting_features">Tetap update dengan suara hewan baru, fakta seru, dan fitur menarik.</string>
+    <string name="why_enable_notifications">Mengapa mengaktifkan notifikasi?</string>
+    <string name="get_alerts_when_new_animals_are_added_never_miss_fresh_sound_packs">Dapatkan notifikasi saat hewan baru ditambahkan &amp; jangan lewatkan paket suara terbaru.</string>
+    <string name="not_now">Nanti saja</string>
+    <string name="allow">Izinkan</string>
+    <string name="start_like_a_pro">MULAI SEPERTI PRO</string>
+    <string name="unlock_all_features">Buka semua fitur</string>
+    <string name="features">Fitur</string>
+    <string name="premium">Premium</string>
+    <string name="free">Gratis</string>
+    <string name="premium_ringtones">Nada dering premium</string>
+    <string name="exclusive_wallpaper">Wallpaper eksklusif</string>
+    <string name="high_quality_sounds">Suara berkualitas tinggi</string>
+    <string name="remove_ads">Hapus iklan</string>
+    <string name="weekly_subscription">Langganan mingguan</string>
+    <string name="most_popular">Paling populer</string>
+    <string name="monthly_subscription">Langganan bulanan</string>
+    <string name="continuee">Lanjutkan</string>
+    <string name="_3_days_free_trial">3 HARI UJI COBA GRATIS</string>
+    <string name="free_trial_disclaimer">%1$s/minggu setelah uji coba gratis 3 hari</string>
+    <string name="cancel_anytime_at_least_24_hours_before_renewal_trial">Pembayaran akan ditagihkan ke akun Google Play Anda di akhir konfirmasi pembelian jika Anda tidak memulai uji coba. Langganan diperpanjang otomatis kecuali dibatalkan setidaknya 24 jam sebelumnya.</string>
+    <string name="cancel_anytime_at_least_24_hours_before_renewal_without_trial">Langganan akan diperpanjang otomatis kecuali dibatalkan setidaknya 24 jam sebelum periode berakhir. Anda dapat mengelola atau membatalkan langganan kapan saja melalui Google Play Store.</string>
+
+
+</resources>

@@ -1,0 +1,1068 @@
+[
+    {
+        "id":"0001",
+        "name":"Crow",
+        "category_id":"01",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Covers/Crow.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Cover_Thumbnails/Crow.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Sounds/Crow.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0002",
+        "name":"Eagle",
+        "category_id":"01",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Covers/Eagle.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Cover_Thumbnails/Eagle.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Sounds/Eagle.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0003",
+        "name":"Hawk",
+        "category_id":"01",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Covers/Hawk.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Cover_Thumbnails/Hawk.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Sounds/Hawk.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0004",
+        "name":"Nightingale",
+        "category_id":"01",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Covers/Nightingale.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Cover_Thumbnails/Nightingale.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Sounds/Nightingale.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0005",
+        "name":"Owl",
+        "category_id":"01",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Covers/Owl.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Cover_Thumbnails/Owl.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Sounds/Owl.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0006",
+        "name":"Peacock",
+        "category_id":"01",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Covers/Peacock.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Cover_Thumbnails/Peacock.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Sounds/Peacock.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0007",
+        "name":"Pigeon",
+        "category_id":"01",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Covers/Pigeon.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Cover_Thumbnails/Pigeon.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Sounds/Pigeon.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0008",
+        "name":"Seagull",
+        "category_id":"01",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Covers/Seagull.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Cover_Thumbnails/Seagull.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Sounds/Seagull.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0009",
+        "name":"Sparrow",
+        "category_id":"01",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Covers/Sparrow.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Cover_Thumbnails/Sparrow.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Sounds/Sparrow.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0010",
+        "name":"Woodpecker",
+        "category_id":"01",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Covers/Woodpecker.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Cover_Thumbnails/Woodpecker.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Birds/Sounds/Woodpecker.mp3",
+
+        "isPremium":false
+    },
+
+    {
+        "id":"0011",
+        "name":"Cow",
+        "category_id":"02",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Covers/Cow.png",    
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Cover_Thumbnails/Cow.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Sounds/Cow.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0012",
+        "name":"Duck",
+        "category_id":"02",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Covers/Duck.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Cover_Thumbnails/Duck.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Sounds/Duck.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0013",
+        "name":"Goat",
+        "category_id":"02",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Covers/Goat.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Cover_Thumbnails/Goat.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Sounds/Goat.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0014",
+        "name":"Goose",
+        "category_id":"02",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Covers/Goose.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Cover_Thumbnails/Goose.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Sounds/Goose.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0015",
+        "name":"Hen",
+        "category_id":"02",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Covers/Hen.png",    
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Cover_Thumbnails/Hen.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Sounds/Hen.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0016",
+        "name":"Horse",
+        "category_id":"02",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Covers/Horse.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Cover_Thumbnails/Horse.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Sounds/Horse.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0017",
+        "name":"Pig",
+        "category_id":"02",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Covers/Pig.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Cover_Thumbnails/Pig.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Sounds/Pig.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0018",
+        "name":"Rooster",
+        "category_id":"02",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Covers/Rooster.png",    
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Cover_Thumbnails/Rooster.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Sounds/Rooster.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0019",
+        "name":"Sheep",
+        "category_id":"02",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Covers/Sheep.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Cover_Thumbnails/Sheep.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Sounds/Sheep.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0020",
+        "name":"Turkey",
+        "category_id":"02",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Covers/Turkey.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Cover_Thumbnails/Turkey.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Farm/Sounds/Turkey.mp3",
+
+        "isPremium":false
+    },
+
+
+    {
+        "id":"0021",
+        "name":"Ant",
+        "category_id":"03",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Covers/Ant.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Cover_Thumbnails/Ant.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Sounds/Ant.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0022",
+        "name":"Bee",
+        "category_id":"03",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Covers/Bee.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Cover_Thumbnails/Bee.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Sounds/Bee.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0023",
+        "name":"Beetle",
+        "category_id":"03",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Covers/Beetle.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Cover_Thumbnails/Beetle.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Sounds/Beetle.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0024",
+        "name":"Cicada",
+        "category_id":"03",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Covers/Cicada.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Cover_Thumbnails/Cicada.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Sounds/Cicada.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0025",
+        "name":"Cricket",
+        "category_id":"03",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Covers/Cricket.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Cover_Thumbnails/Cricket.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Sounds/Cricket.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0026",
+        "name":"Fly",
+        "category_id":"03",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Covers/Fly.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Cover_Thumbnails/Fly.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Sounds/Fly.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0027",
+        "name":"Grasshoper",
+        "category_id":"03",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Covers/Grasshoper.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Cover_Thumbnails/Grasshoper.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Sounds/Grasshoper.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0028",
+        "name":"Mosquito",
+        "category_id":"03",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Covers/Mosquito.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Cover_Thumbnails/Mosquito.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Sounds/Mosquito.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0029",
+        "name":"Moth",
+        "category_id":"03",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Covers/Moth.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Cover_Thumbnails/Moth.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Sounds/Moth.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0030",
+        "name":"Wasp",
+        "category_id":"03",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Covers/Wasp.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Cover_Thumbnails/Wasp.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Insects/Sounds/Wasp.mp3",
+
+        "isPremium":false
+    },
+
+
+    {
+        "id":"0031",
+        "name":"Camel",
+        "category_id":"04",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Covers/Camel.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Cover_Thumbnails/Camel.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Sounds/Camel.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0032",
+        "name":"Cheetah",
+        "category_id":"04",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Covers/Cheetah.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Cover_Thumbnails/Cheetah.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Sounds/Cheetah.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0033",
+        "name":"Elephant",
+        "category_id":"04",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Covers/Elephant.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Cover_Thumbnails/Elephant.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Sounds/Elephant.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0034",
+        "name":"Giraffe",
+        "category_id":"04",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Covers/Giraffe.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Cover_Thumbnails/Giraffe.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Sounds/Giraffe.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0035",
+        "name":"Kangaroo",
+        "category_id":"04",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Covers/Kangaroo.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Cover_Thumbnails/Kangaroo.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Sounds/Kangaroo.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0036",
+        "name":"Lion",
+        "category_id":"04",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Covers/Lion.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Cover_Thumbnails/Lion.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Sounds/Lion.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0037",
+        "name":"Panda",
+        "category_id":"04",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Covers/Panda.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Cover_Thumbnails/Panda.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Sounds/Panda.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0038",
+        "name":"Rhino",
+        "category_id":"04",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Covers/Rhino.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Cover_Thumbnails/Rhino.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Sounds/Rhino.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0039",
+        "name":"Tiger",
+        "category_id":"04",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Covers/Tiger.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Cover_Thumbnails/Tiger.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Sounds/Tiger.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0040",
+        "name":"Zebra",
+        "category_id":"04",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Covers/Zebra.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Cover_Thumbnails/Zebra.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Land Animals/Sounds/Zebra.mp3",
+
+        "isPremium":false
+    },
+
+    {
+        "id":"0041",
+        "name":"Bat",
+        "category_id":"05",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Covers/Bat.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Cover_Thumbnails/Bat.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Sounds/Bat.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0042",
+        "name":"Bear",
+        "category_id":"05",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Covers/Bear.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Cover_Thumbnails/Bear.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Sounds/Bear.mp3",
+
+        "isPremium":false
+    }, 
+    {
+        "id":"0043",
+        "name":"Chimpanzee",
+        "category_id":"05",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Covers/Chimpanzee.png", 
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Cover_Thumbnails/Chimpanzee.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Sounds/Chimp.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0044",
+        "name":"Fox",
+        "category_id":"05",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Covers/Fox.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Cover_Thumbnails/Fox.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Sounds/Fox.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0045",
+        "name":"Gorilla",
+        "category_id":"05",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Covers/Gorilla.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Cover_Thumbnails/Gorilla.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Sounds/Gorilla.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0046",
+        "name":"Moose",
+        "category_id":"05",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Covers/Moose.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Cover_Thumbnails/Moose.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Sounds/Moose.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0047",
+        "name":"Otter",
+        "category_id":"05",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Covers/Otter.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Cover_Thumbnails/Otter.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Sounds/Otter.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0048",
+        "name":"Raccoon",
+        "category_id":"05",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Covers/Raccoon.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Cover_Thumbnails/Raccoon.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Sounds/Raccoon.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0049",
+        "name":"Skunk",
+        "category_id":"05",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Covers/Skunk.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Cover_Thumbnails/Skunk.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Sounds/Skunk.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0050",
+        "name":"Wolf",
+        "category_id":"05",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Covers/Wolf.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Cover_Thumbnails/Wolf.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Mammals/Sounds/Wolf.mp3",
+
+        "isPremium":false
+    },
+
+    {
+        "id":"0051",
+        "name":"Canary",
+        "category_id":"06",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Covers/Canary.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Cover_Thumbnails/Canary.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Sounds/Canary.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0052",
+        "name":"Cat",
+        "category_id":"06",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Covers/Cat.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Cover_Thumbnails/Cat.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Sounds/Cat.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0053",
+        "name":"Dog",
+        "category_id":"06",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Covers/Dog.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Cover_Thumbnails/Dog.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Sounds/Dog.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0054",
+        "name":"Ferret",
+        "category_id":"06",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Covers/Ferret.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Cover_Thumbnails/Ferret.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Sounds/Ferret.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0055",
+        "name":"G Pig",
+        "category_id":"06",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Covers/G Pig.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Cover_Thumbnails/G Pig.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Sounds/G Pig.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0056",
+        "name":"Hamster",
+        "category_id":"06",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Covers/Hamster.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Cover_Thumbnails/Hamster.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Sounds/Hamster.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0057",
+        "name":"Parakeet",
+        "category_id":"06",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Covers/Parakeet.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Cover_Thumbnails/Parakeet.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Sounds/Parakeet.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0058",
+        "name":"Rabbit",
+        "category_id":"06",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Covers/Rabbit.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Cover_Thumbnails/Rabbit.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Sounds/Rabbit.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0059",
+        "name":"Sheep",
+        "category_id":"06",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Covers/Sheep.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Cover_Thumbnails/Sheep.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Sounds/Sheep.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0060",
+        "name":"Tortoise",
+        "category_id":"06",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Covers/Tortoise.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Cover_Thumbnails/Tortoise.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Pets/Sounds/Tortoise.mp3",
+
+        "isPremium":false
+    },
+
+    {
+        "id":"0061",
+        "name":"Alligator",
+        "category_id":"07",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Covers/Alligator.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Cover_Thumbnails/Alligator.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Sounds/Alligator.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0062",
+        "name":"Chameleon",
+        "category_id":"07",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Covers/Chameleon.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Cover_Thumbnails/Chameleon.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Sounds/Chameleon.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0063",
+        "name":"Cobra",
+        "category_id":"07",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Covers/Cobra.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Cover_Thumbnails/Cobra.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Sounds/Cobra.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0064",
+        "name":"Crocodile",
+        "category_id":"07",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Covers/Crocodile.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Cover_Thumbnails/Crocodile.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Sounds/Crocodile.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0065",
+        "name":"Frog",
+        "category_id":"07",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Covers/Frog.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Cover_Thumbnails/Frog.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Sounds/Frog.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0066",
+        "name":"Gecko",
+        "category_id":"07",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Covers/Gecko.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Cover_Thumbnails/Gecko.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Sounds/Gecko.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0067",
+        "name":"Lizard",
+        "category_id":"07",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Covers/Lizard.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Cover_Thumbnails/Lizard.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Sounds/Lizard.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0068",
+        "name":"Toad",
+        "category_id":"07",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Covers/Toad.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Cover_Thumbnails/Toad.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Sounds/Toad.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0069",
+        "name":"Turtle",
+        "category_id":"07",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Covers/Turtle.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Cover_Thumbnails/Turtle.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Reptiles/Sounds/Turtle.mp3",
+
+        "isPremium":false
+    },
+    
+    {
+        "id":"0071",
+        "name":"Dolphin",
+        "category_id":"08",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Covers/Dolphin.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Cover_Thumbnails/Dolphin.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Sounds/Dolphin.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0072",
+        "name":"Octopus",
+        "category_id":"08",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Covers/Octopus.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Cover_Thumbnails/Octopus.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Sounds/Octopus.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0073",
+        "name":"Orca",
+        "category_id":"08",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Covers/Orca.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Cover_Thumbnails/Orca.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Sounds/Orca.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0074",
+        "name":"Sea Lion",
+        "category_id":"08",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Covers/Sea Lion.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Cover_Thumbnails/Sea Lion.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Sounds/Sea Lion.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0075",
+        "name":"Seal",
+        "category_id":"08",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Covers/Seal.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Cover_Thumbnails/Seal.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Sounds/Seal.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0076",
+        "name":"Turtle",
+        "category_id":"08",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Covers/Turtle.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Cover_Thumbnails/Turtle.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Sounds/Turtle.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0077",
+        "name":"Walrus",
+        "category_id":"08",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Covers/Walrus.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Cover_Thumbnails/Walrus.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Sounds/Walrus.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0078",
+        "name":"Whale",
+        "category_id":"08",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Covers/Whale.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Cover_Thumbnails/Whale.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Sounds/Whale.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0079",
+        "name":"Whale Shark",
+        "category_id":"08",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Covers/Whale Shark.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Cover_Thumbnails/Whale Shark.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Water Animals/Sounds/Whale Shark.mp3",
+
+        "isPremium":false
+    },
+    
+    {
+        "id":"0081",
+        "name":"Alligator",
+        "category_id":"09",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Covers/Alligator.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Cover_Thumbnails/Alligator.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Sounds/Alligator.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0082",
+        "name":"Bison",
+        "category_id":"09",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Covers/Bison.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Cover_Thumbnails/Bison.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Sounds/Bison.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0083",
+        "name":"Gorilla",
+        "category_id":"09",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Covers/Gorilla.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Cover_Thumbnails/Gorilla.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Sounds/Gorilla.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0084",
+        "name":"Hyena",
+        "category_id":"09",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Covers/Hyena.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Cover_Thumbnails/Hyena.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Sounds/Hyena.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0085",
+        "name":"Jaguar",
+        "category_id":"09",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Covers/Jaguar.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Cover_Thumbnails/Jaguar.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Sounds/Jaguar.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0086",
+        "name":"Leopard",
+        "category_id":"09",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Covers/Leopard.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Cover_Thumbnails/Leopard.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Sounds/Leopard.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0087",
+        "name":"Lion",
+        "category_id":"09",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Covers/Lion.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Cover_Thumbnails/Lion.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Sounds/Lion.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0088",
+        "name":"Red Deer",
+        "category_id":"09",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Covers/Red Deer.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Cover_Thumbnails/Red Deer.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Sounds/Red Deer.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0089",
+        "name":"Tiger",
+        "category_id":"09",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Covers/Tiger.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Cover_Thumbnails/Tiger.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Sounds/Tiger.mp3",
+
+        "isPremium":false
+    },
+    {
+        "id":"0090",
+        "name":"Wild Boar",
+        "category_id":"09",
+
+        "image":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Covers/Wild Boar.png",
+        "thumbnail":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Cover_Thumbnails/Wild Boar.png",
+
+        "soundUrl":"http://d7seqll9ts29z.cloudfront.net/Animal_Sounds_V_1/Wild Animals/Sounds/Wild Boar.mp3",
+
+        "isPremium":false
+    }
+]

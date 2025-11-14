@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string name="app_name">زنگ حیوانات</string>
+    <string name="search_by_animal_name">جستجو بر اساس نام</string>
+
+    <string name="start">شروع</string>
+    <string name="snake">مار</string>
+    <string name="dog">سگ</string>
+    <string name="rabbit">خرگوش</string>
+    <string name="parrot">طوطی</string>
+
+    <string name="snake_info">
+        مارها خزندگان کشیده و بدون اندامی از زیرراسته Serpentes هستند. از نظر تبارشناسی، آن‌ها جزو خزندگان فلس‌دار هستند و مهره‌دارانی خونسرد و آمینوت هستند که بدنشان با فلس‌های هم‌پوشان پوشیده شده‌است. بسیاری از گونه‌های مارها دارای جمجمه‌هایی با مفاصل بیشتر نسبت به اجداد سوسمار مانند خود هستند، که به آن‌ها اجازه می‌دهد طعمه‌هایی بزرگ‌تر از سرشان را ببلعند (حرکت‌پذیری جمجمه). برای سازگاری با بدن باریکشان، اندام‌های جفتی (مانند کلیه‌ها) یکی جلوتر از دیگری قرار دارند نه در کنار هم، و بیشتر آن‌ها فقط یک شش فعال دارند.
+    </string>
+
+    <string name="cat_info">
+        گربه (Felis catus)، که به نام گربه خانگی نیز شناخته می‌شود، پستانداری گوشت‌خوار و اهلی است. این تنها گونه‌ی اهلی از خانواده‌ی گربه‌سانان است. یافته‌های باستان‌شناسی و ژنتیکی نشان داده‌اند که اهلی‌سازی گربه در حدود ۷۵۰۰ سال قبل از میلاد در خاور نزدیک اتفاق افتاده است. گربه‌ها معمولاً به‌عنوان حیوان خانگی یا برای شکار موش نگهداری می‌شوند، اما برخی از آن‌ها به صورت وحشی و بدون تماس با انسان زندگی می‌کنند. آن‌ها به دلیل همراهی و توانایی در از بین بردن آفات برای انسان ارزشمند هستند. پنجه‌های جمع‌شدنی آن‌ها برای شکار طعمه‌های کوچک مانند موش‌ها مناسب است. آن‌ها دارای بدنی انعطاف‌پذیر، واکنش‌های سریع، دندان‌های تیز و دید شب خوب هستند. گربه‌ها موجوداتی اجتماعی اما شکارچیانی تنها هستند که بیشتر در هنگام غروب یا سپیده‌دم فعال‌اند.
+    </string>
+
+    <string name="dog_info">
+        سگ (Canis familiaris یا Canis lupus familiaris) یک نژاد اهلی‌شده از گرگ خاکستری است. همچنین به عنوان سگ خانگی شناخته می‌شود و توسط شکارچیان در دوران پلیستوسن از جمعیتی از گرگ‌ها پرورش داده شده است. سگ اولین گونه‌ای است که توسط انسان اهلی شده، بیش از ۱۴٬۰۰۰ سال پیش و قبل از توسعه کشاورزی. به دلیل ارتباط طولانی با انسان، سگ‌ها توانایی هضم رژیم غذایی غنی از نشاسته را پیدا کرده‌اند که برای سایر گونه‌های سگ‌سان مناسب نیست.
+    </string>
+
+    <string name="parrot_info">
+        طوطی‌ها (Psittaciformes)، که با نام پسیتاسین نیز شناخته می‌شوند، پرندگانی با منقار خمیده و قوی، حالت ایستاده و پنجه‌های قلاب‌دار هستند. آن‌ها در چهار خانواده طبقه‌بندی می‌شوند که حدود ۴۱۰ گونه در ۱۰۱ سرده را شامل می‌شوند و بیشتر در مناطق گرمسیری و نیمه‌گرمسیری یافت می‌شوند. این خانواده‌ها عبارت‌اند از: Psittaculidae (طوطی‌های دنیای قدیم)، Psittacidae (طوطی‌های آفریقایی و دنیای جدید)، Cacatuidae (کاکاتو) و Strigopidae (طوطی‌های نیوزیلند). یک‌سوم از گونه‌های طوطی‌ها در معرض خطر انقراض هستند و خطر انقراض بالاتری نسبت به سایر گروه‌های پرندگان دارند. توزیع طوطی‌ها عموماً گرمسیری است و بیشترین تنوع آن‌ها در آمریکای جنوبی و استرالازیا دیده می‌شود.
+    </string>
+
+    <string name="rabbit_info">
+        خرگوش‌ها پستانداران کوچکی از خانواده Leporidae (که شامل خرگوش‌های صحرایی نیز می‌شود) و از راسته Lagomorpha (که شامل پیکاها نیز هست) هستند. آن‌ها در سراسر جهان به‌عنوان گیاه‌خوار کوچک، حیوان طعمه، حیوان خانگی و همچنین دام اهلی شناخته شده‌اند و تأثیر گسترده‌ای بر اکوسیستم‌ها و فرهنگ‌ها داشته‌اند. رایج‌ترین جنس‌های خرگوش Oryctolagus و Sylvilagus هستند. جنس اول، Oryctolagus، شامل خرگوش اروپایی Oryctolagus cuniculus است که نیاکان نژادهای متعددی از خرگوش‌های اهلی به شمار می‌رود و در همه قاره‌ها به جز قطب جنوب معرفی شده است. جنس دوم، Sylvilagus، شامل بیش از ۱۳ گونه خرگوش وحشی از جمله خرگوش‌های دم‌پنبه‌ای و tapetis است. گونه‌های وحشی خرگ
+        </string>
+    <string name="characters">شخصیت‌ها</string>
+    <string name="select">انتخاب</string>
+    <string name="blaze_vector">بلِیز وکتور</string>
+    <string name="change">تغییر</string>
+    <string name="play">پخش</string>
+    <string name="settings">تنظیمات</string>
+    <string name="get_premium">نسخه پریمیوم بگیرید</string>
+    <string name="background_music">موسیقی پس‌زمینه</string>
+    <string name="sound_fx">افکت‌های صوتی</string>
+    <string name="share_us">ما را به اشتراک بگذارید</string>
+    <string name="more_apps">برنامه‌های بیشتر</string>
+    <string name="rate_us">ما را ارزیابی کنید</string>
+    <string name="privacy_policy">سیاست حفظ حریم خصوصی</string>
+    <string name="full_access">دسترسی کامل</string>
+
+
+    <string name="get_full_access_to_premium_gun_and_sounds">• دسترسی کامل به اسلحه‌ها و صداهای ویژه را دریافت کنید</string>
+    <string name="get_all_premium_gun_wallpapers_free">• تمام تصاویر پس‌زمینه اسلحه‌های ویژه را رایگان دریافت کنید</string>
+    <string name="no_ads_to_disrupt">• بدون تبلیغات مزاحم</string>
+    <string name="subscribe_for_3_months_9_99_45_off">اشتراک برای ۳ ماه با $9.99 (۴۵٪ تخفیف)</string>
+    <string name="subscribe_for_lifetime_12_99_50_off">اشتراک مادام‌العمر با $12.99 (۵۰٪ تخفیف)</string>
+
+    <string name="start_free_trial">شروع آزمایش رایگان ۳ روزه</string>
+    <string name="subscribe_monthly_with_price">اشتراک ماهانه – %1$s</string>
+    <string name="subscribe_weekly_with_price">اشتراک هفتگی – %1$s</string>
+    <string name="trial_disclaimer">از %1$s دوره آزمایشی رایگان لذت ببرید، سپس %2$s به صورت هفتگی. برای لغو حداقل ۲۴ ساعت قبل از تمدید اقدام کنید.</string>
+    <string name="cancel_policy_trial">هر زمان قابل لغو است، فقط ۲۴ ساعت قبل از تمدید. هزینه‌ها پس از پایان دوره آزمایشی شروع می‌شوند.</string>
+    <string name="cancel_policy_regular">هر زمان قبل از ۲۴ ساعت مانده به تمدید قابل لغو است.</string>
+    <string name="subscription_renew">اشتراک به‌طور خودکار تمدید می‌شود. در هر زمان می‌توانید لغو کنید.</string>
+
+    <string name="purchase_successfully">خرید با موفقیت انجام شد</string>
+    <string name="subscribe_weekly">اشتراک هفتگی</string>
+    <string name="subscribe_monthly">اشتراک ماهانه</string>
+    <string name="premium_error_dialog_message">مشکلی در اشتراک شما وجود دارد. برای اصلاح روش پرداخت، روی ادامه کلیک کنید و به تنظیمات اشتراک گوگل پلی بروید.</string>
+
+    <string name="reload">بارگذاری مجدد</string>
+    <string name="you_are_out_of_bullet">مهمات شما تمام شده است!</string>
+    <string name="reload_bullet">برای بارگذاری مجدد سلاح، ضربه بزنید</string>
+
+
+    <string name="more">بیشتر</string>
+    <string name="gun_locked">اسلحه قفل شده است!</string>
+    <string name="please_watch_a_short_nad_to_unlock">لطفاً یک تبلیغ کوتاه\nتماشا کنید تا باز شود</string>
+    <string name="unlock">باز کردن</string>
+
+    <string name="exit_application">خروج از برنامه</string>
+    <string name="are_you_sure_you_want_to_exit_this_application">آیا مطمئن هستید که می‌خواهید از برنامه خارج شوید؟</string>
+    <string name="no">خیر</string>
+    <string name="yes">بله</string>
+    <string name="cancel">لغو</string>
+    <string name="exit">خروج</string>
+    <string name="single_shot">شلیک تکی</string>
+    <string name="burst_mode">حالت شلیک پشت‌سرهم</string>
+    <string name="auto_hold">نگه‌داری خودکار</string>
+    <string name="shake">لرزش</string>
+
+
+    <string name="do_you_want_to_open_network_settings">آیا می‌خواهید تنظیمات شبکه را باز کنید؟</string>
+    <string name="no_internet_connection">اتصال اینترنت وجود ندارد!</string>
+    <string name="done">انجام شد</string>
+    <string name="set_as_ringtone">تنظیم به‌عنوان زنگ تماس</string>
+    <string name="set_as_wallpaper">تنظیم به‌عنوان تصویر زمینه</string>
+    <string name="pronunciation">تلفظ</string>
+    <string name="animal_info">اطلاعات حیوان</string>
+    <string name="preview">پیش‌نمایش</string>
+    <string name="first_fragment_label">بخش اول</string>
+    <string name="second_fragment_label">بخش دوم</string>
+    <string name="next">بعدی</string>
+    <string name="previous">قبلی</string>
+    <string name="crop">برش</string>
+    <string name="home_screen">صفحه اصلی</string>
+    <string name="lock_screen">صفحه قفل</string>
+    <string name="home_lock_screen">صفحه اصلی و قفل</string>
+    <string name="set_as">تنظیم به‌عنوان</string>
+    <string name="ringtone">زنگ تماس</string>
+    <string name="contact_ringtone">زنگ تماس مخاطب</string>
+    <string name="set_contact_ringtone">تنظیم زنگ تماس مخاطب</string>
+    <string name="alarm_tone">آلارم</string>
+    <string name="set_alarm_tone">تنظیم به‌عنوان زنگ آلارم</string>
+    <string name="sms_notification_ringtone">زنگ پیامک/اعلان</string>
+    <string name="set_sms_notification_ringtone">تنظیم زنگ پیامک/اعلان</string>
+    <string name="download_ringtone">دانلود زنگ تماس</string>
+    <string name="set_ringtone">تنظیم زنگ تماس</string>
+    <string name="get_premium_nav">خرید پرمیوم!</string>
+    <string name="general">عمومی</string>
+    <string name="favorite">علاقه‌مند</string>
+    <string name="reset_ringtone">بازنشانی زنگ تماس</string>
+    <string name="other_links">پیوندهای دیگر</string>
+    <string name="feedback">بازخورد</string>
+    <string name="sounds_like">صدایش شبیه است</string>
+    <string name="slow">کند</string>
+    <string name="got_it">فهمیدم</string>
+    <string name="animal_of_the_day">حیوان روز</string>
+    <string name="lifespan">طول عمر</string>
+    <string name="wallpaper">تصویر زمینه</string>
+    <string name="premium_ringtones_for_your_device">زنگ‌های پریمیوم برای دستگاه شما</string>
+    <string name="exclusive_wallpaper_for_home_screen">تصاویر اختصاصی برای صفحه اصلی</string>
+    <string name="ads_free_experience_in_app">تجربه بدون تبلیغات در اپ</string>
+    <string name="subscription_will_auto_renew_cancel_anytime">اشتراک به‌صورت خودکار تمدید می‌شود. در هر زمان لغو کنید.</string>
+    <string name="upgrade_now">همین حالا ارتقا دهید</string>
+    <string name="monthly">ماهانه</string>
+    <string name="lifetime">همیشه</string>
+    <string name="yearly">سالانه</string>
+    <string name="weekly">هفتگی</string>
+    <string name="cat_details">گربه (Felis catus)، که به‌عنوان گربه خانگی نیز شناخته می‌شود، یک پستاندار کوچک گوشت‌خوار‌ خانگی است...
+    </string>
+
+    <string name="shareApp">این یکی از سرگرم‌کننده‌ترین و آموزشی‌ترین اپلیکیشن‌ها است که به شما اجازه می‌دهد صداهای واقعی حیوانات را از طیف گسترده‌ای از موجودات از جمله شیرها، پرندگان، حشرات، حیوانات دریایی و غیره کاوش و لذت ببرید.</string>
+
+    <string name="suggested_animal">حیوان پیشنهادی</string>
+    <string name="cat">گربه</string>
+    <string name="language_nav">زبان</string>
+    <string name="select_language">انتخاب زبان</string>
+    <string name="onboarding_title_1">آماده برای غرش، جیرجیر و وزوز؟</string>
+    <string name="onboarding_title_2">در صدای حیوانات غرق شوید</string>
+    <string name="onboarding_desc_1">صداهای جذاب‌ترین موجودات طبیعت را کشف کنید، یاد بگیرید و لذت ببرید.</string>
+    <string name="onboarding_desc_2">با تنظیم صداهای خاص حیوانات و زنگ پرندگان، تماس‌های خود را دلپذیر کنید.</string>
+
+
+    <string name="please_select_a_language">لطفاً یک زبان را انتخاب کنید</string>
+    <string name="language">زبان</string>
+
+    <string name="upgrade_to_premium">ارتقا به پریمیوم</string>
+    <string name="language_desc">زبان برنامه را انتخاب کنید؛ می‌توانید آن را\nبعداً در تنظیمات تغییر دهید.</string>
+
+    <string name="reset_ring">زنگ پیش‌فرض با موفقیت بازنشانی شد</string>
+    <string name="auto_play">پخش خودکار</string>
+    <string name="don_t_miss_a_roar">غرش را از دست نده!</string>
+    <string name="stay_updated_with_new_animal_sounds_fun_facts_and_exciting_features">با صداهای جدید حیوانات، حقایق جالب و ویژگی‌های هیجان‌انگیز به‌روز بمانید.</string>
+    <string name="why_enable_notifications">چرا اعلان‌ها را فعال کنیم؟</string>
+    <string name="get_alerts_when_new_animals_are_added_never_miss_fresh_sound_packs">وقتی حیوانات جدید اضافه می‌شوند اعلان دریافت کنید و بسته‌های صدای تازه را از دست ندهید.</string>
+    <string name="not_now">فعلاً نه</string>
+    <string name="allow">اجازه دادن</string>
+    <string name="start_like_a_pro">مثل یک حرفه‌ای شروع کن</string>
+    <string name="unlock_all_features">باز کردن همه ویژگی‌ها</string>
+    <string name="features">ویژگی‌ها</string>
+    <string name="premium">پریمیوم</string>
+    <string name="free">رایگان</string>
+    <string name="premium_ringtones">زنگ‌های پریمیوم</string>
+    <string name="exclusive_wallpaper">تصویر زمینه انحصاری</string>
+    <string name="high_quality_sounds">صداهای با کیفیت بالا</string>
+    <string name="remove_ads">حذف تبلیغات</string>
+    <string name="weekly_subscription">اشتراک هفتگی</string>
+    <string name="most_popular">محبوب‌ترین</string>
+    <string name="monthly_subscription">اشتراک ماهانه</string>
+    <string name="continuee">ادامه</string>
+    <string name="_3_days_free_trial">۳ روز آزمایشی رایگان</string>
+    <string name="free_trial_disclaimer">%1$s/هفته پس از ۳ روز آزمایشی رایگان</string>
+    <string name="cancel_anytime_at_least_24_hours_before_renewal_trial">در صورت عدم شروع دوره آزمایشی، پرداخت در پایان تأیید خرید به حساب Google Play شما اضافه می‌شود. اشتراک به‌طور خودکار تمدید می‌شود مگر اینکه حداقل ۲۴ ساعت قبل لغو شود.</string>
+    <string name="cancel_anytime_at_least_24_hours_before_renewal_without_trial">اشتراک به‌طور خودکار تمدید می‌شود مگر اینکه حداقل ۲۴ ساعت قبل از پایان دوره لغو شود. شما می‌توانید اشتراک را هر زمان از طریق Google Play Store مدیریت یا لغو کنید.</string>
+
+
+</resources>
