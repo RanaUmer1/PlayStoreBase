@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.mzalogics.ads.domain.ads.native_ad.NativeAdBuilder
 import com.mzalogics.ads.domain.core.AdMobManager
@@ -14,16 +15,21 @@ import com.professor.playstorebaseproject.app.AdIds
 import com.professor.playstorebaseproject.model.OnboardingItem
 import com.professor.playstorebaseproject.remoteconfig.RemoteConfigManager
 
-
 class OnboardingAdapter(
-    private val items: List<OnboardingItem>,
-    private var adMobManager: AdMobManager
+    private var items: List<OnboardingItem>,
+    private val adMobManager: AdMobManager,
+    private val onAdLoaded: ((Boolean) -> Unit)? = null
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         private const val VIEW_TYPE_ONBOARDING = 0
         private const val VIEW_TYPE_AD = 1
+        private const val TAG = "OnboardingAdapter"
     }
+
+    private var isAdLoaded = false
+    private var adLoadAttempted = false
+    private var adShown = false
 
     inner class OnboardingViewHolder(val binding: ItemOnboardingBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -39,19 +45,35 @@ class OnboardingAdapter(
     inner class AdViewHolder(val binding: FullNativeAdItemViewPagerBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
-            // Here you will load & populate your NativeAd
-            // Example (pseudo):
-            // val adLoader = AdLoader.Builder(binding.root.context, "YOUR_AD_UNIT_ID")
-            //    .forNativeAd { nativeAd -> populateNativeAdView(nativeAd, binding.nativeAdView) }
-            //    .build()
-            // adLoader.loadAd(AdRequest.Builder().build())
+            Log.d(TAG, "Binding full native ad, isAdLoaded: $isAdLoaded, adShown: $adShown")
 
-            Log.e("TAG", "bind: full native", )
-            loadFullNativeAd(adMobManager, binding)
+            if (!adShown) {
+                // Prepare loading UI
+                binding.includeAd.shimmerFbAd.visibility = android.view.View.VISIBLE
+                binding.includeAd.adFrame.visibility = android.view.View.GONE
+                val fallback = binding.includeAd.root.findViewById<android.view.View>(R.id.fallbackContainer)
+                fallback?.visibility = android.view.View.GONE
+
+                loadFullNativeAd(adMobManager, binding)
+
+                // Fallback timeout if network is limited and no callback arrives
+                binding.root.postDelayed({
+                    if (!isAdLoaded && !adShown) {
+                        Log.w(TAG, "Ad load timeout reached, showing fallback UI")
+                        showAdLoadingFailedUI(binding)
+                        onAdLoaded?.invoke(false)
+                    }
+                }, 5000)
+            } else {
+                // Ad already shown, just ensure UI is visible
+                binding.includeAd.shimmerFbAd.visibility = android.view.View.GONE
+                binding.includeAd.adFrame.visibility = android.view.View.VISIBLE
+            }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
+        // Show full-screen native ad as the second page (index 1)
         return if (position == 1) VIEW_TYPE_AD else VIEW_TYPE_ONBOARDING
     }
 
@@ -73,56 +95,142 @@ class OnboardingAdapter(
         }
     }
 
-    override fun getItemCount() = items.size + 1 // +1 for ad
+    override fun getItemCount() = items.size + 1 // +1 for ad as last item
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (getItemViewType(position) == VIEW_TYPE_ONBOARDING) {
-            val actualPos = if (position > 1) position - 1 else position
-            (holder as OnboardingViewHolder).bind(items[actualPos])
-        } else {
-            (holder as AdViewHolder).bind()
+        when (holder) {
+            is OnboardingViewHolder -> {
+                // Adjust index because position 1 is reserved for the full-screen ad
+                val itemIndex = if (position <= 0) position else if (position > 1) position - 1 else 0
+                holder.bind(items[itemIndex])
+            }
+            is AdViewHolder -> {
+                holder.bind()
+            }
         }
     }
 
+    fun submitList(newItems: List<OnboardingItem>) {
+        items = newItems
+        notifyDataSetChanged()
+    }
 
     private fun loadFullNativeAd(
         adMobManager: AdMobManager,
         binding: FullNativeAdItemViewPagerBinding
     ) {
-        if (adMobManager.nativeAdLoader.isAdLoaded()) {
-            Log.e("TAG", "load full native ")
-            adMobManager.nativeAdLoader.showLoadedAd(
-                NativeAdBuilder.Builder(
-                    R.layout.full_native_ad_design,
-                    binding.includeAd.adFrame,
-                    binding.includeAd.shimmerFbAd
-                ).setShowBody(true)
-                    .setShowMedia(true)
-                    .setAdTitleColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].heading)
-                    .setAdBodyColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].description)
-                    .setCtaTextColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].ctaText)
-                    .setCtaBgColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].callActionButtonColor)
-                   // .setAdBgColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].backgroundColor)
-                    .build(), AdIds.getFullNativeOnboardingAdId()
-            )
-        } else {
-            Log.e("TAG", "load and show: full native  ")
-            adMobManager.nativeAdLoader.loadAndShow(
-                AdIds.getFullNativeOnboardingAdId(),
-                NativeAdBuilder.Builder(
-                    R.layout.full_native_ad_design,
-                    binding.includeAd.adFrame,
-                    binding.includeAd.shimmerFbAd
-                ).setShowBody(true)
-                    .setShowMedia(true)
-                    .setAdTitleColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].heading)
-                    .setAdBodyColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].description)
-                    .setCtaTextColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].ctaText)
-                    .setCtaBgColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].callActionButtonColor)
-                 //   .setAdBgColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].backgroundColor)
-                    .build()
-            ) {}
-
+        if (adLoadAttempted && !isAdLoaded) {
+            Log.w(TAG, "Ad load already attempted and failed, skipping")
+            showAdLoadingFailedUI(binding)
+            return
         }
+
+        val nativeAdBuilder = createNativeAdBuilder(binding)
+
+        // Check if ad was preloaded from LanguageActivity
+        if (adMobManager.nativeAdLoader.isAdLoaded()) {
+            Log.d(TAG, "Showing preloaded full native ad")
+            showPreloadedAd(adMobManager, nativeAdBuilder, binding)
+        } else {
+            Log.d(TAG, "Loading fresh full native ad")
+            loadFreshAd(adMobManager, nativeAdBuilder, binding)
+        }
+    }
+
+    private fun createNativeAdBuilder(binding: FullNativeAdItemViewPagerBinding): NativeAdBuilder {
+        return NativeAdBuilder.Builder(
+            R.layout.full_native_ad_design,
+            binding.includeAd.adFrame,
+            binding.includeAd.shimmerFbAd
+        ).setShowBody(true)
+            .setShowMedia(true)
+            .setAdTitleColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].heading)
+            .setAdBodyColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].description)
+            .setCtaTextColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].ctaText)
+            .setCtaBgColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].callActionButtonColor)
+            .build()
+    }
+
+    private fun showPreloadedAd(
+        adMobManager: AdMobManager,
+        nativeAdBuilder: NativeAdBuilder,
+        binding: FullNativeAdItemViewPagerBinding
+    ) {
+        try {
+            // showLoadedAd doesn't return boolean, so we assume it works if no exception
+            adMobManager.nativeAdLoader.showLoadedAd(
+                nativeAdBuilder,
+                AdIds.getFullNativeOnboardingAdId()
+            )
+
+            Log.d(TAG, "Preloaded full native ad shown successfully")
+            isAdLoaded = true
+            adShown = true
+            onAdLoaded?.invoke(true)
+
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to show preloaded full native ad: ${e.message}")
+            onAdLoaded?.invoke(false)
+            // Try loading fresh ad as fallback
+            loadFreshAd(adMobManager, nativeAdBuilder, binding)
+        }
+    }
+
+    private fun loadFreshAd(
+        adMobManager: AdMobManager,
+        nativeAdBuilder: NativeAdBuilder,
+        binding: FullNativeAdItemViewPagerBinding
+    ) {
+        adLoadAttempted = true
+
+        adMobManager.nativeAdLoader.loadAndShow(
+            AdIds.getFullNativeOnboardingAdId(),
+            nativeAdBuilder
+        ) { success ->
+            Log.d(TAG, "Full native ad loadAndShow result: $success")
+            isAdLoaded = success
+            adShown = success
+            onAdLoaded?.invoke(success)
+
+            if (!success) {
+                showAdLoadingFailedUI(binding)
+            }
+        }
+    }
+
+    private fun showAdLoadingFailedUI(binding: FullNativeAdItemViewPagerBinding) {
+        binding.root.post {
+            binding.includeAd.adFrame.visibility = android.view.View.GONE
+            binding.includeAd.shimmerFbAd.visibility = android.view.View.GONE
+            // Show fallback UI to allow user to continue
+            val fallback = binding.includeAd.root.findViewById<android.view.View>(R.id.fallbackContainer)
+            val btnContinue = binding.includeAd.root.findViewById<android.view.View>(R.id.btnContinue)
+            fallback?.visibility = android.view.View.VISIBLE
+            btnContinue?.setOnClickListener {
+                try {
+                    val activity = binding.root.context as? android.app.Activity
+                    val pager = activity?.findViewById<ViewPager2>(R.id.viewPager)
+                    pager?.let {
+                        it.currentItem = (it.currentItem + 1).coerceAtMost((it.adapter?.itemCount ?: 1) - 1)
+                    }
+                } catch (e: Exception) {
+                    Log.e(TAG, "Failed to advance ViewPager from fallback: ${e.message}")
+                }
+            }
+            Log.d(TAG, "Ad loading failed, showing fallback UI")
+        }
+    }
+
+    fun isAdLoaded(): Boolean {
+        return isAdLoaded
+    }
+
+    fun hasAdShown(): Boolean {
+        return adShown
+    }
+
+    fun destroy() {
+        // Clean up resources if needed
+        Log.d(TAG, "Adapter destroyed")
     }
 }

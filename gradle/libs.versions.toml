@@ -1,5 +1,5 @@
 [versions]
-ads = "1.0.0"
+ads = "1.0.1"
 agp = "8.13.0"
 billingKtx = "8.1.0"
 firebaseConfigKtx = "22.1.2"

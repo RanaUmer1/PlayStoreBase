@@ -2,81 +2,60 @@ package com.professor.playstorebaseproject.iab
 
 import android.app.Activity
 import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
-import android.net.Uri
 import android.util.Log
-import com.android.billingclient.api.*
-import com.android.billingclient.api.BillingClient.BillingResponseCode.*
+import com.android.billingclient.*
+import com.android.billingclient.api.AcknowledgePurchaseParams
+import com.android.billingclient.api.BillingClient
+import com.android.billingclient.api.BillingClient.BillingResponseCode.BILLING_UNAVAILABLE
+import com.android.billingclient.api.BillingClient.BillingResponseCode.DEVELOPER_ERROR
+import com.android.billingclient.api.BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED
+import com.android.billingclient.api.BillingClient.BillingResponseCode.OK
+import com.android.billingclient.api.BillingClient.BillingResponseCode.SERVICE_DISCONNECTED
+import com.android.billingclient.api.BillingClient.BillingResponseCode.USER_CANCELED
+import com.android.billingclient.api.BillingClientStateListener
+import com.android.billingclient.api.BillingFlowParams
+import com.android.billingclient.api.BillingResult
+import com.android.billingclient.api.PendingPurchasesParams
+import com.android.billingclient.api.Purchase
+import com.android.billingclient.api.QueryProductDetailsParams
+import com.android.billingclient.api.QueryPurchasesParams
 import com.professor.playstorebaseproject.Constants
-import com.professor.playstorebaseproject.iab.interfaces.ConnectResponse
-import com.professor.playstorebaseproject.iab.interfaces.PurchaseResponse
-import com.professor.playstorebaseproject.iab.interfaces.QueryResponse
-import com.professor.playstorebaseproject.iab.onetime.OneTimePurchaseItem
-import com.professor.playstorebaseproject.iab.subscription.SubscribedItem
-import com.professor.playstorebaseproject.iab.subscription.SubscriptionItem
+
 
 /**
- * Created by Ehtasham Abbas on 06 September,2023
- * Senior Android Software Engineer
+ * Modern Billing Client with Billing Library 6.0+
+ * Handles subscriptions with proper error handling and state management
  */
-class AppBillingClient {
-    private lateinit var billingClient: BillingClient
-    private var lastItemRequestedForPurchase: ProductItem? = null
+class AppBillingClient () {
 
-    fun connect(
-        context: Context,
-        connectResponse: ConnectResponse,
-        purchaseResponse: PurchaseResponse
-    ) {
-        billingClient = BillingClient
-            .newBuilder(context)
-            // Purchase listener
-            .setListener { billingResult: BillingResult, purchases: MutableList<Purchase>? ->
+    companion object {
+        private const val TAG = "AppBillingClient"
 
+        @Volatile
+        private var instance: AppBillingClient? = null
 
-                if (billingResult.responseCode != OK) {
-                    when (billingResult.responseCode) {
-                        ITEM_ALREADY_OWNED -> purchaseResponse.isAlreadyOwned()
-                        USER_CANCELED -> purchaseResponse.userCancelled()
-                    }
-                    return@setListener
-                }
-
-                //////////////////////////////////////////////////////////////////////////////////
-                purchases?.forEach { purchase ->
-                    // Just to be on safe side, we'll acknowledge every purchased/subscribed item.
-                    if (!purchase.isAcknowledged) {
-                        billingClient.acknowledgePurchase(
-                            AcknowledgePurchaseParams.newBuilder()
-                                .setPurchaseToken(purchase.purchaseToken).build()
-                        ) {
-                            Log.d("PurchaseItem Ack=>", "isAcknowledged$purchase")
-                        }
-                    }
-
-                    lastItemRequestedForPurchase?.let {
-
-
-                        for (purchaseSku in purchase.products) {
-                            if (purchaseSku == it.sku) {
-                                (it as SubscriptionItem).subscribedItem = SubscribedItem(
-                                    purchaseSku,
-                                    purchase.purchaseTime,
-                                    purchase.purchaseToken
-                                )
-                            }
-                            Log.d("PurchaseItem", "lastItemRequestedForPurchase$purchase")
-                            purchaseResponse.ok(it)
-                            lastItemRequestedForPurchase = null
-                            // Break the loop when you're done
-                            return@forEach
-//                            }
-                        }
-
-                    }
-                }
+        fun getInstance(): AppBillingClient {
+            return instance ?: synchronized(this) {
+                instance ?: AppBillingClient().also { instance = it }
             }
+        }
+    }
+
+    private lateinit var billingClient: BillingClient
+    private var isConnected = false
+    private var lastPurchaseRequest: ProductItem? = null
+
+    // Available subscription SKUs
+    private val subscriptionSkus = listOf(
+        Constants.SKU_SUBSCRIPTION_WEEKLY,
+        Constants.SKU_SUBSCRIPTION_MONTHLY
+    )
+
+    fun initialize(context: Context, connectResponse: ConnectResponse) {
+        Log.d(TAG, "Initializing billing client...")
+
+        billingClient = BillingClient.newBuilder(context)
+            .setListener(::onPurchasesUpdated)
             .enablePendingPurchases(
                 PendingPurchasesParams.newBuilder()
                     .enableOneTimeProducts()
@@ -84,220 +63,323 @@ class AppBillingClient {
             )
             .build()
 
+        connectToBilling(connectResponse)
+    }
+
+    private fun connectToBilling(connectResponse: ConnectResponse) {
         billingClient.startConnection(object : BillingClientStateListener {
-            override fun onBillingServiceDisconnected() {
-                connectResponse.disconnected()
-            }
-
             override fun onBillingSetupFinished(billingResult: BillingResult) {
-                /*  queryPurchases(skuToGet, object : QueryResponse<OneTimePurchaseItem> {
-                      override fun ok(oneTimePurchaseItems: List<OneTimePurchaseItem>) {*/
+                Log.d(TAG, "Billing setup finished: ${billingResult.responseCode}")
 
-                querySubscriptions(object : QueryResponse<SubscriptionItem> {
-                    override fun ok(subscriptionItems: List<SubscriptionItem>) {
-                        // Check if any item is bought or subscribed to, then acknowledge it.
-                        /*   for (item in oneTimePurchaseItems) {
-                               billingClient.acknowledgePurchase(
-                                   AcknowledgePurchaseParams.newBuilder().setPurchaseToken(
-                                       item.purchasedItem?.purchaseToken ?: continue
-                                   ).build()
-                               ) {}
-                           }*/
-                        for (item in subscriptionItems) {
-                            billingClient.acknowledgePurchase(
-                                AcknowledgePurchaseParams.newBuilder().setPurchaseToken(
-                                    item.subscribedItem?.purchaseToken ?: continue
-                                ).build()
-                            ) {
-                                Log.d("PurchaseItem", "" + it.responseCode)
-                            }
-                        }
-                        //connectResponse.ok(oneTimePurchaseItems, subscriptionItems)
-                        //connectResponse.ok(subscriptionItems)
-                        connectResponse.ok(subscriptionItems)
+                when (billingResult.responseCode) {
+                    OK -> {
+                        isConnected = true
+                        Log.d(TAG, "Billing client connected successfully")
+                        // Query available subscriptions and purchases
+                        querySubscriptionsAndPurchases(connectResponse)
                     }
 
-                    override fun error(responseCode: Int) {
-                        log(responseCode)
-                        when (responseCode) {
-                            BILLING_UNAVAILABLE -> connectResponse.billingUnavailable()
-                            DEVELOPER_ERROR -> connectResponse.developerError()
-                            ERROR -> connectResponse.error()
-                            FEATURE_NOT_SUPPORTED -> connectResponse.featureNotSupported()
-                            ITEM_UNAVAILABLE -> connectResponse.itemUnavailable()
-                            SERVICE_DISCONNECTED -> connectResponse.serviceDisconnected()
-                            SERVICE_UNAVAILABLE -> connectResponse.serviceUnavailable()
-                        }
+                    BILLING_UNAVAILABLE -> {
+                        connectResponse.onError(
+                            BILLING_UNAVAILABLE,
+                            "Billing unavailable on this device"
+                        )
                     }
-                }, context)
 
+                    DEVELOPER_ERROR -> {
+                        connectResponse.onError(DEVELOPER_ERROR, "Developer error in billing setup")
+                    }
+
+                    else -> {
+                        connectResponse.onError(
+                            billingResult.responseCode,
+                            billingResult.debugMessage
+                        )
+                    }
+                }
             }
 
+            override fun onBillingServiceDisconnected() {
+                Log.w(TAG, "Billing service disconnected")
+                isConnected = false
+                connectResponse.onDisconnected()
+            }
         })
-
     }
 
-    private fun querySubscriptions(
-        response: QueryResponse<SubscriptionItem>,
-        context: Context
-    ) {
-        val positiveButtonClick = { dialog: DialogInterface, which: Int ->
-            val i = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://play.google.com/store/account/subscriptions")
-            )
-            context.startActivity(i)
-        }
-
-        val productList =
-            listOf(
-                QueryProductDetailsParams.Product.newBuilder()
-                    .setProductId(Constants.SKU_SUBSCRIPTION_WEEKLY)
-                    .setProductType(BillingClient.ProductType.SUBS)
-                    .build(),
-                QueryProductDetailsParams.Product.newBuilder()
-                    .setProductId(Constants.SKU_SUBSCRIPTION_MONTHLY)
-                    .setProductType(BillingClient.ProductType.SUBS)
-                    .build()
-            )
-
-        val params = QueryProductDetailsParams.newBuilder().setProductList(productList)
-        billingClient.queryProductDetailsAsync(params.build()) { billingResult, productDetailsList ->
-
-            if (billingResult.responseCode != OK) {
-                response.error(billingResult.responseCode)
-//                return@queryProductDetailsAsync
-//                val dialogBuilder = AlertDialog.Builder(context)
-//                dialogBuilder.setMessage(
-//                    "There is a problem with your subscription. Click CONTINUE " +
-//                            "to go to the Google Play subscription settings to fix your payment method."
-//                )
-//                    .setCancelable(true)
-//                    .setPositiveButton(
-//                        "Continue",
-//                        DialogInterface.OnClickListener(function = positiveButtonClick)
-//                    )
-//                    .setNegativeButton("Cancel") { dialog, id ->
-//                        dialog.cancel()
-//                    }
-//                val alert = dialogBuilder.create()
-//                alert.show()
-            }
-            val skuSubscriptionItems = mutableListOf<SubscriptionItem>()
-
-            billingClient.queryPurchasesAsync(
-                QueryPurchasesParams.newBuilder()
-                    .setProductType(BillingClient.ProductType.SUBS)
-                    .build()
-            ) { result, purchaseList ->
-                if (result.responseCode != OK) {
-                    response.error(result.responseCode)
-                    return@queryPurchasesAsync
-                }
-                ////////////////////////////////////////////////////////////////////
-
-
-                ///////////////////////////////////////////////////////////////
-                for (productDetails in productDetailsList.productDetailsList) {
-                    var isItemNotPurchased = true
-
-                    purchaseList.forEach() { purchase ->
-                        for (product in purchase.products) {
-                            if (productDetails.productId == product) {
-                                isItemNotPurchased = false
-                                Log.d("PurchaseItem ->", "query message" + purchase.toString())
-                                skuSubscriptionItems.add(
-                                    SubscriptionItem(productDetails)
-                                        .apply {
-                                            subscribedItem = SubscribedItem(
-                                                product,
-                                                purchase.purchaseTime,
-                                                purchase.purchaseToken
-                                            )
-                                        }
-                                )
-                                return@forEach
-                            }
-                        }
-
-
-                    }
-//                    if (isItemNotPurchased && productDetails.productId == productId) {
-                        skuSubscriptionItems.add(SubscriptionItem(productDetails))
-//                    }
-                }
-                response.ok(skuSubscriptionItems)
+    private fun querySubscriptionsAndPurchases(connectResponse: ConnectResponse) {
+        queryAvailableSubscriptions { subscriptionItems ->
+            queryExistingPurchases { purchases ->
+                // Match purchases with available subscriptions
+                val updatedSubscriptions =
+                    matchPurchasesWithSubscriptions(subscriptionItems, purchases)
+                connectResponse.onConnected(updatedSubscriptions)
             }
         }
     }
 
+    private fun queryAvailableSubscriptions(callback: (List<SubscriptionItem>) -> Unit) {
+        val productList = subscriptionSkus.map { sku ->
+            QueryProductDetailsParams.Product.newBuilder()
+                .setProductId(sku)
+                .setProductType(BillingClient.ProductType.SUBS)
+                .build()
+        }
 
-    fun purchaseSkuItem(baseActivity: Activity, productItem: ProductItem): Boolean {
-        if (!billingClient.isReady) {
-            return false
-        }
-        var offerToken: String? = null
-
-        if (productItem is SubscriptionItem) {
-            offerToken = productItem.offerToken ?: return false
-        }
-        val billingParams = BillingFlowParams.ProductDetailsParams.newBuilder()
-            .setProductDetails(productItem.productDetails)
-        offerToken?.let {
-            billingParams.setOfferToken(it)
-        }
-        val productDetailsParamsList = listOf(billingParams.build())
-        val billingFlowParams = BillingFlowParams.newBuilder()
-            .setProductDetailsParamsList(productDetailsParamsList).build()
-        val billingResult = billingClient.launchBillingFlow(baseActivity, billingFlowParams)
-        if (billingResult.responseCode == OK) {
-            lastItemRequestedForPurchase = productItem
-        }
-        return billingResult.responseCode == OK
-    }
-
-    private fun consumeSkuItem(
-        oneTimePurchaseItem: OneTimePurchaseItem,
-        listener: OnConsumeListener
-    ) {
-        val consumeParam = ConsumeParams
-            .newBuilder()
-            .setPurchaseToken(oneTimePurchaseItem.purchasedItem!!.purchaseToken)
+        val params = QueryProductDetailsParams.newBuilder()
+            .setProductList(productList)
             .build()
 
-        billingClient.consumeAsync(consumeParam) { result, _ ->
+        billingClient.queryProductDetailsAsync(params) { billingResult, productDetailsList ->
+            when (billingResult.responseCode) {
+                OK -> {
+                    val subscriptions =
+                        productDetailsList.productDetailsList.map { productDetails ->
+                            SubscriptionItem(productDetails)
+                        } ?: emptyList()
 
-            if (result.responseCode == OK) {
-                listener.onSuccessfullyConsumed()
-            } else {
-                listener.onConsumeError(
-                    when (result.responseCode) {
-                        SERVICE_TIMEOUT -> "Timed out, please try again"
-                        else -> "Unknown error, please try again"
-                    }
-                )
+                    Log.d(TAG, "Found ${subscriptions.size} available subscriptions")
+                    callback(subscriptions)
+                }
+
+                else -> {
+                    Log.e(TAG, "Failed to query subscriptions: ${billingResult.debugMessage}")
+                    callback(emptyList())
+                }
             }
         }
     }
 
-    private fun log(responseCode: Int) {
-        val message = when (responseCode) {
-            FEATURE_NOT_SUPPORTED -> "FEATURE_NOT_SUPPORTED"
-            SERVICE_DISCONNECTED -> "SERVICE_DISCONNECTED"
-            USER_CANCELED -> "USER_CANCELED"
-            SERVICE_UNAVAILABLE -> "SERVICE_UNAVAILABLE"
-            BILLING_UNAVAILABLE -> "BILLING_UNAVAILABLE"
-            ITEM_UNAVAILABLE -> "ITEM_UNAVAILABLE"
-            DEVELOPER_ERROR -> "DEVELOPER_ERROR"
-            ERROR -> "ERROR"
-            ITEM_ALREADY_OWNED -> "ITEM_ALREADY_OWNED"
-            ITEM_NOT_OWNED -> "ITEM_NOT_OWNED"
-            else -> responseCode.toString()
+    private fun queryExistingPurchases(callback: (List<Purchase>) -> Unit) {
+        val params = QueryPurchasesParams.newBuilder()
+            .setProductType(BillingClient.ProductType.SUBS)
+            .build()
+
+        billingClient.queryPurchasesAsync(params) { billingResult, purchases ->
+            when (billingResult.responseCode) {
+                OK -> {
+                    Log.d(TAG, "Found ${purchases.size} existing purchases")
+
+                    // Acknowledge all unacknowledged purchases
+                    purchases.filter { !it.isAcknowledged }.forEach { purchase ->
+                        acknowledgePurchase(purchase)
+                    }
+
+                    callback(purchases)
+                }
+
+                else -> {
+                    Log.e(TAG, "Failed to query purchases: ${billingResult.debugMessage}")
+                    callback(emptyList())
+                }
+            }
         }
     }
 
-    interface OnConsumeListener {
-        fun onSuccessfullyConsumed();
-        fun onConsumeError(errorMessage: String)
+    private fun matchPurchasesWithSubscriptions(
+        subscriptions: List<SubscriptionItem>,
+        purchases: List<Purchase>
+    ): List<SubscriptionItem> {
+        return subscriptions.map { subscription ->
+            val purchase = purchases.find { purchase ->
+                purchase.products.contains(subscription.sku)
+            }
+
+            purchase?.let {
+                subscription.subscribedItem = SubscribedItem(
+                    sku = subscription.sku,
+                    purchaseTime = it.purchaseTime,
+                    purchaseToken = it.purchaseToken,
+                    isAutoRenewing = it.isAutoRenewing,
+                    orderId = it.orderId
+                )
+            }
+            subscription
+        }
+    }
+
+    private fun onPurchasesUpdated(billingResult: BillingResult, purchases: List<Purchase>?) {
+        Log.d(TAG, "Purchase updated: ${billingResult.responseCode}")
+
+        when (billingResult.responseCode) {
+            OK -> {
+                purchases?.forEach { purchase ->
+                    handleSuccessfulPurchase(purchase)
+                }
+            }
+
+            USER_CANCELED -> {
+                lastPurchaseRequest?.let {
+                    purchaseCallbacks[it.sku]?.onPurchaseCancelled()
+                    purchaseCallbacks.remove(it.sku)
+                }
+            }
+
+            ITEM_ALREADY_OWNED -> {
+                lastPurchaseRequest?.let {
+                    purchaseCallbacks[it.sku]?.onPurchaseAlreadyOwned()
+                    purchaseCallbacks.remove(it.sku)
+                }
+            }
+
+            else -> {
+                lastPurchaseRequest?.let {
+                    purchaseCallbacks[it.sku]?.onPurchaseError(
+                        billingResult.responseCode,
+                        billingResult.debugMessage
+                    )
+                    purchaseCallbacks.remove(it.sku)
+                }
+            }
+        }
+
+        lastPurchaseRequest = null
+    }
+
+    private fun handleSuccessfulPurchase(purchase: Purchase) {
+        Log.d(TAG, "Handling successful purchase: ${purchase.products}")
+
+        // Acknowledge the purchase if not already acknowledged
+        if (!purchase.isAcknowledged) {
+            acknowledgePurchase(purchase)
+        }
+
+        // Find the corresponding subscription and notify callback
+        purchase.products.forEach { productId ->
+            val callback = purchaseCallbacks[productId]
+            if (callback != null) {
+                callback.onPurchaseSuccess(productId)
+                purchaseCallbacks.remove(productId)
+            } else {
+                Log.w(TAG, "No callback found for purchased product: $productId")
+            }
+        }
+    }
+
+    private fun acknowledgePurchase(purchase: Purchase) {
+        val acknowledgeParams = AcknowledgePurchaseParams.newBuilder()
+            .setPurchaseToken(purchase.purchaseToken)
+            .build()
+
+        billingClient.acknowledgePurchase(acknowledgeParams) { billingResult ->
+            when (billingResult.responseCode) {
+                OK -> Log.d(TAG, "Purchase acknowledged successfully")
+                else -> Log.e(TAG, "Failed to acknowledge purchase: ${billingResult.debugMessage}")
+            }
+        }
+    }
+
+    // Purchase callbacks storage
+    private val purchaseCallbacks = mutableMapOf<String, PurchaseResponse>()
+
+    fun purchaseSubscription(
+        activity: Activity,
+        subscriptionItem: SubscriptionItem,
+        offerToken: String? = null,
+        purchaseResponse: PurchaseResponse
+    ): Boolean {
+        if (!isConnected) {
+            purchaseResponse.onPurchaseError(SERVICE_DISCONNECTED, "Billing client not connected")
+            return false
+        }
+
+        Log.d(TAG, "Initiating purchase for: ${subscriptionItem.sku}")
+
+        // Store callback for this purchase
+        purchaseCallbacks[subscriptionItem.sku] = purchaseResponse
+        lastPurchaseRequest = subscriptionItem
+
+        val productDetailsParams = BillingFlowParams.ProductDetailsParams.newBuilder()
+            .setProductDetails(subscriptionItem.productDetails)
+            .setOfferToken(offerToken ?: subscriptionItem.baseOfferToken ?: "")
+            .build()
+
+        val billingFlowParams = BillingFlowParams.newBuilder()
+            .setProductDetailsParamsList(listOf(productDetailsParams))
+            .build()
+
+        val billingResult = billingClient.launchBillingFlow(activity, billingFlowParams)
+
+        return when (billingResult.responseCode) {
+            OK -> {
+                Log.d(TAG, "Purchase flow started successfully")
+                true
+            }
+
+            else -> {
+                Log.e(TAG, "Failed to start purchase flow: ${billingResult.debugMessage}")
+                purchaseCallbacks.remove(subscriptionItem.sku)
+                purchaseResponse.onPurchaseError(
+                    billingResult.responseCode,
+                    billingResult.debugMessage
+                )
+                false
+            }
+        }
+    }
+
+    fun getSubscriptionDetails(sku: String, callback: QueryResponse<SubscriptionItem>) {
+        val product = QueryProductDetailsParams.Product.newBuilder()
+            .setProductId(sku)
+            .setProductType(BillingClient.ProductType.SUBS)
+            .build()
+
+        val params = QueryProductDetailsParams.newBuilder()
+            .setProductList(listOf(product))
+            .build()
+
+        billingClient.queryProductDetailsAsync(params) { billingResult, productDetailsList ->
+            when (billingResult.responseCode) {
+                OK -> {
+                    val subscriptions =
+                        productDetailsList.productDetailsList.map { SubscriptionItem(it) }
+                            ?: emptyList()
+                    callback.onQuerySuccess(subscriptions)
+                }
+
+                else -> {
+                    callback.onQueryError(billingResult.responseCode, billingResult.debugMessage)
+                }
+            }
+        }
+    }
+
+    fun checkSubscriptionStatus(sku: String): Boolean {
+        // This would typically check shared preferences or local database
+        // where you store subscription status after verification with your backend
+        return false
+    }
+
+    fun refreshSubscriptionStatus(callback: (List<SubscriptionItem>) -> Unit) {
+        if (!isConnected) {
+            callback(emptyList())
+            return
+        }
+
+        queryAvailableSubscriptions { subscriptions ->
+            queryExistingPurchases { purchases ->
+                val updatedSubscriptions = matchPurchasesWithSubscriptions(subscriptions, purchases)
+                callback(updatedSubscriptions)
+            }
+        }
+    }
+
+    fun isSubscribed(sku: String): Boolean {
+        // Implement your subscription verification logic here
+        // This should check both local cache and verify with your backend
+        return false
+    }
+
+    fun disconnect() {
+        if (::billingClient.isInitialized) {
+            billingClient.endConnection()
+            isConnected = false
+            purchaseCallbacks.clear()
+            Log.d(TAG, "Billing client disconnected")
+        }
+    }
+
+    fun isReady(): Boolean {
+        return isConnected && ::billingClient.isInitialized && billingClient.isReady
     }
 }

@@ -1,14 +1,12 @@
 package com.professor.playstorebaseproject.ui.screens
 
-
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
@@ -20,16 +18,16 @@ import com.professor.playstorebaseproject.app.AdIds
 import com.professor.playstorebaseproject.app.AnalyticsManager
 import com.professor.playstorebaseproject.app.AppPreferences
 import com.professor.playstorebaseproject.iab.AppBillingClient
-import com.professor.playstorebaseproject.iab.ProductItem
-import com.professor.playstorebaseproject.iab.interfaces.ConnectResponse
-import com.professor.playstorebaseproject.iab.interfaces.PurchaseResponse
-import com.professor.playstorebaseproject.iab.subscription.SubscriptionItem
+import com.professor.playstorebaseproject.iab.ConnectResponse
+import com.professor.playstorebaseproject.iab.PurchaseResponse
+import com.professor.playstorebaseproject.iab.SubscriptionItem
 import com.professor.playstorebaseproject.remoteconfig.RemoteConfigManager
+import com.professor.playstorebaseproject.ui.viewmodel.PremiumViewModel
+
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class PremiumActivity : AppCompatActivity(), View.OnClickListener {
@@ -43,327 +41,382 @@ class PremiumActivity : AppCompatActivity(), View.OnClickListener {
     @Inject
     lateinit var appPreferences: AppPreferences
 
-
-    private var appBillingClient: AppBillingClient? = null
     private lateinit var binding: PremiumActivtyNewBinding
+    private val viewModel: PremiumViewModel by viewModels()
 
+    private lateinit var billingClient: AppBillingClient
+    private var availableSubscriptions: List<SubscriptionItem> = emptyList()
 
-    var skuDetail: List<SubscriptionItem>? = null
-    var fromPro: Boolean = false
+    private var fromPro: Boolean = false
+    private var isWeekly: Boolean = true
+    private var hasTrial: Boolean = false
 
-    var isWeekly: Boolean = true
-    var hasTrial: Boolean = false
+    private val TAG = "PremiumActivity"
 
-    //    MakePurchaseViewModel makePurchaseViewModel;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Setup window insets
         val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
-        windowInsetsController.isAppearanceLightStatusBars =
-            true // Light icons = false, Dark icons = true
-        val intent = intent
-        if (intent != null && intent.hasExtra(Constants.FROM_PRO)) {
-            fromPro = intent.getBooleanExtra(Constants.FROM_PRO, false)
-        }
+        windowInsetsController.isAppearanceLightStatusBars = true
 
-
-        appBillingClient = AppBillingClient()
-        loadSubscriptionDetails()
-//        this.setWindowFlag()
         binding = PremiumActivtyNewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        initializeActivity()
+        setupClickListeners()
+        initializeBilling()
+        setupObservers()
+
         analyticsManager.sendAnalytics(AnalyticsManager.Action.OPENED, TAG)
+    }
 
-        //        setStatusBarColor(this, R.color.colorBlack);
-        try {
-            //binding.tvPrivacy.setOnClickListener(this);
-            binding.llMonthly.setOnClickListener(this)
-            binding.llWeekly.setOnClickListener(this)
-            binding.ivClose.setOnClickListener(this)
-            binding.tvUpgradeNow.setOnClickListener(this)
+    private fun initializeActivity() {
+        fromPro = intent.getBooleanExtra(Constants.FROM_PRO, false)
 
-            // Set initial selection - weekly with trial is default
-            setSelectedPlan(
-                binding.llWeekly,
-                isSelected = true
-            )
-            setSelectedPlan(
-                binding.llMonthly,
-                isSelected = false
-            )
+        // Get billing client instance
+        billingClient = AppBillingClient.getInstance()
 
-            // Initially hide trial text until subscription details are loaded
-            binding.tvFreeTry.visibility = View.GONE
-            // Default CTA for weekly until pricing arrives
-            binding.tvUpgradeNow.text = getString(R.string.start_free_trial)
-        } catch (ex: Exception) {
-            ex.printStackTrace()
-        }
+        // Set initial UI state
+        setInitialUIState()
 
+        // Setup close button delay
+        setupCloseButtonDelay()
+    }
+
+    private fun setupClickListeners() {
+        binding.llMonthly.setOnClickListener(this)
+        binding.llWeekly.setOnClickListener(this)
+        binding.ivClose.setOnClickListener(this)
+        binding.tvUpgradeNow.setOnClickListener(this)
+    }
+
+    private fun setInitialUIState() {
+        // Set initial selection - weekly with trial is default
+        setSelectedPlan(binding.llWeekly, isSelected = true)
+        setSelectedPlan(binding.llMonthly, isSelected = false)
+
+        // Initially hide trial text until subscription details are loaded
+        binding.tvFreeTry.visibility = View.GONE
+        // Default CTA for weekly until pricing arrives
+        binding.tvUpgradeNow.text = getString(R.string.start_free_trial)
+        binding.tvUpgradeNow.isEnabled = false // Disable until subscriptions are loaded
+    }
+
+    private fun setupCloseButtonDelay() {
         lifecycleScope.launch {
-
             binding.ivClose.visibility = View.GONE
             val delay = RemoteConfigManager.getAdsConfig().premiumCloseBtnDelay.times(3000)
-            Log.d(TAG, "delay: $delay")
+            Log.d(TAG, "Close button delay: $delay ms")
             delay(delay.toLong())
             binding.ivClose.visibility = View.VISIBLE
         }
     }
 
+    private fun initializeBilling() {
+        billingClient.initialize(this, object : ConnectResponse {
+            override fun onConnected(subscriptionItems: List<SubscriptionItem>) {
+                runOnUiThread {
+                    availableSubscriptions = subscriptionItems
+                    updateUIWithSubscriptions(subscriptionItems)
+                    binding.tvUpgradeNow.isEnabled = true
+                    Log.d(TAG, "Billing connected, ${subscriptionItems.size} subscriptions loaded")
+                }
+            }
 
-    private fun setSelectedPlan(
-        flCard: LinearLayout,
-        isSelected: Boolean,
-    ) {
+            override fun onDisconnected() {
+                runOnUiThread {
+                    showError("Billing service disconnected. Please try again.")
+                    binding.tvUpgradeNow.isEnabled = false
+                }
+            }
+
+            override fun onError(errorCode: Int, errorMessage: String) {
+                runOnUiThread {
+                    showError("Billing error: $errorMessage")
+                    binding.tvUpgradeNow.isEnabled = false
+                    Log.e(TAG, "Billing error: $errorCode - $errorMessage")
+                }
+            }
+        })
+    }
+
+    private fun setupObservers() {
+        // You can add ViewModel observers here if needed
+    }
+
+    private fun updateUIWithSubscriptions(subscriptions: List<SubscriptionItem>) {
+        var weeklySubscription: SubscriptionItem? = null
+        var monthlySubscription: SubscriptionItem? = null
+
+        // Find weekly and monthly subscriptions
+        subscriptions.forEach { subscription ->
+            when (subscription.sku) {
+                Constants.SKU_SUBSCRIPTION_WEEKLY -> weeklySubscription = subscription
+                Constants.SKU_SUBSCRIPTION_MONTHLY -> monthlySubscription = subscription
+            }
+        }
+
+        // Update weekly subscription UI
+        weeklySubscription?.let { weekly ->
+            val price = weekly.formattedPrice ?: ""
+            binding.tvWeeklyPrice.text = price
+
+            if (weekly.hasFreeTrial) {
+                hasTrial = true
+                analyticsManager.sendAnalytics("load", "${TAG}3days_trial")
+                binding.tvFreeTry.text = getString(R.string.free_trial_disclaimer, price)
+                binding.tvPrivacy.text = getString(R.string.cancel_anytime_at_least_24_hours_before_renewal_trial)
+
+                if (isWeekly) {
+                    binding.tvFreeTry.visibility = View.VISIBLE
+                    binding.tvUpgradeNow.text = getString(R.string.start_free_trial)
+                }
+            } else {
+                hasTrial = false
+                analyticsManager.sendAnalytics("load", "${TAG}weekly")
+                binding.tvFreeTry.visibility = View.GONE
+                if (isWeekly) {
+                    binding.tvUpgradeNow.text = getString(R.string.subscribe_weekly)
+                }
+                binding.tvPrivacy.text = getString(R.string.cancel_anytime_at_least_24_hours_before_renewal_without_trial)
+            }
+        }
+
+        // Update monthly subscription UI
+        monthlySubscription?.let { monthly ->
+            val price = monthly.formattedPrice ?: ""
+            binding.tvMonthlyPrice.text = price
+            analyticsManager.sendAnalytics("load", "${TAG}monthly")
+
+            if (!isWeekly) {
+                binding.tvFreeTry.visibility = View.GONE
+                binding.tvUpgradeNow.text = getString(R.string.continuee)
+            }
+        }
+
+        Log.d(TAG, "UI updated with subscription details")
+    }
+
+    private fun setSelectedPlan(planLayout: LinearLayout, isSelected: Boolean) {
         if (isSelected) {
-            flCard.setBackgroundResource(R.drawable.bg_sku_selected)
+            planLayout.setBackgroundResource(R.drawable.bg_sku_selected)
         } else {
-            flCard.setBackgroundResource(R.drawable.bg_sku_non_selected)
+            planLayout.setBackgroundResource(R.drawable.bg_sku_non_selected)
         }
     }
 
-
     override fun onClick(view: View) {
-        val id = view.id
-        when (id) {
-//            R.id.card_yearly, R.id.tv_free_try -> {
-//                analyticsManager.sendAnalytics("clicked", TAG + "free_try")
-//                purchaseSubscription(Constants.SKU_SUBSCRIPTION_YEARLY)
-//            }
-
-
+        when (view.id) {
             R.id.ll_weekly -> {
-                isWeekly = true
-                setSelectedPlan(
-                    binding.llWeekly,
-                    isSelected = true
-                )
-                setSelectedPlan(
-                    binding.llMonthly,
-                    isSelected = false
-                )
-
-                // Show trial text only if trial is available
-                binding.tvFreeTry.visibility = if (hasTrial) View.VISIBLE else View.GONE
-                // Update CTA text based on trial availability
-                binding.tvUpgradeNow.text = if (hasTrial) {
-                    getString(R.string.start_free_trial)
-                } else {
-                    getString(R.string.subscribe_weekly)
-                }
+                handleWeeklySelection()
             }
 
             R.id.ll_monthly -> {
-                isWeekly = false
-                setSelectedPlan(
-                    binding.llWeekly,
-
-                    isSelected = false
-                )
-                setSelectedPlan(
-                    binding.llMonthly,
-                    isSelected = true
-                )
-
-                // Hide trial text for monthly subscription
-                binding.tvFreeTry.visibility = View.GONE
-                // Update CTA text to Continue for monthly
-                binding.tvUpgradeNow.text = getString(R.string.continuee)
+                handleMonthlySelection()
             }
 
             R.id.tv_upgrade_now -> {
-                if (!isWeekly) {
-
-                    analyticsManager.sendAnalytics("clicked", TAG + "subscribe_monthly")
-                    purchaseSubscription(Constants.SKU_SUBSCRIPTION_MONTHLY)
-                } else {
-                    analyticsManager.sendAnalytics("clicked", TAG + "subscribe_weekly")
-                    purchaseSubscription(Constants.SKU_SUBSCRIPTION_WEEKLY)
-                }
-//                onBackPressed()
+                handleUpgradeNow()
             }
 
             R.id.iv_close -> {
-                analyticsManager.sendAnalytics("clicked", TAG + "btn_close")
+                analyticsManager.sendAnalytics("clicked", "${TAG}btn_close")
                 onBackPressed()
             }
         }
     }
 
+    private fun handleWeeklySelection() {
+        isWeekly = true
+        setSelectedPlan(binding.llWeekly, isSelected = true)
+        setSelectedPlan(binding.llMonthly, isSelected = false)
 
-    override fun onBackPressed() {
-        if (fromPro) {
-            super.onBackPressed()
-        } else if (intent.getBooleanExtra(Constants.FROM_ONBOARDING, false)) {
-            adMobManager.interstitialAdLoader.showAd(
-                this,
-                AdIds.getInterstitialAdID()
-            ) {
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            }
-        } else if (intent.getBooleanExtra(Constants.IS_FROM_START_TO_PREMIUM, false)) {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+        // Show trial text only if trial is available
+        binding.tvFreeTry.visibility = if (hasTrial) View.VISIBLE else View.GONE
 
+        // Update CTA text based on trial availability
+        binding.tvUpgradeNow.text = if (hasTrial) {
+            getString(R.string.start_free_trial)
         } else {
-            finish()
+            getString(R.string.subscribe_weekly)
         }
+
+        analyticsManager.sendAnalytics("clicked", "${TAG}select_weekly")
+    }
+
+    private fun handleMonthlySelection() {
+        isWeekly = false
+        setSelectedPlan(binding.llWeekly, isSelected = false)
+        setSelectedPlan(binding.llMonthly, isSelected = true)
+
+        // Hide trial text for monthly subscription
+        binding.tvFreeTry.visibility = View.GONE
+
+        // Update CTA text to Continue for monthly
+        binding.tvUpgradeNow.text = getString(R.string.continuee)
+
+        analyticsManager.sendAnalytics("clicked", "${TAG}select_monthly")
+    }
+
+    private fun handleUpgradeNow() {
+        val sku = if (isWeekly) {
+            analyticsManager.sendAnalytics("clicked", "${TAG}subscribe_weekly")
+            Constants.SKU_SUBSCRIPTION_WEEKLY
+        } else {
+            analyticsManager.sendAnalytics("clicked", "${TAG}subscribe_monthly")
+            Constants.SKU_SUBSCRIPTION_MONTHLY
+        }
+
+        purchaseSubscription(sku)
     }
 
     private fun purchaseSubscription(sku: String) {
-        if (skuDetail == null || skuDetail!!.isEmpty()) return
-        for (item in skuDetail!!) {
-            if (item.sku == sku) {
-                appBillingClient!!.purchaseSkuItem(this, item)
+        val subscription = availableSubscriptions.find { it.sku == sku }
+        if (subscription == null) {
+            showError("Subscription not available. Please try again.")
+            return
+        }
+
+        // Get the appropriate offer token (base offer for now)
+        val offerToken = subscription.baseOfferToken
+        if (offerToken.isNullOrEmpty()) {
+            showError("Unable to process subscription. Please try again.")
+            return
+        }
+
+        billingClient.purchaseSubscription(
+            this,
+            subscription,
+            offerToken,
+            object : PurchaseResponse {
+                override fun onPurchaseSuccess(productId: String) {
+                    runOnUiThread {
+                        handlePurchaseSuccess(productId)
+                    }
+                }
+
+                override fun onPurchasePending() {
+                    runOnUiThread {
+                        showMessage("Purchase pending...")
+                    }
+                }
+
+                override fun onPurchaseCancelled() {
+                    runOnUiThread {
+                        showMessage("Purchase cancelled")
+                        analyticsManager.sendAnalytics("purchase_cancelled", "${TAG}$sku")
+                    }
+                }
+
+                override fun onPurchaseAlreadyOwned() {
+                    runOnUiThread {
+                        handlePurchaseSuccess(sku)
+                        showMessage("You already own this subscription")
+                    }
+                }
+
+                override fun onPurchaseError(errorCode: Int, errorMessage: String) {
+                    runOnUiThread {
+                        showError("Purchase failed: $errorMessage")
+                        analyticsManager.sendAnalytics("purchase_error", "${TAG}${errorCode}_$sku")
+                        Log.e(TAG, "Purchase error $errorCode: $errorMessage")
+                    }
+                }
+            }
+        )
+    }
+
+    private fun handlePurchaseSuccess(productId: String) {
+        // Update premium status
+        appPreferences.setBoolean(AppPreferences.IS_PREMIUM, true)
+        AdMobManager.isPremium = true
+
+        // Show success message
+        Toast.makeText(
+            this,
+            getString(R.string.purchase_successfully),
+            Toast.LENGTH_SHORT
+        ).show()
+
+        analyticsManager.sendAnalytics("purchase_success", "${TAG}$productId")
+
+        // Navigate to appropriate screen
+        navigateAfterPurchase()
+    }
+
+    private fun navigateAfterPurchase() {
+        val intent = when {
+            fromPro -> {
+                // If coming from pro features, go back
+                null
+            }
+            intent.getBooleanExtra(Constants.FROM_ONBOARDING, false) -> {
+                // If coming from onboarding, go to main
+                Intent(this, MainActivity::class.java)
+            }
+            intent.getBooleanExtra(Constants.IS_FROM_START_TO_PREMIUM, false) -> {
+                // If coming from start, go to main
+                Intent(this, MainActivity::class.java)
+            }
+            else -> {
+                // Default navigation
+                Intent(this, StartActivity::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+            }
+        }
+
+        intent?.let {
+            startActivity(it)
+        }
+        finish()
+    }
+
+    override fun onBackPressed() {
+        when {
+            fromPro -> {
+                super.onBackPressed()
+            }
+            intent.getBooleanExtra(Constants.FROM_ONBOARDING, false) -> {
+                showInterstitialAndNavigate()
+            }
+            intent.getBooleanExtra(Constants.IS_FROM_START_TO_PREMIUM, false) -> {
+                navigateToMain()
+            }
+            else -> {
+                finish()
             }
         }
     }
 
-    private fun loadSubscriptionDetails() {
-        if (appBillingClient != null) {
-            appBillingClient!!.connect(
-                this, object : ConnectResponse {
-                    override fun disconnected() {
-                    }
-
-                    override fun billingUnavailable() {
-                        Log.e("IAP", "billingUnavailable: ")
-                    }
-
-                    override fun developerError() {
-                        Log.e("IAP", "billingUnavailable: ")
-                    }
-
-                    override fun error() {
-                        Log.e("IAP", "error: ")
-                    }
-
-                    override fun featureNotSupported() {
-                        Log.e("IAP", "featureNotSupported: ")
-                    }
-
-                    override fun itemUnavailable() {
-
-                        Log.e("IAP", "itemUnavailable: ")
-                    }
-
-                    override fun ok(subscriptionItems: List<SubscriptionItem>) {
-                        runOnUiThread {
-                            skuDetail = subscriptionItems
-                            for (item in subscriptionItems) {
-                                Log.e("IAP", "ok: ${item.pricingPhase?.formattedPrice ?: ""}")
-
-                                val price = item.pricingPhase?.formattedPrice ?: ""
-                                when (item.sku) {
-                                    Constants.SKU_SUBSCRIPTION_MONTHLY -> { // Monthly (assumed no trial)
-                                        Log.e("IAP", "monthly")
-                                        analyticsManager.sendAnalytics(
-                                            "load",
-                                            TAG + "monthly"
-                                        )
-                                        binding.tvMonthlyPrice.text = price
-                                        binding.tvPrivacy.text =
-                                            getString(R.string.cancel_anytime_at_least_24_hours_before_renewal_without_trial)
-
-                                        // Hide trial text for monthly subscription
-                                        if (!isWeekly) {
-                                            binding.tvFreeTry.visibility = View.GONE
-                                            // Ensure CTA shows Continue when monthly is currently selected
-                                            binding.tvUpgradeNow.text =
-                                                getString(R.string.continuee)
-                                        }
-                                    }
-
-                                    Constants.SKU_SUBSCRIPTION_WEEKLY -> {
-                                        if (item.isTrial == true) {
-                                            Log.e("IAP", "Trail")
-                                            hasTrial = true
-                                            analyticsManager.sendAnalytics(
-                                                "load",
-                                                TAG + "3days_trial"
-                                            )
-
-                                            binding.tvPrivacy.text =
-                                                getString(R.string.cancel_anytime_at_least_24_hours_before_renewal_trial)
-                                            binding.tvFreeTry.text = getString(
-                                                R.string.free_trial_disclaimer,
-                                                price
-                                            )
-                                            binding.tvWeeklyPrice.text = price
-
-
-                                            // Show trial text if weekly is selected
-                                            if (isWeekly) {
-                                                binding.tvFreeTry.visibility = View.VISIBLE
-                                                binding.tvUpgradeNow.text =
-                                                    getString(R.string.start_free_trial)
-                                            }
-
-                                        } else {
-                                            Log.e("IAP", "weekly")
-                                            hasTrial = false
-                                            analyticsManager.sendAnalytics("load", TAG + "weekly")
-                                            binding.tvWeeklyPrice.text = price
-                                            binding.tvPrivacy.text =
-                                                getString(R.string.cancel_anytime_at_least_24_hours_before_renewal_without_trial)
-                                            binding.tvFreeTry.visibility = View.GONE
-                                            if (isWeekly) {
-                                                binding.tvUpgradeNow.text =
-                                                    getString(R.string.subscribe_weekly)
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-
-                    override fun serviceDisconnected() {
-                    }
-
-                    override fun serviceUnavailable() {
-                    }
-                },
-                object : PurchaseResponse {
-                    override fun isAlreadyOwned() {
-                        appPreferences
-                            .setBoolean(AppPreferences.IS_PREMIUM, true)
-                    }
-
-                    override fun userCancelled() {
-                        appPreferences
-                            .setBoolean(AppPreferences.IS_PREMIUM, false)
-                    }
-
-                    override fun ok(productItem: ProductItem) {
-                        appPreferences.setBoolean(AppPreferences.IS_PREMIUM, true)
-
-                        Toast.makeText(
-                            this@PremiumActivity,
-                            getString(R.string.purchase_successfully),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        val intent = Intent(this@PremiumActivity, StartActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                        startActivity(intent)
-                    }
-
-                    override fun error(error: String) {
-                        val dialogBuilder = AlertDialog.Builder(this@PremiumActivity)
-                        dialogBuilder.setMessage(getString(R.string.premium_error_dialog_message))
-                            .setCancelable(true)
-                            .setPositiveButton("Continue") { dialog: DialogInterface?, id: Int -> }
-                            .setNegativeButton("Cancel") { dialog: DialogInterface, id: Int -> dialog.cancel() }
-                        val alert = dialogBuilder.create()
-                        alert.show()
-                    }
-                })
+    private fun showInterstitialAndNavigate() {
+        adMobManager.interstitialAdLoader.showAd(
+            this,
+            AdIds.getInterstitialAdID()
+        ) {
+            navigateToMain()
         }
     }
 
+    private fun navigateToMain() {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    }
 
-    companion object {
-        private const val TAG = "premium_activity_"
+    private fun showError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        Log.e(TAG, message)
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        Log.d(TAG, message)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        billingClient.disconnect()
+        Log.d(TAG, "PremiumActivity destroyed")
     }
 }

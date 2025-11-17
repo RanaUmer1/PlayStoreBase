@@ -1,14 +1,5 @@
 package com.professor.playstorebaseproject.app
 
-/**
-
-Created by Umer Javed
-Senior Android Developer
-Email: umerr8019@gmail.com
-
- */
-
-
 import android.app.Activity
 import android.os.Bundle
 import android.util.Log
@@ -21,11 +12,11 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.mzalogics.ads.domain.core.AdMobManager
 import com.professor.playstorebaseproject.iab.AppBillingClient
-import com.professor.playstorebaseproject.iab.ProductItem
-import com.professor.playstorebaseproject.iab.interfaces.ConnectResponse
-import com.professor.playstorebaseproject.iab.interfaces.PurchaseResponse
-import com.professor.playstorebaseproject.iab.subscription.SubscriptionItem
+import com.professor.playstorebaseproject.iab.ConnectResponse
+import com.professor.playstorebaseproject.iab.SubscriptionItem
+
 import com.professor.playstorebaseproject.remoteconfig.RemoteConfigManager
 import com.professor.playstorebaseproject.utils.StatusBarUtils
 import dagger.hilt.android.HiltAndroidApp
@@ -35,201 +26,200 @@ import javax.inject.Inject
 @HiltAndroidApp
 class Application : MultiDexApplication(), LifecycleObserver {
 
-
     @Inject
     lateinit var appPreferences: AppPreferences
 
-    private lateinit var appBillingClient: AppBillingClient
-    var skuDetail: SubscriptionItem? = null
-    val TAG = "IAP Application Class"
+    private lateinit var billingClient: AppBillingClient
+    private var activeSubscriptions: List<SubscriptionItem> = emptyList()
+
+    companion object {
+        private const val TAG = "ApplicationClass"
+    }
+
     override fun onCreate() {
         super.onCreate()
 
+        // Initialize language settings
+        initializeLanguage()
 
-        val appPreferences = AppPreferences(this)
+        // Initialize billing client
+        initializeBilling()
+
+        // Setup notifications
+        setupNotifications()
+
+        // Setup lifecycle observer
+        ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+
+        // Register activity lifecycle callbacks
+        registerActivityLifecycleCallbacks(createActivityLifecycleCallbacks())
+    }
+
+    private fun initializeLanguage() {
         val savedLang = appPreferences.getString(AppPreferences.LANGUAGE_CODE)
         val currentLang = AppCompatDelegate.getApplicationLocales().toLanguageTags()
 
         if (savedLang.isNotEmpty() && savedLang != currentLang) {
             val localeList = LocaleListCompat.forLanguageTags(savedLang)
             AppCompatDelegate.setApplicationLocales(localeList)
+            Log.d(TAG, "Language set to: $savedLang")
+        }
+    }
+
+    private fun initializeBilling() {
+        billingClient = AppBillingClient.getInstance()
+
+        billingClient.initialize(this, object : ConnectResponse {
+            override fun onConnected(subscriptionItems: List<SubscriptionItem>) {
+                Log.d(TAG, "Billing connected successfully. Subscriptions: ${subscriptionItems.size}")
+                handleSubscriptions(subscriptionItems)
+            }
+
+            override fun onDisconnected() {
+                Log.w(TAG, "Billing service disconnected")
+                // Billing will automatically try to reconnect when needed
+            }
+
+            override fun onError(errorCode: Int, errorMessage: String) {
+                Log.e(TAG, "Billing initialization error: $errorCode - $errorMessage")
+                // Set premium to false on billing errors to be safe
+                appPreferences.setBoolean(AppPreferences.IS_PREMIUM, false)
+                AdMobManager.isPremium = false
+            }
+        })
+    }
+
+    private fun handleSubscriptions(subscriptionItems: List<SubscriptionItem>) {
+        activeSubscriptions = subscriptionItems
+
+        // Check if user has any active subscription
+        val hasActiveSubscription = subscriptionItems.any { it.subscribedItem != null }
+
+        Log.d(TAG, "Subscription check - Has active subscription: $hasActiveSubscription")
+        Log.d(TAG, "Found ${subscriptionItems.size} subscription items")
+
+        subscriptionItems.forEach { subscription ->
+            Log.d(TAG, "Subscription: ${subscription.sku}, Subscribed: ${subscription.subscribedItem != null}")
         }
 
-//        onetimeNotification()
-//        scheduleRepeatingNotification()
+        // Update premium status
+        appPreferences.setBoolean(AppPreferences.IS_PREMIUM, hasActiveSubscription)
+        AdMobManager.isPremium = hasActiveSubscription
 
-        ProcessLifecycleOwner.get().lifecycle.addObserver(this)
-        appBillingClient = AppBillingClient()
-        getSubscriptionDetails()
+        Log.d(TAG, "Premium status updated to: $hasActiveSubscription")
+    }
 
-        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+    private fun setupNotifications() {
+        // Schedule one-time notification
+        scheduleOneTimeNotification()
+
+        // Schedule repeating notification if needed
+        if (RemoteConfigManager.shouldEnableRepeatingNotifications()) {
+            scheduleRepeatingNotification()
+        }
+    }
+
+    private fun scheduleOneTimeNotification() {
+        val workRequest = OneTimeWorkRequestBuilder<NotificationWorker>()
+            .setInitialDelay(
+                RemoteConfigManager.getNotificationInitialDelay(),
+                TimeUnit.HOURS
+            )
+            .build()
+
+        WorkManager.getInstance(this).enqueue(workRequest)
+        Log.d(TAG, "One-time notification scheduled")
+    }
+
+    private fun scheduleRepeatingNotification() {
+        val repeatInterval = RemoteConfigManager.getNotificationRepeatInterval()
+        val workRequest = PeriodicWorkRequestBuilder<NotificationWorker>(
+            repeatInterval,
+            TimeUnit.HOURS
+        ).build()
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            "repeating_notification",
+            ExistingPeriodicWorkPolicy.KEEP,
+            workRequest
+        )
+        Log.d(TAG, "Repeating notification scheduled every $repeatInterval hours")
+    }
+
+    private fun createActivityLifecycleCallbacks(): ActivityLifecycleCallbacks {
+        return object : ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-
-                if (activity.javaClass.simpleName != "AdActivity")
+                // Apply edge-to-edge for all activities except ad activities
+                if (activity.javaClass.simpleName != "AdActivity") {
                     StatusBarUtils.applyEdgeToEdge(activity)
+                }
+                Log.d(TAG, "Activity created: ${activity.javaClass.simpleName}")
             }
 
             override fun onActivityStarted(activity: Activity) {
-
+                // Activity started logic if needed
             }
 
             override fun onActivityResumed(activity: Activity) {
-
+                // Activity resumed logic if needed
             }
 
             override fun onActivityPaused(activity: Activity) {
-
+                // Activity paused logic if needed
             }
 
             override fun onActivityStopped(activity: Activity) {
-
+                // Activity stopped logic if needed
             }
 
             override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
-
+                // Save instance state logic if needed
             }
 
             override fun onActivityDestroyed(activity: Activity) {
-
+                Log.d(TAG, "Activity destroyed: ${activity.javaClass.simpleName}")
             }
-
-        })
+        }
     }
 
-
-    private fun onetimeNotification() {
-        val workRequest = OneTimeWorkRequestBuilder<NotificationWorker>()
-//            .setInitialDelay(
-//                RemoteConfigManager.getNotificationTime(),
-//                TimeUnit.HOURS
-//            ) // optional first delay
-            .build()
-
-        WorkManager.getInstance(applicationContext).enqueue(workRequest)
-
+    /**
+     * Refresh subscription status - can be called from anywhere in the app
+     */
+    fun refreshSubscriptionStatus() {
+        if (billingClient.isReady()) {
+            billingClient.refreshSubscriptionStatus { subscriptions ->
+                handleSubscriptions(subscriptions)
+            }
+        } else {
+            Log.w(TAG, "Billing client not ready for refresh")
+        }
     }
 
-
-    private fun scheduleRepeatingNotification() {
-        val workRequest = PeriodicWorkRequestBuilder<NotificationWorker>(
-            RemoteConfigManager.getNotificationTime(),
-            TimeUnit.HOURS
-        )
-//            .setInitialDelay(
-//                RemoteConfigManager.getNotificationTime(),
-//                TimeUnit.HOURS
-//            ) // optional first delay
-            .build()
-
-        WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
-            "repeating_notification",
-            ExistingPeriodicWorkPolicy.KEEP, // don’t reschedule if already exists
-            workRequest
-        )
+    /**
+     * Check if user has active subscription
+     */
+    fun hasActiveSubscription(): Boolean {
+        return appPreferences.getBoolean(AppPreferences.IS_PREMIUM)
     }
 
+    /**
+     * Get active subscriptions list
+     */
+    fun getActiveSubscriptions(): List<SubscriptionItem> {
+        return activeSubscriptions
+    }
 
-    private fun getSubscriptionDetails() {
-        appBillingClient.connect(this, object : ConnectResponse {
-            override fun disconnected() {
-                Log.d(
-                    TAG,
-                    "InappBilling connection disconnected."
-                )
-            }
+    /**
+     * Get billing client instance
+     */
+    fun getBillingClient(): AppBillingClient {
+        return billingClient
+    }
 
-            override fun billingUnavailable() {
-                Log.d(
-                    TAG,
-                    "InappBilling billing unavailable."
-                )
-            }
-
-            override fun developerError() {
-                Log.d(
-                    TAG,
-                    "InappBilling developer error."
-                )
-            }
-
-            override fun error() {
-                Log.d(TAG, "InappBilling simple error.")
-            }
-
-            override fun featureNotSupported() {
-                Log.d(
-                    TAG,
-                    "InappBilling feature not available."
-                )
-            }
-
-            override fun itemUnavailable() {
-                Log.d(
-                    TAG,
-                    "InappBilling item not available."
-                )
-            }
-
-
-            override fun ok(subscriptionItems: List<SubscriptionItem>) {
-                Log.d(
-                    TAG,
-                    "InappBilling connection ok do other ${subscriptionItems.size}."
-                )
-                for (it in subscriptionItems) {
-                    if (it?.subscribedItem != null) {
-                        skuDetail = it
-                    }
-                }
-
-                if (skuDetail != null) {
-                    if (skuDetail?.subscribedItem != null) {
-                        appPreferences.setBoolean(AppPreferences.IS_PREMIUM, true)
-                    } else {
-                        appPreferences.setBoolean(AppPreferences.IS_PREMIUM, false)
-                    }
-                } else {
-                    appPreferences.setBoolean(AppPreferences.IS_PREMIUM, false)
-                }
-            }
-
-            override fun serviceDisconnected() {
-                Log.d(
-                    TAG,
-                    "InappBilling service disconnected."
-                )
-            }
-
-            override fun serviceUnavailable() {
-                Log.d(
-                    TAG,
-                    "InappBilling service unavailable."
-                )
-            }
-        }, object : PurchaseResponse {
-            val isAlreadyOwned: Unit
-                get() {
-                    // Implement the logic for when the item is already owned.
-                }
-
-            override fun isAlreadyOwned() {
-
-            }
-
-            override fun userCancelled() {
-
-                appPreferences.setBoolean(AppPreferences.IS_PREMIUM, false)
-            }
-
-            override fun ok(productItem: ProductItem) {
-
-            }
-
-            override fun error(error: String) {
-
-            }
-
-
-        })
+    override fun onTerminate() {
+        super.onTerminate()
+        // Clean up billing client
+        billingClient.disconnect()
+        Log.d(TAG, "Application terminated")
     }
 }

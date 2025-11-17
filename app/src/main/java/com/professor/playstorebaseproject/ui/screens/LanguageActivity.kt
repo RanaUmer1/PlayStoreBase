@@ -1,6 +1,5 @@
 package com.professor.playstorebaseproject.ui.screens
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -11,26 +10,26 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mzalogics.ads.domain.ads.native_ad.NativeAdBuilder
 import com.mzalogics.ads.domain.core.AdMobManager
-import com.professor.playstorebaseproject.R
-import com.professor.playstorebaseproject.databinding.ActivityLanguageBinding
-import com.professor.playstorebaseproject.databinding.DialogExitBinding
 import com.professor.playstorebaseproject.Constants
+import com.professor.playstorebaseproject.R
 import com.professor.playstorebaseproject.adapter.LanguageAdapter
 import com.professor.playstorebaseproject.app.AdIds
 import com.professor.playstorebaseproject.app.AnalyticsManager
 import com.professor.playstorebaseproject.app.AppPreferences
-import com.professor.playstorebaseproject.model.LanguageListItem
+import com.professor.playstorebaseproject.databinding.ActivityLanguageBinding
+import com.professor.playstorebaseproject.databinding.DialogExitBinding
+import com.professor.playstorebaseproject.enums.AdState
 import com.professor.playstorebaseproject.model.LanguageModel
 import com.professor.playstorebaseproject.remoteconfig.RemoteConfigManager
-import com.professor.playstorebaseproject.ui.screens.language.LanguageViewModel
-import com.professor.playstorebaseproject.ui.viewmodel.AdState
 import com.professor.playstorebaseproject.ui.viewmodel.LanguageViewModel
-import com.professor.playstorebaseproject.utils.UIState
+import com.professor.playstorebaseproject.utils.NavigationEvent
 import com.professor.playstorebaseproject.utils.setClickWithTimeout
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -64,14 +63,14 @@ class LanguageActivity : AppCompatActivity() {
 
         setupWindowInsets()
         initializeActivity()
-        setupObservers()
+        setupFlowCollectors()
     }
 
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "onResume: Native ad state = ${viewModel.adState.value}")
 
-        // Try to show ad if it wasn't shown yet
+        // Try to show ad if it's loaded but not showing
         if (viewModel.adState.value == AdState.LOADED) {
             showNativeAd()
         } else if (viewModel.adState.value == AdState.FAILED && !nativeAdLoadAttempted) {
@@ -95,51 +94,99 @@ class LanguageActivity : AppCompatActivity() {
         // Preload onboarding ads immediately
         preloadOnboardingAds()
 
-        // Handle native ad based on preloading from StartActivity
+        // Handle native ad
         handleNativeAd()
     }
 
-    private fun setupObservers() {
-        // Observe UI state
-        viewModel.uiState.collect { state ->
-            when (state) {
-                is UIState.Loading -> {
-                    Log.d(TAG, "Loading language data...")
-                    // Show loading state if needed
-                }
-                is UIState.Success -> {
-                    Log.d(TAG, "Language data loaded successfully")
-                    val uiState = state.data
-                    adapter.submitList(uiState.displayList)
-                    updateDoneButton(uiState.selectedLanguage)
-                }
-                is UIState.Error -> {
-                    Log.e(TAG, "Error loading language data: ${state.throwable.message}")
-                    Toast.makeText(this, "Error loading languages", Toast.LENGTH_SHORT).show()
+    private fun setupFlowCollectors() {
+        lifecycleScope.launchWhenStarted {
+            // Collect UI State
+            viewModel.uiState.collectLatest { state ->
+                when (state) {
+                    is com.professor.playstorebaseproject.utils.UIState.Loading -> {
+                        Log.d(TAG, "Loading language data...")
+                        // Show loading state if needed
+                    }
+
+                    is com.professor.playstorebaseproject.utils.UIState.Success -> {
+                        Log.d(TAG, "Language data loaded successfully")
+                        val uiState = state.data
+                        adapter.submitList(uiState.displayList)
+                        updateDoneButton(uiState.selectedLanguage)
+                    }
+
+                    is com.professor.playstorebaseproject.utils.UIState.Error -> {
+                        Log.e(TAG, "Error loading language data: ${state.throwable.message}")
+                        Toast.makeText(
+                            this@LanguageActivity,
+                            "Error loading languages",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
         }
 
-        // Observe selected language
-        viewModel.selectedLanguage.observe(this) { language ->
-            language?.let {
-                updateDoneButton(it)
-                binding.ivDone.isEnabled = true
+        lifecycleScope.launchWhenStarted {
+            // Collect Selected Language
+            viewModel.selectedLanguage.collectLatest { language ->
+                language?.let {
+                    updateDoneButton(it)
+                    binding.ivDone.isEnabled = true
+                }
             }
         }
 
-        // Observe ad state
-        viewModel.adState.observe(this) { state ->
-            Log.d(TAG, "Ad state changed: $state")
-            when (state) {
-                AdState.FAILED -> {
-                    showAdLoadingFailedUI()
+        lifecycleScope.launchWhenStarted {
+            // Collect Ad State
+            viewModel.adState.collectLatest { state ->
+                Log.d(TAG, "Ad state changed: $state")
+                when (state) {
+                    AdState.LOADING -> {
+                        // Show loading state if needed
+                    }
+
+                    AdState.LOADED -> {
+                        // Ad is loaded, will be shown in onResume or immediately
+                        showNativeAd()
+                    }
+
+                    AdState.SHOWING -> {
+                        analyticsManager.sendAnalytics("ad_show_success", "language_native")
+                    }
+
+                    AdState.FAILED -> {
+                        showAdLoadingFailedUI()
+                        analyticsManager.sendAnalytics("ad_show_failed", "language_native")
+                    }
+
+                    AdState.RETRYING -> {
+                        Log.d(TAG, "Retrying ad load...")
+                    }
+
+                    else -> {
+                        // Handle other states
+                    }
                 }
-                AdState.SHOWING -> {
-                    analyticsManager.sendAnalytics("ad_show_success", "language_native")
-                }
-                else -> {
-                    // Handle other states if needed
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            // Collect Navigation Events
+            viewModel.navigationEvent.collectLatest { event ->
+                event?.let {
+                    when (it) {
+                        is NavigationEvent.Onboarding -> {
+                            navigateToOnboarding()
+                        }
+
+                        is NavigationEvent.Main -> {
+                            navigateToMain()
+                        }
+
+                        else -> {}
+                    }
+                    viewModel.clearNavigationEvent()
                 }
             }
         }
@@ -148,7 +195,8 @@ class LanguageActivity : AppCompatActivity() {
     private fun preloadOnboardingAds() {
         Log.d(TAG, "Preloading onboarding ads...")
 
-        adMobManager.nativeAdLoader.loadAd(AdIds.getNativeOnboardingAdId()) { ]
+        // Preload native ads for onboarding screen using loadAd (not loadAndShow)
+        adMobManager.nativeAdLoader.loadAd(AdIds.getNativeOnboardingAdId()) { isLoaded, nativeAd ->
             if (isLoaded) {
                 Log.d(TAG, "Onboarding native ad preloaded successfully")
                 analyticsManager.sendAnalytics("ad_preload_success", "onboarding_native")
@@ -158,7 +206,7 @@ class LanguageActivity : AppCompatActivity() {
             }
         }
 
-        adMobManager.nativeAdLoader.loadAd(AdIds.getFullNativeOnboardingAdId()) { isLoaded ->
+        adMobManager.nativeAdLoader.loadAd(AdIds.getFullNativeOnboardingAdId()) { isLoaded, nativeAd ->
             if (isLoaded) {
                 Log.d(TAG, "Full onboarding native ad preloaded successfully")
                 analyticsManager.sendAnalytics("ad_preload_success", "full_onboarding_native")
@@ -170,12 +218,13 @@ class LanguageActivity : AppCompatActivity() {
     }
 
     private fun handleNativeAd() {
-        Log.d(TAG, "Handling native ad, state from StartActivity: ${adMobManager.nativeAdLoader.isAdLoaded()}")
+        Log.d(TAG, "Handling native ad, preloaded: ${adMobManager.nativeAdLoader.isAdLoaded()}")
 
+        // Check if ad was preloaded from StartActivity
         if (adMobManager.nativeAdLoader.isAdLoaded() && isFromStart) {
             Log.d(TAG, "Showing preloaded native ad from StartActivity")
             analyticsManager.sendAnalytics("ad_show_preloaded", "language_native")
-            showNativeAd()
+            viewModel.updateAdState(AdState.LOADED)
         } else {
             Log.d(TAG, "Loading native ad for LanguageActivity")
             loadNativeAdWithRetry()
@@ -193,75 +242,83 @@ class LanguageActivity : AppCompatActivity() {
 
         Log.d(TAG, "Loading native ad for Language screen (attempt 1)")
 
-        adMobManager.nativeAdLoader.loadAndShow(
-            AdIds.getNativeLanguageAdId(),
-            createNativeAdBuilder(),
-            onAdLoaded = { isLoaded ->
-                if (isLoaded) {
-                    Log.d(TAG, "Native ad loaded and shown successfully")
-                    viewModel.updateAdState(AdState.SHOWING)
-                    analyticsManager.sendAnalytics("ad_show_success", "language_native_loaded")
-                } else {
-                    Log.w(TAG, "Native ad failed to load on first attempt")
-                    viewModel.updateAdState(AdState.FAILED)
-                    analyticsManager.sendAnalytics("ad_show_failed", "language_native_first_attempt")
+        loadNativeAd { success ->
+            if (success) {
+                Log.d(TAG, "Native ad loaded successfully")
+                viewModel.updateAdState(AdState.LOADED)
+                analyticsManager.sendAnalytics("ad_load_success", "language_native_loaded")
+            } else {
+                Log.w(TAG, "Native ad failed to load on first attempt")
+                viewModel.updateAdState(AdState.FAILED)
+                analyticsManager.sendAnalytics("ad_load_failed", "language_native_first_attempt")
 
-                    // Retry after delay
-                    if (maxRetries > 0) {
-                        binding.root.postDelayed({
-                            retryNativeAdLoad(maxRetries - 1)
-                        }, 1000L)
-                    }
+                // Retry after delay
+                if (maxRetries > 0) {
+                    binding.root.postDelayed({
+                        retryNativeAdLoad(maxRetries - 1)
+                    }, 1000L)
                 }
             }
-        )
+        }
     }
 
     private fun retryNativeAdLoad(retryCount: Int) {
         Log.d(TAG, "Retrying native ad load, attempts left: $retryCount")
         viewModel.updateAdState(AdState.RETRYING)
 
-        adMobManager.nativeAdLoader.loadAndShow(
-            AdIds.getNativeLanguageAdId(),
-            createNativeAdBuilder(),
-            onAdLoaded = { isLoaded ->
-                if (isLoaded) {
-                    Log.d(TAG, "Native ad loaded successfully on retry $retryCount")
-                    viewModel.updateAdState(AdState.SHOWING)
-                    analyticsManager.sendAnalytics("ad_show_success", "language_native_retry_$retryCount")
-                } else if (retryCount > 0) {
-                    Log.w(TAG, "Native ad failed on retry $retryCount")
-                    analyticsManager.sendAnalytics("ad_show_failed", "language_native_retry_$retryCount")
+        loadNativeAd { success ->
+            if (success) {
+                Log.d(TAG, "Native ad loaded successfully on retry $retryCount")
+                viewModel.updateAdState(AdState.LOADED)
+                analyticsManager.sendAnalytics(
+                    "ad_load_success",
+                    "language_native_retry_$retryCount"
+                )
+            } else if (retryCount > 0) {
+                Log.w(TAG, "Native ad failed on retry $retryCount")
+                analyticsManager.sendAnalytics(
+                    "ad_load_failed",
+                    "language_native_retry_$retryCount"
+                )
 
-                    binding.root.postDelayed({
-                        if (retryCount == 1) {
-                            loadFallbackNativeAd()
-                        }
-                    }, 1500L)
-                }
+                binding.root.postDelayed({
+                    if (retryCount == 1) {
+                        loadFallbackNativeAd()
+                    }
+                }, 1500L)
             }
-        )
+        }
     }
 
     private fun loadFallbackNativeAd() {
         Log.d(TAG, "Loading fallback native ad")
 
+        loadNativeAd { success ->
+            if (success) {
+                Log.d(TAG, "Fallback native ad loaded successfully")
+                viewModel.updateAdState(AdState.LOADED)
+                analyticsManager.sendAnalytics("ad_load_success", "language_native_fallback")
+            } else {
+                Log.e(TAG, "All native ad loading attempts failed")
+                viewModel.updateAdState(AdState.FAILED)
+                analyticsManager.sendAnalytics("ad_load_failed", "language_native_all_attempts")
+                showAdLoadingFailedUI()
+            }
+        }
+    }
+
+    private fun loadNativeAd(onResult: (Boolean) -> Unit) {
+        val nativeAdBuilder = createNativeAdBuilder()
+
+        // Use loadAndShow for immediate display
         adMobManager.nativeAdLoader.loadAndShow(
             AdIds.getNativeLanguageAdId(),
-            createNativeAdBuilder(),
-            onAdLoaded = { isLoaded ->
-                if (isLoaded) {
-                    Log.d(TAG, "Fallback native ad loaded successfully")
-                    viewModel.updateAdState(AdState.SHOWING)
-                    analyticsManager.sendAnalytics("ad_show_success", "language_native_fallback")
-                } else {
-                    Log.e(TAG, "All native ad loading attempts failed")
-                    viewModel.updateAdState(AdState.FAILED)
-                    analyticsManager.sendAnalytics("ad_show_failed", "language_native_all_attempts")
-                    showAdLoadingFailedUI()
-                }
+            nativeAdBuilder
+        ) { success ->
+            lifecycleScope.launchWhenStarted {
+                onResult(success)
             }
-        )
+        }
     }
 
     private fun showNativeAd() {
@@ -270,26 +327,20 @@ class LanguageActivity : AppCompatActivity() {
             return
         }
 
-        Log.d(TAG, "Showing preloaded native ad")
-        viewModel.updateAdState(AdState.SHOWING)
+        // If we have a preloaded ad, show it using showLoadedAd
+        if (adMobManager.nativeAdLoader.isAdLoaded() && viewModel.adState.value != AdState.SHOWING) {
+            Log.d(TAG, "Showing preloaded native ad")
+            viewModel.updateAdState(AdState.SHOWING)
 
-        val success = adMobManager.nativeAdLoader.showLoadedAd(
-            createNativeAdBuilder().build(),
-            AdIds.getNativeLanguageAdId()
-        )
-
-        if (success) {
-            Log.d(TAG, "Preloaded native ad shown successfully")
-            analyticsManager.sendAnalytics("ad_show_success", "language_native_preloaded")
-            preloadOnboardingAds()
-        } else {
-            Log.w(TAG, "Failed to show preloaded native ad, loading fresh")
-            viewModel.updateAdState(AdState.FAILED)
-            loadNativeAdWithRetry()
+            // FIXED: Use the builder directly, don't call .build() again
+            adMobManager.nativeAdLoader.showLoadedAd(
+                createNativeAdBuilder(), // This is already a NativeAdBuilder object
+                AdIds.getNativeLanguageAdId()
+            )
         }
     }
 
-    private fun createNativeAdBuilder(): NativeAdBuilder.Builder {
+    private fun createNativeAdBuilder(): NativeAdBuilder {
         return NativeAdBuilder.Builder(
             R.layout.native_ad_lang,
             binding.includeAd.adFrame,
@@ -303,6 +354,7 @@ class LanguageActivity : AppCompatActivity() {
             .setCtaTextColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].ctaText)
             .setCtaBgColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].callActionButtonColor)
             .build()
+        // Don't call .build() here - return the Builder directly
     }
 
     private fun showAdLoadingFailedUI() {
@@ -312,40 +364,32 @@ class LanguageActivity : AppCompatActivity() {
 
     private fun loadExitDialog() {
         exitDialog = Dialog(this)
-        val binding = DialogExitBinding.inflate(layoutInflater)
-        exitDialog.setContentView(binding.root)
+        val dialogBinding = DialogExitBinding.inflate(layoutInflater)
+        exitDialog.setContentView(dialogBinding.root)
         exitDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        val layoutParams = binding.root.layoutParams
+        val layoutParams = dialogBinding.root.layoutParams
         val width = resources.displayMetrics.widthPixels
         layoutParams.width = (width * 0.9).toInt()
-        binding.root.layoutParams = layoutParams
+        dialogBinding.root.layoutParams = layoutParams
 
         exitDialog.setCancelable(true)
-        binding.btnNo.setClickWithTimeout { exitDialog.dismiss() }
-        binding.btnYes.setClickWithTimeout {
+        dialogBinding.btnNo.setClickWithTimeout { exitDialog.dismiss() }
+        dialogBinding.btnYes.setClickWithTimeout {
             exitDialog.dismiss()
             finishAffinity()
         }
 
-        loadExitBannerAd(binding)
+        loadExitBannerAd(dialogBinding)
     }
 
-    private fun loadExitBannerAd(binding: DialogExitBinding) {
+    private fun loadExitBannerAd(dialogBinding: DialogExitBinding) {
         adMobManager.bannerAdLoader.showMemRecBanner(
             this,
-            binding.includeAd.adFrame,
-            binding.includeAd.shimmerFbAd,
+            dialogBinding.includeAd.adFrame,
+            dialogBinding.includeAd.shimmerFbAd,
             AdIds.getBannerAdIdExit()
-        ) { isLoaded ->
-            if (isLoaded) {
-                Log.d(TAG, "Exit banner ad loaded successfully")
-                analyticsManager.sendAnalytics("ad_show_success", "exit_banner")
-            } else {
-                Log.w(TAG, "Exit banner ad failed to load")
-                analyticsManager.sendAnalytics("ad_show_failed", "exit_banner")
-            }
-        }
+        )
     }
 
     private fun initClickListeners() {
@@ -365,11 +409,14 @@ class LanguageActivity : AppCompatActivity() {
             }
 
             viewModel.selectedLanguage.value?.let { selectedLanguage ->
-                analyticsManager.sendAnalytics("language_selected", "${selectedLanguage.name} (${selectedLanguage.code})")
+                analyticsManager.sendAnalytics(
+                    "language_selected",
+                    "${selectedLanguage.name} (${selectedLanguage.code})"
+                )
             }
 
             viewModel.saveSelectedLanguage()
-            navigateToNextScreen()
+            viewModel.navigateToNextScreen()
         }
     }
 
@@ -390,7 +437,6 @@ class LanguageActivity : AppCompatActivity() {
                 2 -> R.string.done_in_english
                 3 -> R.string.done_in_spanish
                 4 -> R.string.done_in_indonesian
-                5 -> R.string.done_in_french
                 6 -> R.string.done_in_persian
                 7 -> R.string.done_in_hindi
                 8 -> R.string.done_in_russian
@@ -402,19 +448,18 @@ class LanguageActivity : AppCompatActivity() {
         )
     }
 
-    private fun navigateToNextScreen() {
-        Log.d(TAG, "Navigating to next screen")
+    private fun navigateToOnboarding() {
+        analyticsManager.sendAnalytics("navigation", "language_to_onboarding")
+        startActivity(Intent(this, OnboardingActivity::class.java))
+        finish()
+    }
 
-        if (viewModel.shouldShowOnboarding()) {
-            analyticsManager.sendAnalytics("navigation", "language_to_onboarding")
-            startActivity(Intent(this, OnboardingActivity::class.java))
-        } else {
-            analyticsManager.sendAnalytics("navigation", "language_to_main")
-            startActivity(
-                Intent(this, MainActivity::class.java)
-                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-            )
-        }
+    private fun navigateToMain() {
+        analyticsManager.sendAnalytics("navigation", "language_to_main")
+        startActivity(
+            Intent(this, MainActivity::class.java)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+        )
         finish()
     }
 
@@ -429,6 +474,9 @@ class LanguageActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d(TAG, "onDestroy: Final ad state = ${viewModel.adState.value}")
-        analyticsManager.sendAnalytics("activity_destroyed", "language_ad_state_${viewModel.adState.value}")
+        analyticsManager.sendAnalytics(
+            "activity_destroyed",
+            "language_ad_state_${viewModel.adState.value}"
+        )
     }
 }

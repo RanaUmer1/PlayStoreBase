@@ -1,11 +1,14 @@
 package com.professor.playstorebaseproject.ui.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.professor.playstorebaseproject.R
 import com.professor.playstorebaseproject.app.AppPreferences
+import com.professor.playstorebaseproject.enums.AdState
 import com.professor.playstorebaseproject.model.LanguageListItem
 import com.professor.playstorebaseproject.model.LanguageModel
+import com.professor.playstorebaseproject.utils.NavigationEvent
 import com.professor.playstorebaseproject.utils.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LanguageViewModel @Inject constructor(
-    private val appPreferences: AppPreferences
+    private val appPreferences: AppPreferences,
+    private val application: Application
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<UIState<LanguageUiState>>(UIState.Loading)
@@ -29,6 +33,9 @@ class LanguageViewModel @Inject constructor(
     private val _adState = MutableStateFlow(AdState.NOT_LOADED)
     val adState: StateFlow<AdState> = _adState.asStateFlow()
 
+    private val _navigationEvent = MutableStateFlow<NavigationEvent?>(null)
+    val navigationEvent: StateFlow<NavigationEvent?> = _navigationEvent.asStateFlow()
+
     init {
         loadLanguageData()
     }
@@ -39,13 +46,14 @@ class LanguageViewModel @Inject constructor(
             try {
                 val languages = getAvailableLanguages()
                 val displayList = createDisplayList(languages)
+                val defaultLanguage = getDefaultLanguage(languages)
                 val uiState = LanguageUiState(
                     languages = languages,
                     displayList = displayList,
-                    selectedLanguage = getDefaultLanguage(languages)
+                    selectedLanguage = defaultLanguage
                 )
                 _uiState.value = UIState.Success(uiState)
-                _selectedLanguage.value = uiState.selectedLanguage
+                _selectedLanguage.value = defaultLanguage
             } catch (e: Exception) {
                 _uiState.value = UIState.Error(e)
             }
@@ -79,18 +87,60 @@ class LanguageViewModel @Inject constructor(
         return !appPreferences.getBoolean(AppPreferences.IS_LANGUAGE_SELECTED)
     }
 
+    fun navigateToNextScreen() {
+        _navigationEvent.value = if (shouldShowOnboarding()) {
+            NavigationEvent.Onboarding
+        } else {
+            NavigationEvent.Main
+        }
+    }
+
+    fun clearNavigationEvent() {
+        _navigationEvent.value = null
+    }
+
     private fun getAvailableLanguages(): List<LanguageModel> {
         return listOf(
-            LanguageModel(1, R.drawable.flag_arabic, "Arabic", "ar"),
-            LanguageModel(2, R.drawable.flag_english, "English", "en"),
-            LanguageModel(3, R.drawable.flag_spanish, "Spanish", "es"),
-            LanguageModel(4, R.drawable.flag_indonesia, "Indonesian", "in"),
-            LanguageModel(6, R.drawable.flag_persian, "Persian", "fa"),
-            LanguageModel(7, R.drawable.flag_hindi, "Hindi", "hi"),
-            LanguageModel(8, R.drawable.flag_russia, "Russian", "ru"),
-            LanguageModel(9, R.drawable.flag_portuguese, "Portuguese", "pt"),
-            LanguageModel(10, R.drawable.flag_bangla, "Bengali", "bn"),
-            LanguageModel(11, R.drawable.flag_turkey, "Turkish", "tr")
+            LanguageModel(1, R.drawable.flag_arabic, application.getString(R.string.arabic), "ar"),
+            LanguageModel(
+                2,
+                R.drawable.flag_english,
+                application.getString(R.string.english),
+                "en"
+            ),
+            LanguageModel(
+                3,
+                R.drawable.flag_spanish,
+                application.getString(R.string.spanish),
+                "es"
+            ),
+            LanguageModel(
+                4,
+                R.drawable.flag_indonesia,
+                application.getString(R.string.indonesian),
+                "in"
+            ),
+            LanguageModel(
+                6,
+                R.drawable.flag_persian,
+                application.getString(R.string.persian),
+                "fa"
+            ),
+            LanguageModel(7, R.drawable.flag_hindi, application.getString(R.string.hindi), "hi"),
+            LanguageModel(8, R.drawable.flag_russia, application.getString(R.string.russian), "ru"),
+            LanguageModel(
+                9,
+                R.drawable.flag_portuguese,
+                application.getString(R.string.portuguese),
+                "pt"
+            ),
+            LanguageModel(
+                10,
+                R.drawable.flag_bangla,
+                application.getString(R.string.bengali),
+                "bn"
+            ),
+            LanguageModel(11, R.drawable.flag_turkey, application.getString(R.string.turkish), "tr")
         )
     }
 
@@ -99,8 +149,8 @@ class LanguageViewModel @Inject constructor(
         val savedLanguage = languages.find { it.id == savedLanguageId }
 
         val deviceLangCode = Locale.getDefault().language
-        return savedLanguage ?: languages.find { it.code == deviceLangCode }  
-            ?: languages.find { it.code == "en" } ?: languages.first()
+        return savedLanguage ?: languages.find { it.code == deviceLangCode }
+        ?: languages.find { it.code == "en" } ?: languages.first()
     }
 
     private fun createDisplayList(languages: List<LanguageModel>): List<LanguageListItem> {
@@ -126,6 +176,6 @@ data class LanguageUiState(
     val selectedLanguage: LanguageModel
 )
 
-enum class AdState {
-    NOT_LOADED, LOADING, LOADED, SHOWING, FAILED, RETRYING
-}
+
+
+

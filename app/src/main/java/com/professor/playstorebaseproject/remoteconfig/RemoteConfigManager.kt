@@ -30,6 +30,9 @@ object RemoteConfigManager {
     private var showAnimalNativeMedia: Boolean = true
     private var disableAds: Boolean = false
     private var notificationTime = 3L
+    private var notificationInitialDelay = 24L
+    private var notificationRepeatInterval = 24L
+    private var enableRepeatingNotifications = false
 
     private val firebaseRemoteConfig: FirebaseRemoteConfig by lazy {
         FirebaseRemoteConfig.getInstance().apply {
@@ -93,8 +96,15 @@ object RemoteConfigManager {
         disableAds =
             firebaseRemoteConfig.getBoolean(RemoteConfigKeys.DISABLE_ADS)
 
-        notificationTime =
-            firebaseRemoteConfig.getLong(RemoteConfigKeys.NOTIFICATION_TIME)
+        notificationInitialDelay =
+            firebaseRemoteConfig.getLong(RemoteConfigKeys.NOTIFICATION_DELAY_TIME)
+
+        notificationRepeatInterval =
+            firebaseRemoteConfig.getLong(RemoteConfigKeys.NOTIFICATION_REPEAT_INTERVAL)
+
+        enableRepeatingNotifications =
+            firebaseRemoteConfig.getBoolean(RemoteConfigKeys.ENABLE_REPEATING_NOTIFICATIONS)
+
         //Assets RemoteConfig
 
         assetsConfigData = AssetsConfigData(
@@ -110,9 +120,19 @@ object RemoteConfigManager {
     fun getLangNativeMedia() = showLangNativeMedia
     fun getOnBoardingNativeMedia() = showOnboardingNativeMedia
     fun getAnimalNativeMedia() = showAnimalNativeMedia
-    fun getNotificationTime() = notificationTime
+
     fun getDisableAds() = disableAds
+
     fun getAnimalSoundSplashAd(): Int = animalSoundSplashAd
+
+
+    fun getNotificationInitialDelay(): Long = notificationInitialDelay // Default 24 hours
+
+
+    fun getNotificationRepeatInterval(): Long =
+        notificationRepeatInterval
+
+    fun shouldEnableRepeatingNotifications(): Boolean = enableRepeatingNotifications
 
 
 }

@@ -10,6 +10,9 @@ object RemoteConfigKeys {
     const val SHOW_ANIMAL_NATIVE_MEDIA = "show_animal_native_media"
     const val SHOW_ONBOARDING_NATIVE_MEDIA = "show_onboarding_native_media"
     const val DISABLE_ADS = "disable_ads"
+    const val NOTIFICATION_DELAY_TIME = "notification_delay_time"
+    const val NOTIFICATION_REPEAT_INTERVAL = "notification_time"
+    const val ENABLE_REPEATING_NOTIFICATIONS = "enable_repeating_notifications"
     const val NOTIFICATION_TIME = "notification_time"
     const val WALLPAPERS_JSON = "wallpapers_json"
 

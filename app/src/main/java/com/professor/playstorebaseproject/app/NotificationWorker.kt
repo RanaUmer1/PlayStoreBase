@@ -18,7 +18,8 @@ import androidx.work.WorkerParameters
 import com.professor.playstorebaseproject.R
 import com.professor.playstorebaseproject.ui.screens.MainActivity
 
-class NotificationWorker(
+class
+NotificationWorker(
     var context: Context,
     workerParams: WorkerParameters
 ) : Worker(context, workerParams) {
