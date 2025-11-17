@@ -7,6 +7,8 @@ import com.google.gson.Gson
 import com.professor.playstorebaseproject.R
 import com.professor.playstorebaseproject.remoteconfig.data.AdsConfigData
 import com.professor.playstorebaseproject.remoteconfig.data.AssetsConfigData
+import dagger.Provides
+import javax.inject.Singleton
 
 /**
 
@@ -15,6 +17,7 @@ Senior Android Developer
 Email: umerr8019@gmail.com
 
  */
+
 
 object RemoteConfigManager {
     private val TAG = RemoteConfigManager::class.java.simpleName

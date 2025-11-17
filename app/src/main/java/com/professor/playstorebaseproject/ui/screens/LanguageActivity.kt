@@ -8,11 +8,9 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mzalogics.ads.domain.ads.native_ad.NativeAdBuilder
 import com.mzalogics.ads.domain.core.AdMobManager
@@ -27,16 +25,19 @@ import com.professor.playstorebaseproject.app.AppPreferences
 import com.professor.playstorebaseproject.model.LanguageListItem
 import com.professor.playstorebaseproject.model.LanguageModel
 import com.professor.playstorebaseproject.remoteconfig.RemoteConfigManager
+import com.professor.playstorebaseproject.ui.screens.language.LanguageViewModel
+import com.professor.playstorebaseproject.ui.viewmodel.AdState
+import com.professor.playstorebaseproject.ui.viewmodel.LanguageViewModel
+import com.professor.playstorebaseproject.utils.UIState
 import com.professor.playstorebaseproject.utils.setClickWithTimeout
-
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class LanguageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLanguageBinding
     private lateinit var adapter: LanguageAdapter
+    private val viewModel: LanguageViewModel by viewModels()
 
     @Inject
     lateinit var adMobManager: AdMobManager
@@ -46,37 +47,267 @@ class LanguageActivity : AppCompatActivity() {
 
     @Inject
     lateinit var appPreferences: AppPreferences
-    lateinit var exitDialog: Dialog
-    var isFromStart = false
 
-    //    private var mSelectedLanguage = "en"
+    private lateinit var exitDialog: Dialog
+    private var isFromStart = false
+    private var nativeAdLoadAttempted = false
 
-    private val TAG = "language_activity"
+    private val TAG = "LanguageActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLanguageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Log.e(TAG, "onCreate: ")
+        Log.d(TAG, "onCreate: LanguageActivity started")
         analyticsManager.sendAnalytics(AnalyticsManager.Action.OPENED, TAG)
 
+        setupWindowInsets()
+        initializeActivity()
+        setupObservers()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume: Native ad state = ${viewModel.adState.value}")
+
+        // Try to show ad if it wasn't shown yet
+        if (viewModel.adState.value == AdState.LOADED) {
+            showNativeAd()
+        } else if (viewModel.adState.value == AdState.FAILED && !nativeAdLoadAttempted) {
+            loadNativeAdWithRetry()
+        }
+    }
+
+    private fun setupWindowInsets() {
         val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
-        windowInsetsController.isAppearanceLightStatusBars =
-            true // Light icons = false, Dark icons = true
+        windowInsetsController.isAppearanceLightStatusBars = true
+    }
 
-
+    private fun initializeActivity() {
         isFromStart = intent.getBooleanExtra(Constants.IS_FROM_START, false)
-        Log.e("TAG", "inter ad loadind lang: ${AdIds.getInterstitialWelcomeAdId()}")
-//        adMobManager.interstitialAdLoader.loadAd(AdIds.getInterstitialWelcomeAdId(), null)
-        loadNativeAd()
+        Log.d(TAG, "isFromStart: $isFromStart")
+
         initAdapter()
         initClickListeners()
         loadExitDialog()
 
+        // Preload onboarding ads immediately
+        preloadOnboardingAds()
 
-//      binding.ivDone.isEnabled = adapter.selectedLanguage != null
+        // Handle native ad based on preloading from StartActivity
+        handleNativeAd()
+    }
+
+    private fun setupObservers() {
+        // Observe UI state
+        viewModel.uiState.collect { state ->
+            when (state) {
+                is UIState.Loading -> {
+                    Log.d(TAG, "Loading language data...")
+                    // Show loading state if needed
+                }
+                is UIState.Success -> {
+                    Log.d(TAG, "Language data loaded successfully")
+                    val uiState = state.data
+                    adapter.submitList(uiState.displayList)
+                    updateDoneButton(uiState.selectedLanguage)
+                }
+                is UIState.Error -> {
+                    Log.e(TAG, "Error loading language data: ${state.throwable.message}")
+                    Toast.makeText(this, "Error loading languages", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        // Observe selected language
+        viewModel.selectedLanguage.observe(this) { language ->
+            language?.let {
+                updateDoneButton(it)
+                binding.ivDone.isEnabled = true
+            }
+        }
+
+        // Observe ad state
+        viewModel.adState.observe(this) { state ->
+            Log.d(TAG, "Ad state changed: $state")
+            when (state) {
+                AdState.FAILED -> {
+                    showAdLoadingFailedUI()
+                }
+                AdState.SHOWING -> {
+                    analyticsManager.sendAnalytics("ad_show_success", "language_native")
+                }
+                else -> {
+                    // Handle other states if needed
+                }
+            }
+        }
+    }
+
+    private fun preloadOnboardingAds() {
+        Log.d(TAG, "Preloading onboarding ads...")
+
+        adMobManager.nativeAdLoader.loadAd(AdIds.getNativeOnboardingAdId()) { ]
+            if (isLoaded) {
+                Log.d(TAG, "Onboarding native ad preloaded successfully")
+                analyticsManager.sendAnalytics("ad_preload_success", "onboarding_native")
+            } else {
+                Log.w(TAG, "Failed to preload onboarding native ad")
+                analyticsManager.sendAnalytics("ad_preload_failed", "onboarding_native")
+            }
+        }
+
+        adMobManager.nativeAdLoader.loadAd(AdIds.getFullNativeOnboardingAdId()) { isLoaded ->
+            if (isLoaded) {
+                Log.d(TAG, "Full onboarding native ad preloaded successfully")
+                analyticsManager.sendAnalytics("ad_preload_success", "full_onboarding_native")
+            } else {
+                Log.w(TAG, "Failed to preload full onboarding native ad")
+                analyticsManager.sendAnalytics("ad_preload_failed", "full_onboarding_native")
+            }
+        }
+    }
+
+    private fun handleNativeAd() {
+        Log.d(TAG, "Handling native ad, state from StartActivity: ${adMobManager.nativeAdLoader.isAdLoaded()}")
+
+        if (adMobManager.nativeAdLoader.isAdLoaded() && isFromStart) {
+            Log.d(TAG, "Showing preloaded native ad from StartActivity")
+            analyticsManager.sendAnalytics("ad_show_preloaded", "language_native")
+            showNativeAd()
+        } else {
+            Log.d(TAG, "Loading native ad for LanguageActivity")
+            loadNativeAdWithRetry()
+        }
+    }
+
+    private fun loadNativeAdWithRetry(maxRetries: Int = 2) {
+        if (nativeAdLoadAttempted) {
+            Log.d(TAG, "Native ad load already attempted, skipping retry")
+            return
+        }
+
+        nativeAdLoadAttempted = true
+        viewModel.updateAdState(AdState.LOADING)
+
+        Log.d(TAG, "Loading native ad for Language screen (attempt 1)")
+
+        adMobManager.nativeAdLoader.loadAndShow(
+            AdIds.getNativeLanguageAdId(),
+            createNativeAdBuilder(),
+            onAdLoaded = { isLoaded ->
+                if (isLoaded) {
+                    Log.d(TAG, "Native ad loaded and shown successfully")
+                    viewModel.updateAdState(AdState.SHOWING)
+                    analyticsManager.sendAnalytics("ad_show_success", "language_native_loaded")
+                } else {
+                    Log.w(TAG, "Native ad failed to load on first attempt")
+                    viewModel.updateAdState(AdState.FAILED)
+                    analyticsManager.sendAnalytics("ad_show_failed", "language_native_first_attempt")
+
+                    // Retry after delay
+                    if (maxRetries > 0) {
+                        binding.root.postDelayed({
+                            retryNativeAdLoad(maxRetries - 1)
+                        }, 1000L)
+                    }
+                }
+            }
+        )
+    }
+
+    private fun retryNativeAdLoad(retryCount: Int) {
+        Log.d(TAG, "Retrying native ad load, attempts left: $retryCount")
+        viewModel.updateAdState(AdState.RETRYING)
+
+        adMobManager.nativeAdLoader.loadAndShow(
+            AdIds.getNativeLanguageAdId(),
+            createNativeAdBuilder(),
+            onAdLoaded = { isLoaded ->
+                if (isLoaded) {
+                    Log.d(TAG, "Native ad loaded successfully on retry $retryCount")
+                    viewModel.updateAdState(AdState.SHOWING)
+                    analyticsManager.sendAnalytics("ad_show_success", "language_native_retry_$retryCount")
+                } else if (retryCount > 0) {
+                    Log.w(TAG, "Native ad failed on retry $retryCount")
+                    analyticsManager.sendAnalytics("ad_show_failed", "language_native_retry_$retryCount")
+
+                    binding.root.postDelayed({
+                        if (retryCount == 1) {
+                            loadFallbackNativeAd()
+                        }
+                    }, 1500L)
+                }
+            }
+        )
+    }
+
+    private fun loadFallbackNativeAd() {
+        Log.d(TAG, "Loading fallback native ad")
+
+        adMobManager.nativeAdLoader.loadAndShow(
+            AdIds.getNativeLanguageAdId(),
+            createNativeAdBuilder(),
+            onAdLoaded = { isLoaded ->
+                if (isLoaded) {
+                    Log.d(TAG, "Fallback native ad loaded successfully")
+                    viewModel.updateAdState(AdState.SHOWING)
+                    analyticsManager.sendAnalytics("ad_show_success", "language_native_fallback")
+                } else {
+                    Log.e(TAG, "All native ad loading attempts failed")
+                    viewModel.updateAdState(AdState.FAILED)
+                    analyticsManager.sendAnalytics("ad_show_failed", "language_native_all_attempts")
+                    showAdLoadingFailedUI()
+                }
+            }
+        )
+    }
+
+    private fun showNativeAd() {
+        if (isFinishing || isDestroyed) {
+            Log.w(TAG, "Activity finishing, skipping ad show")
+            return
+        }
+
+        Log.d(TAG, "Showing preloaded native ad")
+        viewModel.updateAdState(AdState.SHOWING)
+
+        val success = adMobManager.nativeAdLoader.showLoadedAd(
+            createNativeAdBuilder().build(),
+            AdIds.getNativeLanguageAdId()
+        )
+
+        if (success) {
+            Log.d(TAG, "Preloaded native ad shown successfully")
+            analyticsManager.sendAnalytics("ad_show_success", "language_native_preloaded")
+            preloadOnboardingAds()
+        } else {
+            Log.w(TAG, "Failed to show preloaded native ad, loading fresh")
+            viewModel.updateAdState(AdState.FAILED)
+            loadNativeAdWithRetry()
+        }
+    }
+
+    private fun createNativeAdBuilder(): NativeAdBuilder.Builder {
+        return NativeAdBuilder.Builder(
+            R.layout.native_ad_lang,
+            binding.includeAd.adFrame,
+            binding.includeAd.shimmerFbAd
+        ).setShowMedia(RemoteConfigManager.getLangNativeMedia())
+            .setShowBody(true)
+            .setIconEnabled(true)
+            .setShowRating(false)
+            .setAdTitleColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].heading)
+            .setAdBodyColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].description)
+            .setCtaTextColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].ctaText)
+            .setCtaBgColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].callActionButtonColor)
+            .build()
+    }
+
+    private fun showAdLoadingFailedUI() {
+        binding.includeAd.adFrame.visibility = android.view.View.GONE
+        binding.includeAd.shimmerFbAd.visibility = android.view.View.GONE
     }
 
     private fun loadExitDialog() {
@@ -84,7 +315,6 @@ class LanguageActivity : AppCompatActivity() {
         val binding = DialogExitBinding.inflate(layoutInflater)
         exitDialog.setContentView(binding.root)
         exitDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        loadExitBannerAd(binding)
 
         val layoutParams = binding.root.layoutParams
         val width = resources.displayMetrics.widthPixels
@@ -97,6 +327,8 @@ class LanguageActivity : AppCompatActivity() {
             exitDialog.dismiss()
             finishAffinity()
         }
+
+        loadExitBannerAd(binding)
     }
 
     private fun loadExitBannerAd(binding: DialogExitBinding) {
@@ -105,101 +337,52 @@ class LanguageActivity : AppCompatActivity() {
             binding.includeAd.adFrame,
             binding.includeAd.shimmerFbAd,
             AdIds.getBannerAdIdExit()
-        )
-    }
-
-    private fun loadNativeAd() {
-
-
-        if (adMobManager.nativeAdLoader.isAdLoaded() && isFromStart) {
-            Log.e("Monetization", "onCreate: show native ad")
-            adMobManager.nativeAdLoader.showLoadedAd(
-                NativeAdBuilder.Builder(
-                    R.layout.native_ad_lang,
-                    binding.includeAd.adFrame,
-                    binding.includeAd.shimmerFbAd
-                ).setShowMedia(RemoteConfigManager.getLangNativeMedia()).setShowBody(true)
-                    .setIconEnabled(true)
-                    .setShowRating(false)
-                    .setAdTitleColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].heading)
-                    .setAdBodyColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].description)
-                    .setCtaTextColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].ctaText)
-                    .setCtaBgColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].callActionButtonColor)
-                    //.setAdBgColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].backgroundColor)
-                    .build(), AdIds.getNativeLanguageAdId()
-            )
-
-            adMobManager.nativeAdLoader.loadAd(AdIds.getNativeOnboardingAdId())
-            adMobManager.nativeAdLoader.loadAd(AdIds.getFullNativeOnboardingAdId())
-        } else {
-            Log.e("Monetization", "load native ad Language screen: ")
-            adMobManager.nativeAdLoader.loadAndShow(
-                AdIds.getNativeLanguageAdId(), NativeAdBuilder.Builder(
-                    R.layout.native_ad_lang,
-                    binding.includeAd.adFrame,
-                    binding.includeAd.shimmerFbAd
-                ).setShowMedia(RemoteConfigManager.getLangNativeMedia())
-                    .setShowBody(true)
-                    .setIconEnabled(true)
-                    .setShowRating(false)
-                    .setAdTitleColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].heading)
-                    .setAdBodyColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].description)
-                    .setCtaTextColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].ctaText)
-                    .setCtaBgColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].callActionButtonColor)
-                    //.setAdBgColor(RemoteConfigManager.getAdsConfig().nativeConfig[0].backgroundColor)
-                    .build()
-            ) {}
-
-
+        ) { isLoaded ->
+            if (isLoaded) {
+                Log.d(TAG, "Exit banner ad loaded successfully")
+                analyticsManager.sendAnalytics("ad_show_success", "exit_banner")
+            } else {
+                Log.w(TAG, "Exit banner ad failed to load")
+                analyticsManager.sendAnalytics("ad_show_failed", "exit_banner")
+            }
         }
     }
 
     private fun initClickListeners() {
-
-
         binding.ivDone.setClickWithTimeout {
-            binding.ivDone.isEnabled = false // Prevent double taps
+            binding.ivDone.isEnabled = false
 
             analyticsManager.sendAnalytics(
                 AnalyticsManager.Action.CLICKED, "btn_select_language_done"
             )
 
-            val selectedLanguage = adapter.selectedLanguageModel
-            if (selectedLanguage == null) {
+            if (!viewModel.isLanguageSelected()) {
                 Toast.makeText(
                     this, getString(R.string.please_select_a_language), Toast.LENGTH_SHORT
                 ).show()
-//                binding.ivDone.isEnabled = true
+                binding.ivDone.isEnabled = true
                 return@setClickWithTimeout
             }
 
-            val savedLanguageId = appPreferences.getInt(AppPreferences.LANGUAGE_ID)
-            if (selectedLanguage.id != savedLanguageId) {
-                appPreferences.setInt(AppPreferences.LANGUAGE_ID, selectedLanguage.id)
-                appPreferences.setString(AppPreferences.LANGUAGE_CODE, selectedLanguage.code)
+            viewModel.selectedLanguage.value?.let { selectedLanguage ->
+                analyticsManager.sendAnalytics("language_selected", "${selectedLanguage.name} (${selectedLanguage.code})")
             }
 
-            navigate()
+            viewModel.saveSelectedLanguage()
+            navigateToNextScreen()
         }
     }
 
-    private fun navigate() {
-
-        if (!appPreferences.getBoolean(AppPreferences.IS_LANGUAGE_SELECTED)) {
-            appPreferences.setBoolean(AppPreferences.IS_LANGUAGE_SELECTED, true)
-            startActivity(Intent(this, OnboardingActivity::class.java))
-            finish()
-        } else {
-            startActivity(
-                Intent(
-                    this, MainActivity::class.java
-                ).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            )
+    private fun initAdapter() {
+        adapter = LanguageAdapter(null) { languageItem ->
+            viewModel.selectLanguage(languageItem.model)
         }
 
+        binding.rvLanguage.layoutManager = LinearLayoutManager(this)
+        binding.rvLanguage.adapter = adapter
     }
 
-    private fun onLanguageSelected(selectedLang: LanguageModel) {
+    private fun updateDoneButton(selectedLang: LanguageModel) {
         binding.ivDone.isEnabled = true
         binding.btnDone.text = getString(
             when (selectedLang.id) {
@@ -219,158 +402,33 @@ class LanguageActivity : AppCompatActivity() {
         )
     }
 
-//    private fun initAdapter() {
-//        val savedLanguageId = appPreferences.getInt(AppPreferences.LANGUAGE_ID)
-//        val selectedLanguage = getLanguageList(this).find { it.id == savedLanguageId }
-//        analyticsManager.sendAnalytics("selected", "${selectedLanguage?.name}")
-//        adapter = LanguageAdapter(selectedLanguage) {
-//            onLanguageSelected(it)
-//        }
-//
-//        adapter.submitList(getLanguageList(this))
-//        binding.rvLanguage.layoutManager = LinearLayoutManager(this)
-//        binding.rvLanguage.adapter = adapter
-//    }
+    private fun navigateToNextScreen() {
+        Log.d(TAG, "Navigating to next screen")
 
-
-    private fun initAdapter() {
-        val languageList = getLanguageList(this)
-        val savedLanguageId = appPreferences.getInt(AppPreferences.LANGUAGE_ID)
-        val savedLanguage = languageList.find { it.id == savedLanguageId }
-
-        val deviceLangCode = Locale.getDefault().language
-        val defaultLanguage = savedLanguage ?: languageList.find { it.code == deviceLangCode }  ?: languageList.find { it.code == "en" } // fallback to English
-
-
-        val displayList = mutableListOf<LanguageListItem>()
-
-        defaultLanguage?.let {
-            displayList.add(LanguageListItem.Header("Default"))
-            displayList.add(LanguageListItem.Language(it))
+        if (viewModel.shouldShowOnboarding()) {
+            analyticsManager.sendAnalytics("navigation", "language_to_onboarding")
+            startActivity(Intent(this, OnboardingActivity::class.java))
+        } else {
+            analyticsManager.sendAnalytics("navigation", "language_to_main")
+            startActivity(
+                Intent(this, MainActivity::class.java)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            )
         }
-
-        displayList.add(LanguageListItem.Header("All Languages"))
-        languageList.filterNot { it == defaultLanguage }
-            .forEach { displayList.add(LanguageListItem.Language(it)) }
-
-        adapter = LanguageAdapter(defaultLanguage) {
-            onLanguageSelected(it.model)
-        }
-
-        binding.rvLanguage.layoutManager = LinearLayoutManager(this)
-        binding.rvLanguage.adapter = adapter
-        adapter.submitList(displayList)
-
-        onLanguageSelected(defaultLanguage ?: languageList.first())
-    }
-
-
-    private fun getLanguageList(activity: Activity): List<LanguageModel> {
-        val languageModelList: MutableList<LanguageModel> = ArrayList()
-        languageModelList.add(
-            LanguageModel(
-                1,
-                R.drawable.flag_arabic,
-                activity.resources.getString(R.string.arabic),
-                "ar",
-
-                )
-        )
-        languageModelList.add(
-            LanguageModel(
-                2,
-                R.drawable.flag_english,
-                activity.resources.getString(R.string.english),
-                "en",
-
-                )
-        )
-
-        languageModelList.add(
-            LanguageModel(
-                3,
-                R.drawable.flag_spanish,
-                activity.resources.getString(R.string.spanish),
-                "es",
-
-                )
-        )
-
-
-        languageModelList.add(
-            LanguageModel(
-                4,
-                R.drawable.flag_indonesia,
-                activity.resources.getString(R.string.indonesian),
-                "in",
-
-                )
-        )
-        languageModelList.add(
-            LanguageModel(
-                6,
-                R.drawable.flag_persian,
-                activity.resources.getString(R.string.persian),
-                "fa",
-
-                )
-        )
-        languageModelList.add(
-            LanguageModel(
-                7,
-                R.drawable.flag_hindi,
-                activity.resources.getString(R.string.hindi),
-                "hi",
-
-                )
-        )
-
-        languageModelList.add(
-            LanguageModel(
-                8,
-                R.drawable.flag_russia,
-                activity.resources.getString(R.string.russian),
-                "ru",
-
-                )
-        )
-        languageModelList.add(
-            LanguageModel(
-                9,
-                R.drawable.flag_portuguese,
-                activity.resources.getString(R.string.portuguese),
-                "pt",
-
-                )
-        )
-        languageModelList.add(
-            LanguageModel(
-                10,
-                R.drawable.flag_bangla,
-                activity.resources.getString(R.string.bengali),
-                "bn",
-
-                )
-        )
-        languageModelList.add(
-            LanguageModel(
-                11,
-                R.drawable.flag_turkey,
-                activity.resources.getString(R.string.turkish),
-                "tr",
-
-                )
-        )
-
-        return languageModelList
+        finish()
     }
 
     override fun onBackPressed() {
         if (isFromStart) {
             exitDialog.show()
         } else {
-            finish()
+            super.onBackPressed()
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy: Final ad state = ${viewModel.adState.value}")
+        analyticsManager.sendAnalytics("activity_destroyed", "language_ad_state_${viewModel.adState.value}")
+    }
 }
