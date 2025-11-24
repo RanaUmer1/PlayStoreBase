@@ -33,5 +33,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "PlaystoreBaseProject"
+rootProject.name = "PdfConverter"
 include(":app")

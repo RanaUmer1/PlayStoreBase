@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg_color"
     android:orientation="vertical"
-    tools:context="com.professor.playstorebaseproject.ui.screens.LanguageActivity">
+    tools:context="com.professor.pdfconverter.ui.screens.LanguageActivity">
 
     <LinearLayout
         android:id="@+id/ll_toolbar"

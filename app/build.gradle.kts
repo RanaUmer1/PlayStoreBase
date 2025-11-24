@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.professor.playstorebaseproject"
+    namespace = "com.professor.pdfconverter"
     compileSdk = 36
 
     defaultConfig {

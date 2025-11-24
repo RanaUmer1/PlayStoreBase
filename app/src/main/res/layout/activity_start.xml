@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.professor.playstorebaseproject.ui.screens.StartActivity">
+    tools:context="com.professor.pdfconverter.ui.screens.StartActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
