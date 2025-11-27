@@ -1,37 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="textApperenceBody3RegularWithoutFont">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/_14sdp</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="fontFamily">@font/albert_sans_medium</item>
-    </style>
-
-
-    <style name="textview_large">
-        <item name="android:textSize">22sp</item>
-        <item name="android:textColor">@color/text_color_primary</item>
-        <item name="android:fontFamily">@font/urbanist_semi_bold</item>
-        <item name="android:letterSpacing">0.01</item>
-    </style>
-
-    <style name="textview_medium">
-        <item name="android:letterSpacing">0.01</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/text_color_primary</item>
-        <item name="android:fontFamily">@font/urbanist_medium</item>
-    </style>
-
-    <style name="textview_regular">
-        <item name="android:letterSpacing">0.01</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/text_color_primary</item>
-        <item name="android:fontFamily">@font/urbanist_medium</item>
-    </style>
-
-
 
     <style name="TopRightCutCard" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>

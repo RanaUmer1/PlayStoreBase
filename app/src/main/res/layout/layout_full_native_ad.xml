@@ -35,16 +35,16 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:src="@drawable/ic_alarm"
-                app:tint="@color/text_color_gray" />
+                app:tint="@color/ad_body_color" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Unable to load ad"
-                android:textColor="@color/text_color_gray"
+                android:text="@string/unable_to_load_ad"
+                android:textColor="@color/ad_body_color"
                 android:textSize="16sp"
-                android:fontFamily="@font/urbanist_semi_bold" />
+                android:fontFamily="@font/poppins_semi_bold" />
 
             <TextView
                 android:id="@+id/btnContinue"
@@ -54,10 +54,11 @@
                 android:background="@drawable/bg_extra_less_round_accent"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="Continue"
+                android:text="@string/continuee"
+                android:visibility="gone"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:fontFamily="@font/urbanist_semi_bold" />
+                android:fontFamily="@font/poppins_semi_bold" />
         </LinearLayout>
 
 </FrameLayout>

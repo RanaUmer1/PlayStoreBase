@@ -83,7 +83,7 @@ class LanguageAdapter(
         }
 
         fun updateSelection() {
-            binding.ivChecked.setImageResource(R.drawable.ic_lang_selected)
+            binding.ivChecked.setImageResource(R.drawable.ic_check)
             binding.root.setBackgroundResource(R.drawable.bg_lang_item_selected)
         }
 

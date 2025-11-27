@@ -4,5 +4,5 @@
     <item android:color="@color/accent_color" android:state_checked="true"/>
 
     <!-- Unchecked state -->
-    <item android:color="@color/stroke_lang_item"/>
+    <item android:color="@color/stroke_color"/>
 </selector>

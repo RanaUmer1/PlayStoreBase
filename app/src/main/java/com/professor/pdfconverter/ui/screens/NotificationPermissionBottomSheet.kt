@@ -29,7 +29,7 @@ class NotificationPermissionBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvAllow.setOnClickListener {
+     /*   binding.tvAllow.setOnClickListener {
             dismiss()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 ActivityCompat.requestPermissions(
@@ -42,7 +42,7 @@ class NotificationPermissionBottomSheet : BottomSheetDialogFragment() {
 
         binding.tvNotNow.setOnClickListener {
             dismiss()
-        }
+        }*/
     }
 
     override fun onDestroyView() {

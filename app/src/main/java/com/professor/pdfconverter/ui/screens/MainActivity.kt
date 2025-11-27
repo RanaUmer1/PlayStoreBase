@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        binding.nav.btnPremium.setClickWithTimeout {
+       /* binding.nav.btnPremium.setClickWithTimeout {
             startActivity(Intent(this, PremiumActivity::class.java))
         }
 
@@ -144,8 +144,6 @@ class MainActivity : AppCompatActivity() {
                     .putExtra(Constants.IS_FROM_START, false)
             )
         }
-
-
 
         binding.nav.tvResetRingtone.setClickWithTimeout {
             analyticsManager.sendAnalytics(
@@ -198,7 +196,7 @@ class MainActivity : AppCompatActivity() {
             analyticsManager.sendAnalytics(AnalyticsManager.Action.CLICKED, TAG + "_drawer_share")
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             shareApp()
-        }
+        }*/
     }
 
     private fun loadAd() {

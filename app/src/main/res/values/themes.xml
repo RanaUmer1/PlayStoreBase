@@ -17,4 +17,9 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
         <item name="android:windowBackground">@drawable/splashbg</item>
     </style>
+
+
+
+
+
 </resources>

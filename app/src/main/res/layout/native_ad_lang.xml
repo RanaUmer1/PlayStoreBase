@@ -126,7 +126,7 @@
                             android:paddingVertical="2dp"
                             android:text="Ad"
                             android:textAllCaps="true"
-                            android:textColor="@color/text_color_gray"
+                            android:textColor="@color/primary_color"
                             android:textSize="11sp"
                             android:textStyle="bold"
                             android:visibility="visible" />
@@ -167,7 +167,7 @@
                 android:clickable="true"
                 android:elevation="2dp"
                 android:focusable="true"
-                android:fontFamily="@font/albert_sans_semi_bold"
+                android:fontFamily="@font/poppins_semi_bold"
                 android:text="Install"
                 android:textAllCaps="true"
                 android:textColor="@color/white"

@@ -101,6 +101,11 @@ class OnboardingViewModel @Inject constructor(
                 title = application.getString(R.string.onboarding_title_2),
                 description = application.getString(R.string.onboarding_desc_2),
                 imageRes = R.drawable.onboarding_2
+            ),
+            OnboardingItem(
+                title = application.getString(R.string.onboarding_title_3),
+                description = application.getString(R.string.onboarding_desc_3),
+                imageRes = R.drawable.onboarding_3
             )
         )
     }

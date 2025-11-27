@@ -132,7 +132,7 @@ class LanguageActivity : AppCompatActivity() {
             viewModel.selectedLanguage.collectLatest { language ->
                 language?.let {
                     updateDoneButton(it)
-                    binding.ivDone.isEnabled = true
+//                    binding.btnDone.isEnabled = true
                 }
             }
         }
@@ -393,8 +393,8 @@ class LanguageActivity : AppCompatActivity() {
     }
 
     private fun initClickListeners() {
-        binding.ivDone.setClickWithTimeout {
-            binding.ivDone.isEnabled = false
+        binding.btnDone.setClickWithTimeout {
+//            binding.btnDone.isEnabled = false
 
             analyticsManager.sendAnalytics(
                 AnalyticsManager.Action.CLICKED, "btn_select_language_done"
@@ -404,7 +404,7 @@ class LanguageActivity : AppCompatActivity() {
                 Toast.makeText(
                     this, getString(R.string.please_select_a_language), Toast.LENGTH_SHORT
                 ).show()
-                binding.ivDone.isEnabled = true
+//                binding.btnDone.isEnabled = true
                 return@setClickWithTimeout
             }
 
@@ -430,22 +430,22 @@ class LanguageActivity : AppCompatActivity() {
     }
 
     private fun updateDoneButton(selectedLang: LanguageModel) {
-        binding.ivDone.isEnabled = true
-        binding.btnDone.text = getString(
-            when (selectedLang.id) {
-                1 -> R.string.done_in_arabic
-                2 -> R.string.done_in_english
-                3 -> R.string.done_in_spanish
-                4 -> R.string.done_in_indonesian
-                6 -> R.string.done_in_persian
-                7 -> R.string.done_in_hindi
-                8 -> R.string.done_in_russian
-                9 -> R.string.done_in_portuguese
-                10 -> R.string.done_in_bengali
-                11 -> R.string.done_in_turkish
-                else -> R.string.done_in_english
-            }
-        )
+//        binding.btnDone.isEnabled = true
+//        binding.btnDone.text = getString(
+//            when (selectedLang.id) {
+//                1 -> R.string.done_in_arabic
+//                2 -> R.string.done_in_english
+//                3 -> R.string.done_in_spanish
+//                4 -> R.string.done_in_indonesian
+//                6 -> R.string.done_in_persian
+//                7 -> R.string.done_in_hindi
+//                8 -> R.string.done_in_russian
+//                9 -> R.string.done_in_portuguese
+//                10 -> R.string.done_in_bengali
+//                11 -> R.string.done_in_turkish
+//                else -> R.string.done_in_english
+//            }
+//        )
     }
 
     private fun navigateToOnboarding() {

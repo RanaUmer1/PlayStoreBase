@@ -169,7 +169,7 @@
                 android:clickable="true"
                 android:elevation="2dp"
                 android:focusable="true"
-                android:fontFamily="@font/albert_sans_semi_bold"
+                android:fontFamily="@font/poppins_bold"
                 android:text="Install"
                 android:textAllCaps="true"
                 android:textColor="@color/white"

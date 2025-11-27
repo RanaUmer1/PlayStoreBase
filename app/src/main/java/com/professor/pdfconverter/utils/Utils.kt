@@ -164,8 +164,7 @@ object Utils {
                 Settings.System.DEFAULT_ALARM_ALERT_URI
             )
 
-            Toast.makeText(context, context.getString(R.string.reset_ring), Toast.LENGTH_SHORT)
-                .show()
+//
 
         } catch (e: Exception) {
             e.printStackTrace()

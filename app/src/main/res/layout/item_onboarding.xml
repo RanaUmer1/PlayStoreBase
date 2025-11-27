@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color"
+    android:background="@color/white"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -19,23 +19,23 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="26dp"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/urbanist_semi_bold"
-        android:paddingHorizontal="8dp"
+        android:fontFamily="@font/poppins_semi_bold"
         android:text="@string/onboarding_title_1"
-        android:textColor="@color/accent_color"
-        android:textSize="22sp" />
+        android:textColor="@color/text_color_dark"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/tvSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="26dp"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/urbanist_regular"
-        android:letterSpacing="0.05"
-        android:paddingHorizontal="8dp"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
         android:text="@string/onboarding_desc_1"
-        android:textColor="@color/text_color_dark_gray"
+        android:textColor="@color/text_color_secondary"
         android:textSize="16sp"
 
         />

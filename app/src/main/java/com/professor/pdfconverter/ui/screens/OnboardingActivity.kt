@@ -22,6 +22,7 @@ import com.professor.pdfconverter.app.AnalyticsManager
 import com.professor.pdfconverter.app.AppPreferences
 import com.professor.pdfconverter.databinding.ActivityOnboardingBinding
 import com.professor.pdfconverter.enums.AdState
+import com.professor.pdfconverter.model.OnboardingItem
 import com.professor.pdfconverter.remoteconfig.RemoteConfigManager
 import com.professor.pdfconverter.ui.viewmodel.OnboardingViewModel
 import com.professor.pdfconverter.utils.NavigationEvent
@@ -173,6 +174,7 @@ class OnboardingActivity : AppCompatActivity() {
                         is NavigationEvent.MainWithInterstitial -> {
                             showInterstitialAndNavigate()
                         }
+
                         else -> {}
                     }
                     viewModel.clearNavigationEvent()
@@ -211,15 +213,21 @@ class OnboardingActivity : AppCompatActivity() {
 
     private fun setupDefaultOnboardingItems() {
         val defaultItems = listOf(
-            com.professor.pdfconverter.model.OnboardingItem(
+            OnboardingItem(
                 title = getString(R.string.onboarding_title_1),
                 description = getString(R.string.onboarding_desc_1),
                 imageRes = R.drawable.onboarding_1
             ),
-            com.professor.pdfconverter.model.OnboardingItem(
+            OnboardingItem(
                 title = getString(R.string.onboarding_title_2),
                 description = getString(R.string.onboarding_desc_2),
                 imageRes = R.drawable.onboarding_2
+            ),
+
+            OnboardingItem(
+                title = getString(R.string.onboarding_title_3),
+                description = getString(R.string.onboarding_desc_3),
+                imageRes = R.drawable.onboarding_3
             )
         )
         adapter?.submitList(defaultItems)
@@ -227,7 +235,7 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun initClickListeners() {
-        binding.btnNext.setClickWithTimeout {
+        binding.btnContinue.setClickWithTimeout {
             analyticsManager.sendAnalytics(AnalyticsManager.Action.CLICKED, "btn_onboarding_next")
 
             val currentPosition = binding.viewPager.currentItem
@@ -254,10 +262,10 @@ class OnboardingActivity : AppCompatActivity() {
         val totalItems = adapter?.itemCount ?: 0
         val isLastPage = position == totalItems - 1
 
-        binding.btnNext.text = if (isLastPage) {
-            getString(R.string.start)
+        binding.btnContinue.text = if (isLastPage) {
+            getString(R.string.get_started)
         } else {
-            getString(R.string.next)
+            getString(R.string.continuee)
         }
 
         // Show skip button on all pages except the last one
@@ -269,7 +277,8 @@ class OnboardingActivity : AppCompatActivity() {
         binding.llIndicators.isVisible = !isAdPage
 
         // Show bottom small native ad only on last page
-        binding.includeAd.root.isVisible = isAdPage.not() && (position == (adapter?.itemCount ?: 1) - 1)
+        binding.includeAd.root.isVisible =
+            isAdPage.not() && (position == (adapter?.itemCount ?: 1) - 1)
 
         // On ad page, you might want different behavior
         if (isAdPage) {
@@ -293,7 +302,7 @@ class OnboardingActivity : AppCompatActivity() {
                 text = "•"
                 textSize = 32f
                 setTextColor(
-                    if (i == 0) getColor(R.color.accent_color) else getColor(R.color.text_color_gray)
+                    if (i == 0) getColor(R.color.primary_color) else getColor(R.color.dot_color)
                 )
                 setPadding(8, 0, 8, 0)
             }
@@ -312,7 +321,7 @@ class OnboardingActivity : AppCompatActivity() {
         for (i in 0 until dotContainer.childCount) {
             val dot = dotContainer.getChildAt(i) as TextView
             dot.setTextColor(
-                if (i == dotIndex) getColor(R.color.accent_color) else getColor(R.color.text_color_gray)
+                if (i == dotIndex) getColor(R.color.primary_color) else getColor(R.color.dot_color)
             )
         }
     }

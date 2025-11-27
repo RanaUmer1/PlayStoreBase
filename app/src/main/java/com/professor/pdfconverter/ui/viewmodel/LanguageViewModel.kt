@@ -53,7 +53,6 @@ class LanguageViewModel @Inject constructor(
                     selectedLanguage = defaultLanguage
                 )
                 _uiState.value = UIState.Success(uiState)
-                _selectedLanguage.value = defaultLanguage
             } catch (e: Exception) {
                 _uiState.value = UIState.Error(e)
             }
@@ -71,6 +70,7 @@ class LanguageViewModel @Inject constructor(
             if (language.id != savedLanguageId) {
                 appPreferences.setInt(AppPreferences.LANGUAGE_ID, language.id)
                 appPreferences.setString(AppPreferences.LANGUAGE_CODE, language.code)
+                appPreferences.setBoolean(AppPreferences.IS_LANGUAGE_SELECTED, true)
             }
         }
     }
@@ -84,7 +84,7 @@ class LanguageViewModel @Inject constructor(
     }
 
     fun shouldShowOnboarding(): Boolean {
-        return !appPreferences.getBoolean(AppPreferences.IS_LANGUAGE_SELECTED)
+        return !appPreferences.getBoolean(AppPreferences.IS_ONBOARDING)
     }
 
     fun navigateToNextScreen() {
