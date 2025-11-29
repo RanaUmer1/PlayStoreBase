@@ -71,6 +71,8 @@ This is one of the most fun and educational apps that lets you explore and enjoy
     <string name="unable_to_load_ad">Unable to load ad</string>
     <string name="remove_ads">Remove Ads</string>
     <string name="recent">Recent</string>
+    <string name="home">Home</string>
+    <string name="settings">Settings</string>
 
 
 </resources>

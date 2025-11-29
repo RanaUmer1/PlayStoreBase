@@ -15,6 +15,7 @@ import android.provider.Settings
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.os.LocaleListCompat
@@ -28,6 +29,8 @@ import com.professor.pdfconverter.Constants
 import com.professor.pdfconverter.app.AdIds
 import com.professor.pdfconverter.app.AnalyticsManager
 import com.professor.pdfconverter.app.AppPreferences
+import com.professor.pdfconverter.model.FileType
+import com.professor.pdfconverter.model.RecentFileModel
 import com.professor.pdfconverter.ui.viewmodel.MainViewModel
 import com.professor.pdfconverter.utils.AudioPlayerManager
 import com.professor.pdfconverter.utils.NetworkChangeReceiver
@@ -36,6 +39,7 @@ import com.professor.pdfconverter.utils.setClickWithTimeout
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import androidx.core.graphics.drawable.toDrawable
+import com.professor.pdfconverter.adapter.RecentFilesAdapter
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -56,6 +60,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var exitDialog: Dialog
     private val notificationPermissionBottomSheet = NotificationPermissionBottomSheet()
+
+
+    private val homeIcons = Pair(R.drawable.ic_home_filled, R.drawable.ic_home)
+    private val convertedIcons = Pair(R.drawable.ic_converted_filled, R.drawable.ic_converted)
+    private val settingIcons = Pair(R.drawable.ic_setting_filled, R.drawable.ic_setting)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,6 +110,52 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
         requestPermission()
+        setupAdapter()
+        setActiveTab(binding.tvHome)
+    }
+
+    private fun setupAdapter() {
+        val adapter = RecentFilesAdapter(
+            onItemClick = { file ->
+                // Handle file click
+            },
+            onMoreClick = { file ->
+                // Handle more click
+            }
+        )
+        binding.rvRecentFiles.adapter = adapter
+        binding.rvRecentFiles.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+        adapter.submitList(getDummyRecentFiles())
+    }
+
+
+    fun setActiveTab(activeTab: AppCompatTextView) {
+        val tabs = listOf(binding.tvHome, binding.tvConverted, binding.tvSetting)
+        val activeColor = ContextCompat.getColor(this, R.color.primary_color)
+        val inactiveColor = ContextCompat.getColor(this, R.color.text_color_secondary)
+
+        tabs.forEach { tab ->
+            val isActive = tab == activeTab
+            tab.setTextColor(if (isActive) activeColor else inactiveColor)
+
+            // Update icons based on selected state
+            when (tab.id) {
+                R.id.tv_home -> {
+                    val iconRes = if (isActive) homeIcons.first else homeIcons.second
+                    tab.setCompoundDrawablesRelativeWithIntrinsicBounds(0, iconRes, 0, 0)
+                }
+
+                R.id.tv_converted -> {
+                    val iconRes = if (isActive) convertedIcons.first else convertedIcons.second
+                    tab.setCompoundDrawablesRelativeWithIntrinsicBounds(0, iconRes, 0, 0)
+                }
+
+                R.id.tv_setting -> {
+                    val iconRes = if (isActive) settingIcons.first else settingIcons.second
+                    tab.setCompoundDrawablesRelativeWithIntrinsicBounds(0, iconRes, 0, 0)
+                }
+            }
+        }
     }
 
     private fun requestPermission() {
@@ -118,85 +174,95 @@ class MainActivity : AppCompatActivity() {
     private fun listeners() {
 
 
-        binding.ivDrawer.setClickWithTimeout {
-            binding.drawerLayout.openDrawer(GravityCompat.START)
-            analyticsManager.sendAnalytics(AnalyticsManager.Action.CLICKED, TAG + "_drawer")
-        }
-
         binding.ivRemoveAd.setClickWithTimeout {
             analyticsManager.sendAnalytics(AnalyticsManager.Action.CLICKED, TAG + "_premium")
             startActivity(Intent(this, PremiumActivity::class.java))
         }
 
 
-       /* binding.nav.btnPremium.setClickWithTimeout {
-            startActivity(Intent(this, PremiumActivity::class.java))
+        binding.tvHome.setClickWithTimeout {
+            setActiveTab(binding.tvHome)
+            // Navigate to home fragment
         }
 
-        binding.nav.tvLanguage.setClickWithTimeout {
-            analyticsManager.sendAnalytics(
-                AnalyticsManager.Action.CLICKED,
-                TAG + "_drawer_language"
-            )
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-            startActivity(
-                Intent(this, LanguageActivity::class.java)
-                    .putExtra(Constants.IS_FROM_START, false)
-            )
+        binding.tvConverted.setClickWithTimeout {
+            setActiveTab(binding.tvConverted)
+            // Navigate to converted fragment
         }
 
-        binding.nav.tvResetRingtone.setClickWithTimeout {
-            analyticsManager.sendAnalytics(
-                AnalyticsManager.Action.CLICKED,
-                TAG + "_drawer_reset_ringtone"
-            )
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-
-            if (!Settings.System.canWrite(this)) {
-                startActivity(Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS).apply {
-                    data = Uri.parse("package:$packageName")
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                })
-            } else {
-                Utils.resetDefaultRingtones(this)
-            }
+        binding.tvSetting.setClickWithTimeout {
+            setActiveTab(binding.tvSetting)
+            // Navigate to settings fragment
         }
 
-        binding.nav.tvFeedback.setClickWithTimeout {
-            analyticsManager.sendAnalytics(
-                AnalyticsManager.Action.CLICKED,
-                TAG + "_drawer_feedback"
-            )
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-            openStorePage()
-        }
+        /* binding.nav.btnPremium.setClickWithTimeout {
+             startActivity(Intent(this, PremiumActivity::class.java))
+         }
 
-        binding.nav.tvRateUs.setClickWithTimeout {
-            analyticsManager.sendAnalytics(AnalyticsManager.Action.CLICKED, TAG + "_drawer_rate_us")
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-            openStorePage()
-        }
+         binding.nav.tvLanguage.setClickWithTimeout {
+             analyticsManager.sendAnalytics(
+                 AnalyticsManager.Action.CLICKED,
+                 TAG + "_drawer_language"
+             )
+             binding.drawerLayout.closeDrawer(GravityCompat.START)
+             startActivity(
+                 Intent(this, LanguageActivity::class.java)
+                     .putExtra(Constants.IS_FROM_START, false)
+             )
+         }
 
-        binding.nav.tvPrivacy.setClickWithTimeout {
-            analyticsManager.sendAnalytics(
-                AnalyticsManager.Action.CLICKED,
-                TAG + "_drawer_privacy_policy"
-            )
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-            startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("https://ozi-apps.s3.us-west-2.amazonaws.com/RealAnimalSound_PrivacyPolicy.html")
-                )
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
-            )
-        }
+         binding.nav.tvResetRingtone.setClickWithTimeout {
+             analyticsManager.sendAnalytics(
+                 AnalyticsManager.Action.CLICKED,
+                 TAG + "_drawer_reset_ringtone"
+             )
+             binding.drawerLayout.closeDrawer(GravityCompat.START)
 
-        binding.nav.tvShare.setClickWithTimeout {
-            analyticsManager.sendAnalytics(AnalyticsManager.Action.CLICKED, TAG + "_drawer_share")
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-            shareApp()
-        }*/
+             if (!Settings.System.canWrite(this)) {
+                 startActivity(Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS).apply {
+                     data = Uri.parse("package:$packageName")
+                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                 })
+             } else {
+                 Utils.resetDefaultRingtones(this)
+             }
+         }
+
+         binding.nav.tvFeedback.setClickWithTimeout {
+             analyticsManager.sendAnalytics(
+                 AnalyticsManager.Action.CLICKED,
+                 TAG + "_drawer_feedback"
+             )
+             binding.drawerLayout.closeDrawer(GravityCompat.START)
+             openStorePage()
+         }
+
+         binding.nav.tvRateUs.setClickWithTimeout {
+             analyticsManager.sendAnalytics(AnalyticsManager.Action.CLICKED, TAG + "_drawer_rate_us")
+             binding.drawerLayout.closeDrawer(GravityCompat.START)
+             openStorePage()
+         }
+
+         binding.nav.tvPrivacy.setClickWithTimeout {
+             analyticsManager.sendAnalytics(
+                 AnalyticsManager.Action.CLICKED,
+                 TAG + "_drawer_privacy_policy"
+             )
+             binding.drawerLayout.closeDrawer(GravityCompat.START)
+             startActivity(
+                 Intent(
+                     Intent.ACTION_VIEW,
+                     Uri.parse("https://ozi-apps.s3.us-west-2.amazonaws.com/RealAnimalSound_PrivacyPolicy.html")
+                 )
+                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
+             )
+         }
+
+         binding.nav.tvShare.setClickWithTimeout {
+             analyticsManager.sendAnalytics(AnalyticsManager.Action.CLICKED, TAG + "_drawer_share")
+             binding.drawerLayout.closeDrawer(GravityCompat.START)
+             shareApp()
+         }*/
     }
 
     private fun loadAd() {
@@ -230,10 +296,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun backPressed() {
-        when {
-            binding.drawerLayout.isOpen -> binding.drawerLayout.closeDrawer(GravityCompat.START)
-            else -> exitDialog.show()
-        }
+        exitDialog.show()
     }
 
 
@@ -282,5 +345,81 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val NOTIFICATION_PERMISSION_CODE = 1001
+    }
+
+    private fun getDummyRecentFiles(): List<RecentFileModel> {
+        return listOf(
+            RecentFileModel(
+                id = 1L,
+                name = "Sample_Document_1.pdf",
+                date = "28 Nov 2025",
+                time = "10:15 AM",
+                size = "1.2 MB",
+                fileType = FileType.PDF
+            ),
+            RecentFileModel(
+                id = 2L,
+                name = "Project_Proposal.docx",
+                date = "27 Nov 2025",
+                time = "05:42 PM",
+                size = "850 KB",
+                fileType = FileType.WORD
+            ),
+            RecentFileModel(
+                id = 3L,
+                name = "Invoice_2025_11.pdf",
+                date = "26 Nov 2025",
+                time = "09:03 AM",
+                size = "560 KB",
+                fileType = FileType.PDF
+            ),
+            RecentFileModel(
+                id = 1L,
+                name = "Sample_Document_1.pdf",
+                date = "28 Nov 2025",
+                time = "10:15 AM",
+                size = "1.2 MB",
+                fileType = FileType.PDF
+            ),
+            RecentFileModel(
+                id = 2L,
+                name = "Project_Proposal.docx",
+                date = "27 Nov 2025",
+                time = "05:42 PM",
+                size = "850 KB",
+                fileType = FileType.WORD
+            ),
+            RecentFileModel(
+                id = 3L,
+                name = "Invoice_2025_11.pdf",
+                date = "26 Nov 2025",
+                time = "09:03 AM",
+                size = "560 KB",
+                fileType = FileType.PDF
+            ), RecentFileModel(
+                id = 1L,
+                name = "Sample_Document_1.pdf",
+                date = "28 Nov 2025",
+                time = "10:15 AM",
+                size = "1.2 MB",
+                fileType = FileType.PDF
+            ),
+            RecentFileModel(
+                id = 2L,
+                name = "Project_Proposal.docx",
+                date = "27 Nov 2025",
+                time = "05:42 PM",
+                size = "850 KB",
+                fileType = FileType.WORD
+            ),
+            RecentFileModel(
+                id = 3L,
+                name = "Invoice_2025_11.pdf",
+                date = "26 Nov 2025",
+                time = "09:03 AM",
+                size = "560 KB",
+                fileType = FileType.PDF
+            )
+        )
     }
 }
