@@ -61,7 +61,7 @@ fun View.setClickWithTimeout(
 ) {
     var lastClickTime = 0L
 
-    setOnClickListener { view ->
+        setOnClickListener { view ->
         val currentTime = SystemClock.elapsedRealtime()
         if (currentTime - lastClickTime < timeoutMillis) {
             return@setOnClickListener

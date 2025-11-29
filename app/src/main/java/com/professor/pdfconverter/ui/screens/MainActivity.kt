@@ -39,7 +39,10 @@ import com.professor.pdfconverter.utils.setClickWithTimeout
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import androidx.core.graphics.drawable.toDrawable
-import com.professor.pdfconverter.adapter.RecentFilesAdapter
+import androidx.fragment.app.Fragment
+import com.professor.pdfconverter.ui.fragments.ConvertedFragment
+import com.professor.pdfconverter.ui.fragments.HomeFragment
+import com.professor.pdfconverter.ui.fragments.SettingsFragment
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -110,23 +113,27 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
         requestPermission()
-        setupAdapter()
         setActiveTab(binding.tvHome)
+        loadFragment(HomeFragment(), getString(R.string.splash_title))
     }
 
-    private fun setupAdapter() {
-        val adapter = RecentFilesAdapter(
-            onItemClick = { file ->
-                // Handle file click
-            },
-            onMoreClick = { file ->
-                // Handle more click
-            }
-        )
-        binding.rvRecentFiles.adapter = adapter
-        binding.rvRecentFiles.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
-        adapter.submitList(getDummyRecentFiles())
+    private fun loadFragment(fragment: Fragment, title: String) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
+        updateToolbar(fragment, title)
     }
+
+    private fun updateToolbar(fragment: Fragment, title: String) {
+        binding.tvTitle.text = title
+        if (fragment is HomeFragment) {
+            binding.ivBack.visibility = android.view.View.GONE
+        } else {
+            binding.ivBack.visibility = android.view.View.VISIBLE
+        }
+    }
+
+
 
 
     fun setActiveTab(activeTab: AppCompatTextView) {
@@ -179,20 +186,24 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, PremiumActivity::class.java))
         }
 
+        binding.ivBack.setClickWithTimeout {
+            onBackPressed()
+        }
+
 
         binding.tvHome.setClickWithTimeout {
             setActiveTab(binding.tvHome)
-            // Navigate to home fragment
+            loadFragment(HomeFragment(), getString(R.string.splash_title))
         }
 
         binding.tvConverted.setClickWithTimeout {
             setActiveTab(binding.tvConverted)
-            // Navigate to converted fragment
+            loadFragment(ConvertedFragment(), getString(R.string.converted))
         }
 
         binding.tvSetting.setClickWithTimeout {
             setActiveTab(binding.tvSetting)
-            // Navigate to settings fragment
+            loadFragment(SettingsFragment(), getString(R.string.settings))
         }
 
         /* binding.nav.btnPremium.setClickWithTimeout {
@@ -329,8 +340,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        analyticsManager.sendAnalytics("clicked", "$TAG _back_btn")
-        backPressed()
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+        if (currentFragment !is HomeFragment) {
+            setActiveTab(binding.tvHome)
+            loadFragment(HomeFragment(), getString(R.string.splash_title))
+        } else {
+            analyticsManager.sendAnalytics("clicked", "$TAG _back_btn")
+            backPressed()
+        }
     }
 
 
@@ -347,79 +364,5 @@ class MainActivity : AppCompatActivity() {
         const val NOTIFICATION_PERMISSION_CODE = 1001
     }
 
-    private fun getDummyRecentFiles(): List<RecentFileModel> {
-        return listOf(
-            RecentFileModel(
-                id = 1L,
-                name = "Sample_Document_1.pdf",
-                date = "28 Nov 2025",
-                time = "10:15 AM",
-                size = "1.2 MB",
-                fileType = FileType.PDF
-            ),
-            RecentFileModel(
-                id = 2L,
-                name = "Project_Proposal.docx",
-                date = "27 Nov 2025",
-                time = "05:42 PM",
-                size = "850 KB",
-                fileType = FileType.WORD
-            ),
-            RecentFileModel(
-                id = 3L,
-                name = "Invoice_2025_11.pdf",
-                date = "26 Nov 2025",
-                time = "09:03 AM",
-                size = "560 KB",
-                fileType = FileType.PDF
-            ),
-            RecentFileModel(
-                id = 1L,
-                name = "Sample_Document_1.pdf",
-                date = "28 Nov 2025",
-                time = "10:15 AM",
-                size = "1.2 MB",
-                fileType = FileType.PDF
-            ),
-            RecentFileModel(
-                id = 2L,
-                name = "Project_Proposal.docx",
-                date = "27 Nov 2025",
-                time = "05:42 PM",
-                size = "850 KB",
-                fileType = FileType.WORD
-            ),
-            RecentFileModel(
-                id = 3L,
-                name = "Invoice_2025_11.pdf",
-                date = "26 Nov 2025",
-                time = "09:03 AM",
-                size = "560 KB",
-                fileType = FileType.PDF
-            ), RecentFileModel(
-                id = 1L,
-                name = "Sample_Document_1.pdf",
-                date = "28 Nov 2025",
-                time = "10:15 AM",
-                size = "1.2 MB",
-                fileType = FileType.PDF
-            ),
-            RecentFileModel(
-                id = 2L,
-                name = "Project_Proposal.docx",
-                date = "27 Nov 2025",
-                time = "05:42 PM",
-                size = "850 KB",
-                fileType = FileType.WORD
-            ),
-            RecentFileModel(
-                id = 3L,
-                name = "Invoice_2025_11.pdf",
-                date = "26 Nov 2025",
-                time = "09:03 AM",
-                size = "560 KB",
-                fileType = FileType.PDF
-            )
-        )
-    }
+
 }

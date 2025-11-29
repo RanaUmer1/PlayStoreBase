@@ -14,6 +14,7 @@
     <color name="primary_color_light">#E6F4FF</color>
     <color name="stroke_color">#E9ECEF</color>
     <color name="dot_color">#737F8D4D</color>
+    <color name="bg_color">#F8F9FA</color>
 
 
     <!--ads color-->
@@ -28,4 +29,5 @@
     <color name="accent_light">#E3FFFA</color>
     <color name="light_bg">#6F6F6F</color>
     <color name="grey_color">#6F6F6F</color>
+
 </resources>

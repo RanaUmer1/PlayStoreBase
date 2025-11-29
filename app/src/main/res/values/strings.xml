@@ -73,6 +73,23 @@ This is one of the most fun and educational apps that lets you explore and enjoy
     <string name="recent">Recent</string>
     <string name="home">Home</string>
     <string name="settings">Settings</string>
+    <string name="pdf_files">PDF Files</string>
+    <string name="word_files">Word Files</string>
+    <string name="rate_app">Rate App</string>
+    <string name="share_this_app">Share this App</string>
+    <string name="send_feedback">Send Feedback</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="change_language">Change Language</string>
+    <string name="pdf_to_word">PDF to Word</string>
+    <string name="convert_pdf_to_word">Convert PDF to Word</string>
+    <string name="word_to_pdf">Word to PDF</string>
+    <string name="no_documents">No Documents</string>
+    <string name="no_converted_documents">You have no converted documents.</string>
+    <string name="no_recent_files">You have no recent files.</string>
+    <string name="no_recents">No Recents</string>
+    <string name="wow_thank_you_so_much">Wow! Thank You So Much</string>
+    <string name="help_us_reach_perfection">Help us reach perfection with your feedback.</string>
+    <string name="rate_on_play_store">Rate On Play Store</string>
 
 
 </resources>
