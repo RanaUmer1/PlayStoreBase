@@ -78,6 +78,9 @@ dependencies {
     // Shimmer
     implementation(libs.shimmer)
 
+    implementation(libs.pdf.viewer)
+    implementation(libs.docviewer)
+
     // Firebase (BOM)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics.ktx)

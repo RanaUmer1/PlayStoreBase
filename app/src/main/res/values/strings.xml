@@ -44,10 +44,8 @@
     <string name="exit">Exit</string>
 
 
-
     <string name="do_you_want_to_open_network_settings">Do you want to open network settings?</string>
     <string name="no_internet_connection">No internet connection !</string>
-
 
 
     <string name="onboarding_title_1">Convert documents in seconds</string>
@@ -91,5 +89,9 @@ This is one of the most fun and educational apps that lets you explore and enjoy
     <string name="help_us_reach_perfection">Help us reach perfection with your feedback.</string>
     <string name="rate_on_play_store">Rate On Play Store</string>
 
+    <string name="error">Error</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="retry">Retry</string>
+    <string name="loading_pdf">Loading PDF...</string>
 
 </resources>

@@ -2,6 +2,7 @@
 ads = "1.0.0"
 agp = "8.13.0"
 billingKtx = "8.1.0"
+docviewer = "3.0.7"
 firebaseConfigKtx = "22.1.2"
 glide = "5.0.5"
 gson = "2.13.2"
@@ -17,6 +18,7 @@ constraintlayout = "2.2.1"
 multidex = "2.0.1"
 navigationFragmentKtx = "2.9.6"
 navigationUiKtx = "2.9.6"
+pdfViewer = "2.3.7"
 recyclerview = "1.4.0"
 lifecycle = "2.9.4"
 hilt = "2.57.2"
@@ -40,6 +42,7 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 billing-ktx = { module = "com.android.billingclient:billing-ktx", version.ref = "billingKtx" }
+docviewer = { module = "com.github.Victor2018:DocViewer", version.ref = "docviewer" }
 firebase-config-ktx = { module = "com.google.firebase:firebase-config-ktx", version.ref = "firebaseConfigKtx" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
@@ -66,6 +69,7 @@ firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.r
 firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 firebase-crashlytics-ktx = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
 navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationUiKtx" }
+pdf-viewer = { module = "io.github.afreakyelf:Pdf-Viewer", version.ref = "pdfViewer" }
 shimmer = { group = "com.facebook.shimmer", name = "shimmer", version.ref = "shimmer" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
 

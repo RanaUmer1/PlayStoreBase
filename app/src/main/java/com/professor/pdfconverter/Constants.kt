@@ -24,6 +24,8 @@ object Constants {
 
 
     //Intent Keys
+    const val EXTRA_PDF_URI = "extra_pdf_uri"
+    const val EXTRA_PDF_NAME = "extra_pdf_name"
 
     //Db
     const val DB_NAME="animal_db"

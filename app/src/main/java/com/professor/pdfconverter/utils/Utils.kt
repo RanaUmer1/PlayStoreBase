@@ -1,5 +1,6 @@
 package com.professor.pdfconverter.utils
 
+import android.annotation.SuppressLint
 import android.app.WallpaperManager
 import android.content.Context
 import android.graphics.Bitmap
@@ -8,6 +9,8 @@ import android.graphics.Matrix
 import android.media.RingtoneManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.net.Uri
+import android.provider.OpenableColumns
 import android.provider.Settings
 import android.util.Log
 import android.view.View
@@ -46,6 +49,27 @@ object Utils {
 
         return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) &&
                 networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
+    }
+
+    @SuppressLint("Range")
+    fun getFileNameFromUri(uri: Uri, context: Context): String {
+        return when (uri.scheme) {
+            "content" -> {
+                val cursor = context.contentResolver.query(uri, null, null, null, null)
+                cursor?.use {
+                    if (it.moveToFirst()) {
+                        val displayName =
+                            it.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                        displayName ?: "Document.pdf"
+                    } else {
+                        "Document.pdf"
+                    }
+                } ?: "Document.pdf"
+            }
+
+            "file" -> File(uri.path!!).name
+            else -> "Document.pdf"
+        }
     }
 
     suspend fun downloadFile(context: Context, url: String): String? =
@@ -101,16 +125,6 @@ object Utils {
         return Bitmap.createBitmap(source, 0, 0, source.width, source.height, matrix, true)
     }
 
-    fun setWallpaper(bitmap: Bitmap, flag: Int, context: Context) {
-        try {
-            val wallpaperManager = WallpaperManager.getInstance(context)
-            wallpaperManager.setBitmap(bitmap, null, true, flag)
-            Toast.makeText(context, "Wallpaper set", Toast.LENGTH_SHORT).show()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-    }
-
 
     suspend fun downloadToLocalFile(context: Context, fileUrl: String, fileName: String): File {
         val file = File(context.getExternalFilesDir(null), fileName)
@@ -137,8 +151,6 @@ object Utils {
             view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
-
-
 
 
     fun resetDefaultRingtones(context: Context) {
