@@ -1,6 +1,9 @@
 package com.professor.pdfconverter.ui.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.professor.pdfconverter.app.AppPreferences
 import com.professor.pdfconverter.iab.SubscriptionItem
 import com.professor.pdfconverter.utils.UIState
@@ -8,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,21 +22,48 @@ class PremiumViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<UIState<PremiumUiState>>(UIState.Loading)
     val uiState: StateFlow<UIState<PremiumUiState>> = _uiState.asStateFlow()
 
-    private val _subscriptions = MutableStateFlow<List<SubscriptionItem>>(emptyList())
-    val subscriptions: StateFlow<List<SubscriptionItem>> = _subscriptions.asStateFlow()
+    private val _subscriptions = MutableLiveData<List<SubscriptionItem>>()
+    val subscriptions: LiveData<List<SubscriptionItem>> = _subscriptions
+
+    init {
+        loadInitialState()
+    }
+
+    private fun loadInitialState() {
+        val isPremium = appPreferences.getBoolean(AppPreferences.IS_PREMIUM)
+        val initialState = PremiumUiState(
+            subscriptions = emptyList(),
+            isPremium = isPremium
+        )
+        _uiState.value = UIState.Success(initialState)
+    }
 
     fun updateSubscriptions(subscriptions: List<SubscriptionItem>) {
-        _subscriptions.value = subscriptions
-        
-        val uiState = PremiumUiState(
-            subscriptions = subscriptions,
-            isPremium = appPreferences.getBoolean(AppPreferences.IS_PREMIUM)
-        )
-        _uiState.value = UIState.Success(uiState)
+        viewModelScope.launch {
+            _subscriptions.value = subscriptions
+
+            val currentState = when (val state = _uiState.value) {
+                is UIState.Success -> state.data
+                else -> PremiumUiState(emptyList(), false)
+            }
+
+            val updatedState = currentState.copy(subscriptions = subscriptions)
+            _uiState.value = UIState.Success(updatedState)
+        }
     }
 
     fun setPremiumStatus(isPremium: Boolean) {
-        appPreferences.setBoolean(AppPreferences.IS_PREMIUM, isPremium)
+        viewModelScope.launch {
+            appPreferences.setBoolean(AppPreferences.IS_PREMIUM, isPremium)
+
+            val currentState = when (val state = _uiState.value) {
+                is UIState.Success -> state.data
+                else -> PremiumUiState(emptyList(), false)
+            }
+
+            val updatedState = currentState.copy(isPremium = isPremium)
+            _uiState.value = UIState.Success(updatedState)
+        }
     }
 }
 

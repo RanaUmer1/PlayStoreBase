@@ -10,11 +10,16 @@
     <color name="text_color_secondary">#6A7984</color>
 
     <color name="primary_color">#007AFF</color>
+    <color name="primary_color_14">#24007AFF</color>
+    <color name="primary_color_6">#0F007AFF</color>
     <color name="accent_color">#007AFF</color>
     <color name="primary_color_light">#E6F4FF</color>
     <color name="stroke_color">#E9ECEF</color>
     <color name="dot_color">#737F8D4D</color>
     <color name="bg_color">#F8F9FA</color>
+    <color name="red">#DE2525</color>
+    <color name="red_14">#24DE2525</color>
+    <color name="green">#2AD352</color>
 
 
 

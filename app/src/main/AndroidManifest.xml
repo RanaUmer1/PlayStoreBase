@@ -21,9 +21,14 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:fullBackupContent"
         tools:targetApi="31">
-
         <activity
-            android:name=".ui.screens.PdfViewerActivity"
+            android:name=".ui.screens.DownloadDocActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.screens.DocumentLoadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.screens.DocumentViewerActivity"
             android:exported="false" />
         <activity
             android:name=".ui.screens.PremiumActivity"

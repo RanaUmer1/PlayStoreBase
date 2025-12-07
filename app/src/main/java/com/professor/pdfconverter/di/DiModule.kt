@@ -48,4 +48,6 @@ class DiModule {
         fun provideFavoriteDao(db: AppDatabase): DataModelDao = db.favoriteDao()
     }
 
+
+
 }

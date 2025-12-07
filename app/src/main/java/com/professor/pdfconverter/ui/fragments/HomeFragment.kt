@@ -12,7 +12,7 @@ import com.professor.pdfconverter.adapter.RecentFilesAdapter
 import com.professor.pdfconverter.databinding.FragmentHomeBinding
 import com.professor.pdfconverter.model.FileType
 import com.professor.pdfconverter.model.RecentFileModel
-import com.professor.pdfconverter.ui.screens.PdfViewerActivity
+import com.professor.pdfconverter.ui.screens.DocumentViewerActivity
 import com.professor.pdfconverter.ui.screens.PremiumActivity
 import com.professor.pdfconverter.utils.Utils
 import com.professor.pdfconverter.utils.setClickWithTimeout
@@ -207,7 +207,7 @@ class HomeFragment : Fragment() {
     private fun openPdf(uri: Uri) {
         val intent = Intent(
             requireContext(),
-            com.professor.pdfconverter.ui.screens.PdfViewerActivity::class.java
+            com.professor.pdfconverter.ui.screens.DocumentViewerActivity::class.java
         ).apply {
             putExtra(Constants.EXTRA_PDF_URI, uri.toString())
             putExtra(Constants.EXTRA_PDF_NAME, Utils.getFileNameFromUri(uri, requireContext()))
@@ -219,7 +219,7 @@ class HomeFragment : Fragment() {
     private fun openDoc(uri: Uri) {
         val intent = Intent(
             requireContext(),
-            PdfViewerActivity::class.java
+            DocumentViewerActivity::class.java
         ).apply {
             putExtra(Constants.EXTRA_PDF_URI, uri.toString())
             putExtra(Constants.EXTRA_PDF_NAME, Utils.getFileNameFromUri(uri, requireContext()))

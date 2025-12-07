@@ -60,11 +60,10 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.multidex)
-    implementation (libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.work.runtime.ktx)
 
     implementation(libs.gson)
     implementation(libs.glide)
-
 
 
     // Navigation
@@ -78,8 +77,20 @@ dependencies {
     // Shimmer
     implementation(libs.shimmer)
 
-    implementation(libs.pdf.viewer)
+    implementation(libs.lottie)
     implementation(libs.docviewer)
+    implementation(libs.pdf.viewer)
+
+
+
+    // Networking
+
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+// For URL manipulation
+    implementation(libs.okhttp.urlconnection)
 
     // Firebase (BOM)
     implementation(platform(libs.firebase.bom))
@@ -92,5 +103,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation (libs.androidx.work.testing)
+    androidTestImplementation(libs.androidx.work.testing)
 }

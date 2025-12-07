@@ -1,27 +1,31 @@
 package com.professor.pdfconverter.ui.screens
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
+import androidx.core.view.isVisible
 import com.cherry.lib.doc.bean.DocSourceType
-
 import com.cherry.lib.doc.widget.DocView
 import com.professor.pdfconverter.Constants
-import com.professor.pdfconverter.databinding.ActivityPdfViewerBinding
+import com.professor.pdfconverter.databinding.ActivityDocumentViewerBinding
 import com.professor.pdfconverter.utils.GetPath
 import com.rajat.pdfviewer.PdfRendererView
+import java.io.File
 
-class PdfViewerActivity : AppCompatActivity() {
+class DocumentViewerActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityPdfViewerBinding
+    private lateinit var binding: ActivityDocumentViewerBinding
     private var pdfView: PdfRendererView? = null
     private var docView: DocView? = null
+    private var currentFile: File? = null
+    private var fileType: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityPdfViewerBinding.inflate(layoutInflater)
+        binding = ActivityDocumentViewerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setupToolbar()
@@ -37,9 +41,21 @@ class PdfViewerActivity : AppCompatActivity() {
         }
 
         binding.ivTick.setOnClickListener {
-            // Optional: Add search functionality
-            // if (isPdfFile) pdfView?.searchPDF()
-            // else docView?.search() // if DocView supports search
+            openDocumentLoadActivity()
+        }
+    }
+
+    private fun openDocumentLoadActivity() {
+        currentFile?.let { file ->
+            val intent = Intent(this, DocumentLoadActivity::class.java).apply {
+                putExtra(Constants.EXTRA_FILE_PATH, file.absolutePath)
+                putExtra(Constants.EXTRA_FILE_TYPE, fileType)
+                putExtra(Constants.EXTRA_FILE_NAME, file.name)
+                putExtra(Constants.EXTRA_FILE_URI, currentFileUri?.toString())
+            }
+            startActivity(intent)
+        } ?: run {
+            showMessage("Please wait for file to load completely")
         }
     }
 
@@ -53,14 +69,31 @@ class PdfViewerActivity : AppCompatActivity() {
         }
 
         val uri = uriString.toUri()
+        currentFileUri = uri
         binding.tvTitle.text = title
 
         // Determine file type and load appropriate viewer
         when {
-            isPdfFile(title) -> initializePdfView(uri)
-            isDocFile(title) -> initializeDocView(uri)
-            isExcelFile(title) -> initializeDocView(uri)
-            isPowerPointFile(title) -> initializeDocView(uri)
+            isPdfFile(title) -> {
+                fileType = "pdf"
+                initializePdfView(uri)
+            }
+
+            isDocFile(title) -> {
+                fileType = "doc"
+                initializeDocView(uri)
+            }
+
+            isExcelFile(title) -> {
+                fileType = "excel"
+                initializeDocView(uri)
+            }
+
+            isPowerPointFile(title) -> {
+                fileType = "ppt"
+                initializeDocView(uri)
+            }
+
             else -> {
                 // Try to open with appropriate viewer based on MIME type
                 tryOpenWithAutoDetect(uri, title)
@@ -73,21 +106,38 @@ class PdfViewerActivity : AppCompatActivity() {
             showLoading()
             binding.pdfContainer.visibility = View.VISIBLE
             binding.docView.visibility = View.GONE
+            binding.ivTick.visibility = View.GONE // Hide convert button initially
+
+            // Get file from URI
+            val file = GetPath.getFileFromUri(this, pdfUri)
+            if (file != null && file.exists()) {
+                currentFile = file
+            }
 
             // Create PdfRendererView and add it to the container
             pdfView = PdfRendererView(this).apply {
                 statusListener = object : PdfRendererView.StatusCallBack {
                     override fun onPdfLoadStart() {
-                        runOnUiThread { showLoading() }
+                        runOnUiThread {
+                            showLoading()
+                            binding.ivTick.visibility = View.GONE
+                        }
                     }
 
                     override fun onPdfLoadSuccess(absolutePath: String) {
-                        runOnUiThread { hideLoading() }
+                        runOnUiThread {
+                            hideLoading()
+                            // Show convert button when PDF is loaded
+                            binding.ivTick.visibility = View.VISIBLE
+                            // Update file reference
+                            //currentFile = File(absolutePath)
+                        }
                     }
 
                     override fun onError(error: Throwable) {
                         runOnUiThread {
                             hideLoading()
+                            binding.ivTick.visibility = View.GONE
                             showError(error.message ?: "Failed to load PDF")
                         }
                     }
@@ -106,6 +156,7 @@ class PdfViewerActivity : AppCompatActivity() {
 
         } catch (e: Exception) {
             hideLoading()
+            binding.ivTick.visibility = View.GONE
             showError("Error initializing PDF viewer: ${e.message}")
         }
     }
@@ -115,24 +166,23 @@ class PdfViewerActivity : AppCompatActivity() {
             showLoading()
             binding.pdfContainer.visibility = View.GONE
             binding.docView.visibility = View.VISIBLE
+            binding.ivTick.visibility = View.GONE // Hide convert button initially
 
             // Get file from URI
             val file = GetPath.getFileFromUri(this, fileUri)
-
-            if (file == null || !file.exists()) {
-                hideLoading()
-                showError("Unable to read document file")
-                return
+            if (file != null && file.exists()) {
+                currentFile = file
             }
 
             docView = binding.docView
-            docView?.openDoc(this, file.absolutePath, DocSourceType.PATH)
-
+            docView?.openDoc(this, file?.absolutePath, DocSourceType.PATH)
+            binding.ivTick.isVisible = true
             // Let the library handle its own internal loading UI
             hideLoading()
 
         } catch (e: Exception) {
             hideLoading()
+            binding.ivTick.visibility = View.GONE
             showError("Error initializing document viewer: ${e.message}")
         }
     }
@@ -163,7 +213,6 @@ class PdfViewerActivity : AppCompatActivity() {
     }
 
     private fun updatePageInfo(currentPage: Int, totalPages: Int) {
-        // Update toolbar with page information
         if (totalPages > 0) {
             binding.toolbar.subtitle = "Page ${currentPage + 1} of $totalPages"
         } else {
@@ -216,12 +265,6 @@ class PdfViewerActivity : AppCompatActivity() {
         return lower.endsWith(".ppt") || lower.endsWith(".pptx")
     }
 
-    private fun isTextFile(name: String?): Boolean {
-        if (name.isNullOrEmpty()) return false
-        val lower = name.lowercase()
-        return lower.endsWith(".txt") || lower.endsWith(".rtf")
-    }
-
     private fun showMessage(message: String) {
         android.widget.Toast.makeText(this, message, android.widget.Toast.LENGTH_SHORT).show()
     }
@@ -234,7 +277,10 @@ class PdfViewerActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        // Handle back press for PDF viewer navigation
         super.onBackPressed()
+    }
+
+    companion object {
+        private var currentFileUri: Uri? = null
     }
 }
