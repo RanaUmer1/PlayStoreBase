@@ -14,6 +14,7 @@ object Constants {
 
     const val BASE_URL = "https://api-server.compdf.com/server/v2/process/"
     const val PDF_TO_DOC = "pdf/docx"
+    const val DOC_TO_PDF = "docx/pdf"
     const val CONTENT_TYPE_JSON = "application/json"
     const val API_KEY_HEADER = "X-API-Key"
     const val MAX_FILE_SIZE = 50 * 1024 * 1024 // 50MB
@@ -33,14 +34,14 @@ object Constants {
 
 
     //Intent Keys
-    const val EXTRA_PDF_URI = "extra_pdf_uri"
-    const val EXTRA_PDF_NAME = "extra_pdf_name"
+    const val EXTRA_FILE_URI = "extra_file_uri"
+    const val EXTRA_FILE_NAME = "extra_file_name"
+    const val EXTRA_FILE_VIEW_FROM_ADAPTER = "extra_file_view_from_adapter"
+
 
 
     const val EXTRA_FILE_PATH = "extra_file_path"
     const val EXTRA_FILE_TYPE = "extra_file_type"
-    const val EXTRA_FILE_NAME = "extra_file_name"
-    const val EXTRA_FILE_URI = "extra_file_uri"
 
     // Conversion types
     const val CONVERSION_PDF_TO_WORD = "pdf_to_word"

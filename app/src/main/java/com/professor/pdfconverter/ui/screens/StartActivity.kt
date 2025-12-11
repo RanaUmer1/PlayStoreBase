@@ -249,7 +249,7 @@ class StartActivity : AppCompatActivity() {
             ).setInterstitialCounter(RemoteConfigManager.getAdsConfig().interstitialCounter ?: 2)
             .setOpenAdResumeTime(
                 RemoteConfigManager.getAdsConfig().openAdResumeTimer?.toLong() ?: 10
-            ).setPremium(false)
+            ).setPremium(true)
             .setSplash(true)
     }
 

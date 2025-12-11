@@ -16,7 +16,7 @@ import com.professor.pdfconverter.R
 import com.professor.pdfconverter.app.AdIds
 import com.professor.pdfconverter.app.AnalyticsManager
 import com.professor.pdfconverter.app.AppPreferences
-import com.professor.pdfconverter.databinding.PremiumActivtyNewBinding
+import com.professor.pdfconverter.databinding.PremiumActivityBinding
 import com.professor.pdfconverter.iab.AppBillingClient
 import com.professor.pdfconverter.iab.ConnectResponse
 import com.professor.pdfconverter.iab.PurchaseResponse
@@ -41,7 +41,7 @@ class PremiumActivity : AppCompatActivity(), View.OnClickListener {
     @Inject
     lateinit var appPreferences: AppPreferences
 
-    private lateinit var binding: PremiumActivtyNewBinding
+    private lateinit var binding: PremiumActivityBinding
     private val viewModel: PremiumViewModel by viewModels()
 
     private lateinit var billingClient: AppBillingClient
@@ -60,7 +60,7 @@ class PremiumActivity : AppCompatActivity(), View.OnClickListener {
         val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
         windowInsetsController.isAppearanceLightStatusBars = true
 
-        binding = PremiumActivtyNewBinding.inflate(layoutInflater)
+        binding = PremiumActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initializeActivity()

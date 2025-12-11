@@ -28,9 +28,10 @@ interface ApiService {
 
     // Example: Upload document for conversion
     @Multipart
-    @POST("convert/doc-to-pdf")
+    @POST(Constants.DOC_TO_PDF)
     suspend fun convertDocToPdf(
         @Part file: MultipartBody.Part,
+        @Header("X-API-Key") apiKey: String? = null
     ): Response<ConversionResponse>
 
 

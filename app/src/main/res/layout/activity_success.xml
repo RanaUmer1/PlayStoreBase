@@ -6,41 +6,63 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <LinearLayout
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
-        <ImageView
-            android:id="@+id/btnBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/icon_back"
-            android:padding="16dp"
-            android:src="@drawable/ic_back" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            app:contentInsetStart="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white">
 
-        <TextView
-            android:id="@+id/tvDocumentTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ellipsize="end"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:letterSpacing="-0.02"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:text="ARTICLE_95738462910374..."
-            android:textColor="@color/text_color_primary"
-            android:textSize="20sp" />
+            <LinearLayout
+                android:id="@+id/ll_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <View
-            android:layout_width="48dp"
-            android:layout_height="match_parent" />
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_back"
+                    android:visibility="visible"
+                    app:tint="@color/text_color_primary" />
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:gravity="center_vertical"
+                    android:letterSpacing="-0.02"
+                    android:maxLines="1"
+                    android:padding="12dp"
+                    android:text="@string/splash_title"
+                    android:textColor="@color/text_color_primary"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/statusCard"
@@ -53,7 +75,7 @@
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        app:layout_constraintTop_toBottomOf="@id/appBar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -69,8 +91,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/one" />
+                app:lottie_rawRes="@raw/one"
+                app:lottie_speed="0.5" />
 
 
             <com.google.android.material.card.MaterialCardView
@@ -113,7 +135,7 @@
                             android:ellipsize="end"
                             android:maxLength="22"
                             android:maxLines="1"
-                            android:text="marketing_plan_2029.pdf"
+                            android:text="@string/your_converted_file"
                             android:textColor="@android:color/black"
                             android:textSize="14sp" />
 
@@ -123,7 +145,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="8dp"
-                            android:indeterminate="true"
+                            android:progress="100"
                             app:indicatorColor="@color/red"
                             app:layout_constraintBottom_toTopOf="@id/startGuideline"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -144,7 +166,7 @@
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="24dp"
                 android:maxLines="1"
-                android:text="@string/convert_pdf_to_word"
+                android:text="@string/view_file"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"

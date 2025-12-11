@@ -3,6 +3,7 @@ package com.professor.pdfconverter.utils
 import android.annotation.SuppressLint
 import android.app.WallpaperManager
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
@@ -18,6 +19,8 @@ import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.core.net.toUri
 import com.professor.pdfconverter.R
+import com.professor.pdfconverter.model.FileType
+import com.professor.pdfconverter.model.RecentFileModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -183,4 +186,58 @@ object Utils {
         }
     }
 
+
+     fun shareFile(fileName: String, filePath: String, context: Context) {
+        try {
+
+
+            // Create File object
+            val fileToShare = File(filePath)
+            if (!fileToShare.exists()) {
+                android.widget.Toast.makeText(
+                    context,
+                    "File not found",
+                    android.widget.Toast.LENGTH_SHORT
+                ).show()
+                return
+            }
+
+            // Get URI using FileProvider
+            val fileUri = androidx.core.content.FileProvider.getUriForFile(
+                context,
+                "${context.packageName}.provider",
+                fileToShare
+            )
+
+            // Determine MIME type
+            val mimeType = "*/*"
+//             when (file.fileType) {
+//                FileType.PDF -> "application/pdf"
+//                FileType.WORD -> "application/msword"
+//                FileType.EXCEL -> "application/vnd.ms-excel"
+//                FileType.PPT -> "application/vnd.ms-powerpoint"
+//                else -> "*/*"
+//            }
+
+            // Create share intent
+            val shareIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                type = mimeType
+                putExtra(Intent.EXTRA_STREAM, fileUri)
+                putExtra(Intent.EXTRA_SUBJECT, fileName)
+                putExtra(Intent.EXTRA_TEXT, "Sharing file: $fileName")
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+
+            // Launch share dialog
+            context.startActivity(Intent.createChooser(shareIntent, "Share File"))
+
+        } catch (e: Exception) {
+            android.widget.Toast.makeText(
+                context,
+                "Error sharing file: ${e.message}",
+                android.widget.Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
 }

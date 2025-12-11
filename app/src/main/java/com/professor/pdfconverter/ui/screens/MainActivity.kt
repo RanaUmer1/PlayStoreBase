@@ -2,47 +2,35 @@ package com.professor.pdfconverter.ui.screens
 
 import android.Manifest
 import android.app.Dialog
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.ConnectivityManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.os.LocaleListCompat
-import androidx.core.view.GravityCompat
 import androidx.core.view.WindowCompat
+import androidx.fragment.app.Fragment
 import com.mzalogics.ads.domain.core.AdMobManager
 import com.professor.pdfconverter.R
-import com.professor.pdfconverter.databinding.ActivityMainBinding
-import com.professor.pdfconverter.databinding.DialogExitBinding
-import com.professor.pdfconverter.Constants
 import com.professor.pdfconverter.app.AdIds
 import com.professor.pdfconverter.app.AnalyticsManager
 import com.professor.pdfconverter.app.AppPreferences
-import com.professor.pdfconverter.model.FileType
-import com.professor.pdfconverter.model.RecentFileModel
-import com.professor.pdfconverter.ui.viewmodel.MainViewModel
-import com.professor.pdfconverter.utils.AudioPlayerManager
-import com.professor.pdfconverter.utils.NetworkChangeReceiver
-import com.professor.pdfconverter.utils.Utils
-import com.professor.pdfconverter.utils.setClickWithTimeout
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
-import androidx.core.graphics.drawable.toDrawable
-import androidx.fragment.app.Fragment
+import com.professor.pdfconverter.databinding.ActivityMainBinding
+import com.professor.pdfconverter.databinding.DialogExitBinding
 import com.professor.pdfconverter.ui.fragments.ConvertedFragment
 import com.professor.pdfconverter.ui.fragments.HomeFragment
 import com.professor.pdfconverter.ui.fragments.SettingsFragment
+import com.professor.pdfconverter.utils.NetworkChangeReceiver
+import com.professor.pdfconverter.utils.setClickWithTimeout
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -58,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var appPreferences: AppPreferences
 
-    private val viewModel: MainViewModel by viewModels()
+
     private lateinit var networkChangeReceiver: NetworkChangeReceiver
     private lateinit var binding: ActivityMainBinding
     private lateinit var exitDialog: Dialog
@@ -101,13 +89,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        AudioPlayerManager.shouldPlay = false
-        AudioPlayerManager.stop()
-        unregisterReceiver(networkChangeReceiver)
+         unregisterReceiver(networkChangeReceiver)
     }
 
     override fun onDestroy() {
-        AudioPlayerManager.shouldPlay = false
         super.onDestroy()
     }
 
@@ -205,75 +190,6 @@ class MainActivity : AppCompatActivity() {
             setActiveTab(binding.tvSetting)
             loadFragment(SettingsFragment(), getString(R.string.settings))
         }
-
-        /* binding.nav.btnPremium.setClickWithTimeout {
-             startActivity(Intent(this, PremiumActivity::class.java))
-         }
-
-         binding.nav.tvLanguage.setClickWithTimeout {
-             analyticsManager.sendAnalytics(
-                 AnalyticsManager.Action.CLICKED,
-                 TAG + "_drawer_language"
-             )
-             binding.drawerLayout.closeDrawer(GravityCompat.START)
-             startActivity(
-                 Intent(this, LanguageActivity::class.java)
-                     .putExtra(Constants.IS_FROM_START, false)
-             )
-         }
-
-         binding.nav.tvResetRingtone.setClickWithTimeout {
-             analyticsManager.sendAnalytics(
-                 AnalyticsManager.Action.CLICKED,
-                 TAG + "_drawer_reset_ringtone"
-             )
-             binding.drawerLayout.closeDrawer(GravityCompat.START)
-
-             if (!Settings.System.canWrite(this)) {
-                 startActivity(Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS).apply {
-                     data = Uri.parse("package:$packageName")
-                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                 })
-             } else {
-                 Utils.resetDefaultRingtones(this)
-             }
-         }
-
-         binding.nav.tvFeedback.setClickWithTimeout {
-             analyticsManager.sendAnalytics(
-                 AnalyticsManager.Action.CLICKED,
-                 TAG + "_drawer_feedback"
-             )
-             binding.drawerLayout.closeDrawer(GravityCompat.START)
-             openStorePage()
-         }
-
-         binding.nav.tvRateUs.setClickWithTimeout {
-             analyticsManager.sendAnalytics(AnalyticsManager.Action.CLICKED, TAG + "_drawer_rate_us")
-             binding.drawerLayout.closeDrawer(GravityCompat.START)
-             openStorePage()
-         }
-
-         binding.nav.tvPrivacy.setClickWithTimeout {
-             analyticsManager.sendAnalytics(
-                 AnalyticsManager.Action.CLICKED,
-                 TAG + "_drawer_privacy_policy"
-             )
-             binding.drawerLayout.closeDrawer(GravityCompat.START)
-             startActivity(
-                 Intent(
-                     Intent.ACTION_VIEW,
-                     Uri.parse("https://ozi-apps.s3.us-west-2.amazonaws.com/RealAnimalSound_PrivacyPolicy.html")
-                 )
-                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
-             )
-         }
-
-         binding.nav.tvShare.setClickWithTimeout {
-             analyticsManager.sendAnalytics(AnalyticsManager.Action.CLICKED, TAG + "_drawer_share")
-             binding.drawerLayout.closeDrawer(GravityCompat.START)
-             shareApp()
-         }*/
     }
 
     private fun loadAd() {
@@ -295,16 +211,6 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private fun shareApp() {
-        val intent = Intent(Intent.ACTION_SEND).apply {
-            putExtra(Intent.EXTRA_TEXT, getString(R.string.shareApp))
-            putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name))
-            putExtra(Intent.EXTRA_TITLE, getString(R.string.app_name))
-            type = "text/plain"
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        }
-        startActivity(Intent.createChooser(intent, "Share"))
-    }
 
     private fun backPressed() {
         exitDialog.show()
@@ -350,19 +256,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun openStorePage() {
-        val url = "https://play.google.com/store/apps/details?id=$packageName"
-        try {
-            startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
-        } catch (_: ActivityNotFoundException) {
-            startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
-        }
-    }
-
     companion object {
         const val NOTIFICATION_PERMISSION_CODE = 1001
     }
-
 
 }

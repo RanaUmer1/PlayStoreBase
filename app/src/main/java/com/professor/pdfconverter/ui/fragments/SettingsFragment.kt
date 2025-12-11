@@ -86,6 +86,7 @@ class SettingsFragment : Fragment() {
         bottomSheet.show(parentFragmentManager, "RateUsBottomSheet")
     }
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

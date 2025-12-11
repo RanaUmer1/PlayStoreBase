@@ -4,6 +4,7 @@ import com.professor.pdfconverter.data.source.api.ApiService
 import com.professor.pdfconverter.data.source.api.ConversionResponse
 import com.professor.pdfconverter.utils.ApiResult
 import com.professor.pdfconverter.utils.NetworkHelper
+import com.professor.pdfconverter.BuildConfig
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okhttp3.MultipartBody
@@ -17,22 +18,24 @@ class ConversionRepository @Inject constructor(
     private val apiService: ApiService,
     private val networkHelper: NetworkHelper
 ) {
-    
-     fun convertPdfToDoc(
+
+    fun convertPdfToDoc(
         filePart: MultipartBody.Part
     ): Flow<ApiResult<ConversionResponse>> = flow {
         emit(ApiResult.loading())
-        
+
         if (!networkHelper.isNetworkConnected()) {
             emit(ApiResult.error("No internet connection"))
             return@flow
         }
-        
+
         try {
 
-            val response = apiService.convertPdfToDoc(filePart,
-                "public_key_048771f35b4e69cae519adfabc77b30b")
-            
+            val response = apiService.convertPdfToDoc(
+                filePart,
+                BuildConfig.API_KEY
+            )
+
             if (response.isSuccessful && response.body()?.code == "200") {
                 val data = response.body()
                 if (data != null) {
@@ -42,7 +45,7 @@ class ConversionRepository @Inject constructor(
                 }
             } else {
                 val errorMessage = response.body()?.code
-                    ?: response.message() 
+                    ?: response.message()
                     ?: "Conversion failed"
                 emit(ApiResult.error(errorMessage, response.code()))
             }
@@ -50,21 +53,21 @@ class ConversionRepository @Inject constructor(
             emit(ApiResult.error(e.message ?: "Unknown error occurred"))
         }
     }
-    
-     fun convertDocToPdf(
+
+    fun convertDocToPdf(
         filePart: MultipartBody.Part
     ): Flow<ApiResult<ConversionResponse>> = flow {
         emit(ApiResult.loading())
-        
+
         if (!networkHelper.isNetworkConnected()) {
             emit(ApiResult.error("No internet connection"))
             return@flow
         }
-        
-        try {
 
-            val response = apiService.convertDocToPdf(filePart)
-            
+        try {
+            val response =
+                apiService.convertDocToPdf(filePart, BuildConfig.API_KEY)
+
             if (response.isSuccessful && response.body()?.code == "200") {
                 val data = response.body()
                 if (data != null) {
@@ -74,7 +77,7 @@ class ConversionRepository @Inject constructor(
                 }
             } else {
                 val errorMessage = response.body()?.code
-                    ?: response.message() 
+                    ?: response.message()
                     ?: "Conversion failed"
                 emit(ApiResult.error(errorMessage, response.code()))
             }
@@ -113,6 +116,6 @@ class ConversionRepository @Inject constructor(
             emit(ApiResult.error(e.message ?: "Download error"))
         }
     }
-    
+
 
 }

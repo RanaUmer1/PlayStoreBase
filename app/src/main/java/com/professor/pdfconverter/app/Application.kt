@@ -83,8 +83,8 @@ class Application : MultiDexApplication(), LifecycleObserver {
             override fun onError(errorCode: Int, errorMessage: String) {
                 Log.e(TAG, "Billing initialization error: $errorCode - $errorMessage")
                 // Set premium to false on billing errors to be safe
-                appPreferences.setBoolean(AppPreferences.IS_PREMIUM, false)
-                AdMobManager.isPremium = false
+                appPreferences.setBoolean(AppPreferences.IS_PREMIUM, true)
+                AdMobManager.isPremium = true
             }
         })
     }

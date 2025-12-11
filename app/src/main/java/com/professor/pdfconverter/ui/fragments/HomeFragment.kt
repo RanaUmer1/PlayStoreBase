@@ -12,11 +12,16 @@ import com.professor.pdfconverter.adapter.RecentFilesAdapter
 import com.professor.pdfconverter.databinding.FragmentHomeBinding
 import com.professor.pdfconverter.model.FileType
 import com.professor.pdfconverter.model.RecentFileModel
-import com.professor.pdfconverter.ui.screens.DocumentViewerActivity
-import com.professor.pdfconverter.ui.screens.PremiumActivity
 import com.professor.pdfconverter.utils.Utils
 import com.professor.pdfconverter.utils.setClickWithTimeout
 import dagger.hilt.android.AndroidEntryPoint
+import android.os.Environment
+import com.professor.pdfconverter.ui.screens.DocumentViewerActivity
+import com.professor.pdfconverter.ui.screens.PremiumActivity
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -27,18 +32,6 @@ class HomeFragment : Fragment() {
     private lateinit var pdfPickerLauncher: androidx.activity.result.ActivityResultLauncher<Array<String>>
     private lateinit var docPickerLauncher: androidx.activity.result.ActivityResultLauncher<Array<String>>
 
-    /*val filePicker = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-        if (uri != null) {
-            val path = getPath(this, uri)
-            Log.d("FilePath", path ?: "NULL PATH")
-
-            if (path != null) {
-                //viewer.show(path)
-            } else {
-                Toast.makeText(this, "Unable to load file", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }*/
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,19 +48,24 @@ class HomeFragment : Fragment() {
         listeners()
     }
 
+    override fun onResume() {
+        super.onResume()
+        setupAdapter()
+    }
+
     private fun setupFilePicker() {
         // PDF picker
         pdfPickerLauncher = registerForActivityResult(
             androidx.activity.result.contract.ActivityResultContracts.OpenDocument()
         ) { uri ->
-            uri?.let { openPdf(it) }
+            uri?.let { openViewerActivity(it) }
         }
 
         // Office documents picker (DOC, DOCX, XLS, XLSX, PPT, PPTX)
         docPickerLauncher = registerForActivityResult(
             androidx.activity.result.contract.ActivityResultContracts.OpenDocument()
         ) { uri ->
-            uri?.let { openDoc(it) }
+            uri?.let { openViewerActivity(it) }
         }
     }
 
@@ -107,7 +105,8 @@ class HomeFragment : Fragment() {
     private fun setupAdapter() {
         val adapter = RecentFilesAdapter(
             onItemClick = { file ->
-                // Handle file click
+                openFileInViewer(file)
+
             },
             onMoreClick = { file ->
                 // Handle more click
@@ -116,7 +115,7 @@ class HomeFragment : Fragment() {
         binding.rvRecentFiles.adapter = adapter
         binding.rvRecentFiles.layoutManager =
             androidx.recyclerview.widget.LinearLayoutManager(requireContext())
-        val list = getDummyRecentFiles()
+        val list = getRecentFiles()
         adapter.submitList(list)
 
         if (list.isEmpty()) {
@@ -128,101 +127,85 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun getDummyRecentFiles(): List<RecentFileModel> {
-        return listOf(
-            RecentFileModel(
-                id = 1L,
-                name = "Sample_Document_1.pdf",
-                date = "28 Nov 2025",
-                time = "10:15 AM",
-                size = "1.2 MB",
-                fileType = FileType.PDF
-            ),
-            RecentFileModel(
-                id = 2L,
-                name = "Project_Proposal.docx",
-                date = "27 Nov 2025",
-                time = "05:42 PM",
-                size = "850 KB",
-                fileType = FileType.WORD
-            ),
-            RecentFileModel(
-                id = 3L,
-                name = "Invoice_2025_11.pdf",
-                date = "26 Nov 2025",
-                time = "09:03 AM",
-                size = "560 KB",
-                fileType = FileType.PDF
-            ),
-            RecentFileModel(
-                id = 1L,
-                name = "Sample_Document_1.pdf",
-                date = "28 Nov 2025",
-                time = "10:15 AM",
-                size = "1.2 MB",
-                fileType = FileType.PDF
-            ),
-            RecentFileModel(
-                id = 2L,
-                name = "Project_Proposal.docx",
-                date = "27 Nov 2025",
-                time = "05:42 PM",
-                size = "850 KB",
-                fileType = FileType.WORD
-            ),
-            RecentFileModel(
-                id = 3L,
-                name = "Invoice_2025_11.pdf",
-                date = "26 Nov 2025",
-                time = "09:03 AM",
-                size = "560 KB",
-                fileType = FileType.PDF
-            ), RecentFileModel(
-                id = 1L,
-                name = "Sample_Document_1.pdf",
-                date = "28 Nov 2025",
-                time = "10:15 AM",
-                size = "1.2 MB",
-                fileType = FileType.PDF
-            ),
-            RecentFileModel(
-                id = 2L,
-                name = "Project_Proposal.docx",
-                date = "27 Nov 2025",
-                time = "05:42 PM",
-                size = "850 KB",
-                fileType = FileType.WORD
-            ),
-            RecentFileModel(
-                id = 3L,
-                name = "Invoice_2025_11.pdf",
-                date = "26 Nov 2025",
-                time = "09:03 AM",
-                size = "560 KB",
-                fileType = FileType.PDF
+    private fun openFileInViewer(file: RecentFileModel) {
+        val filePath = file.path ?: return
+
+        // Convert file path to content URI using FileProvider
+        val fileUri = if (filePath.startsWith("content://")) {
+            Uri.parse(filePath)
+        } else {
+            // Use FileProvider to get content URI
+            androidx.core.content.FileProvider.getUriForFile(
+                requireContext(),
+                "${requireContext().packageName}.provider",
+                File(filePath)
             )
-        )
-    }
+        }
 
-    private fun openPdf(uri: Uri) {
-        val intent = Intent(
-            requireContext(),
-            com.professor.pdfconverter.ui.screens.DocumentViewerActivity::class.java
-        ).apply {
-            putExtra(Constants.EXTRA_PDF_URI, uri.toString())
-            putExtra(Constants.EXTRA_PDF_NAME, Utils.getFileNameFromUri(uri, requireContext()))
-
+        val intent = Intent(requireContext(), DocumentViewerActivity::class.java).apply {
+            // Pass URI, not file path
+            putExtra(Constants.EXTRA_FILE_URI, fileUri.toString())
+            putExtra(Constants.EXTRA_FILE_NAME, file.name)
+            putExtra(Constants.EXTRA_FILE_VIEW_FROM_ADAPTER, true)
+            // Add read permission
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
         startActivity(intent)
     }
 
-    private fun openDoc(uri: Uri) {
+
+    private fun getRecentFiles(): List<RecentFileModel> {
+        val directory = File(
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+            "PDFConverter"
+        )
+
+        if (!directory.exists() || !directory.isDirectory) {
+            return emptyList()
+        }
+
+        val files = directory.listFiles() ?: return emptyList()
+
+        return files.sortedByDescending { it.lastModified() }
+            .take(10)
+            .mapIndexed { index, file ->
+                val lastModified = Date(file.lastModified())
+                val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+                val timeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+
+                val fileSize = if (file.length() > 1024 * 1024) {
+                    String.format("%.1f MB", file.length() / (1024.0 * 1024.0))
+                } else {
+                    String.format("%.1f KB", file.length() / 1024.0)
+                }
+
+                val type = if (file.extension.equals(
+                        "pdf",
+                        ignoreCase = true
+                    )
+                ) FileType.PDF else FileType.WORD
+
+                RecentFileModel(
+                    id = index.toLong(),
+                    name = file.name,
+                    date = dateFormat.format(lastModified),
+                    time = timeFormat.format(lastModified),
+                    size = fileSize,
+                    uri = Uri.fromFile(file),
+                    path = file.absolutePath,
+                    fileType = type
+                )
+            }
+    }
+
+
+    private fun openViewerActivity(uri: Uri, fileName: String? = null) {
         val intent = Intent(
             requireContext(),
             DocumentViewerActivity::class.java
         ).apply {
-            putExtra(Constants.EXTRA_PDF_URI, uri.toString())
-            putExtra(Constants.EXTRA_PDF_NAME, Utils.getFileNameFromUri(uri, requireContext()))
+            putExtra(Constants.EXTRA_FILE_URI, uri.toString())
+            putExtra(Constants.EXTRA_FILE_NAME, fileName ?: Utils.getFileNameFromUri(uri, requireContext()))
         }
 
         startActivity(intent)

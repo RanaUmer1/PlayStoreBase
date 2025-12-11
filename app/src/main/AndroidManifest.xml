@@ -22,10 +22,10 @@
         tools:replace="android:fullBackupContent"
         tools:targetApi="31">
         <activity
-            android:name=".ui.screens.DownloadDocActivity"
+            android:name=".ui.screens.SuccessActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.screens.DocumentLoadActivity"
+            android:name=".ui.screens.DocumentConverterActivity"
             android:exported="false" />
         <activity
             android:name=".ui.screens.DocumentViewerActivity"
@@ -34,7 +34,7 @@
             android:name=".ui.screens.PremiumActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.screens.StartActivity"
+            android:name=".ui.screens.MainActivity"
             android:exported="true" />
         <activity
             android:name=".ui.screens.OnboardingActivity"
@@ -43,7 +43,7 @@
             android:name=".ui.screens.LanguageActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.screens.MainActivity"
+            android:name=".ui.screens.StartActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,6 +61,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+
 
         <meta-data
             android:name="com.google.android.gms.ads.flag.OPTIMIZE_INITIALIZATION"

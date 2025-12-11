@@ -36,6 +36,7 @@ class RecentFilesAdapter(
             val iconRes = when (item.fileType) {
                 FileType.WORD -> R.drawable.ic_file_type_doc
                 FileType.PDF -> R.drawable.ic_file_type_pdf
+                else -> R.drawable.ic_file_type_doc
             }
             binding.ivFileIcon.setImageResource(iconRes)
 

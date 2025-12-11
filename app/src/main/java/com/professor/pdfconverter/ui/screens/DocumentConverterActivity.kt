@@ -5,11 +5,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import com.professor.pdfconverter.Constants
 import com.professor.pdfconverter.R
-import com.professor.pdfconverter.databinding.ActivityDocumentLoadBinding
+import com.professor.pdfconverter.data.source.api.ConversionResponse
+import com.professor.pdfconverter.databinding.ActivityDocumentConverterBinding
 import com.professor.pdfconverter.ui.viewmodels.ConversionViewModel
 import com.professor.pdfconverter.utils.ApiResult
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,12 +20,11 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
-import androidx.core.net.toUri
 
 @AndroidEntryPoint
-class DocumentLoadActivity : AppCompatActivity() {
+class DocumentConverterActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityDocumentLoadBinding
+    private lateinit var binding: ActivityDocumentConverterBinding
     private val viewModel: ConversionViewModel by viewModels()
 
     private lateinit var filePath: String
@@ -32,13 +34,24 @@ class DocumentLoadActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDocumentLoadBinding.inflate(layoutInflater)
+        binding = ActivityDocumentConverterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initData()
         setupUI()
         setupObservers()
         checkFileStatus()
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.loadingBar.visibility == View.VISIBLE) {
+                    showExitDialog()
+                } else {
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        })
     }
 
     private fun initData() {
@@ -60,8 +73,7 @@ class DocumentLoadActivity : AppCompatActivity() {
         }
 
         binding.btnConvert.setOnClickListener {
-//            startConversion()
-            startActivity(Intent(this, DownloadDocActivity::class.java))
+            startConversion()
         }
 
         // Initially hide convert button
@@ -94,7 +106,7 @@ class DocumentLoadActivity : AppCompatActivity() {
                 ApiResult.Status.SUCCESS -> {
                     showLoading(false)
                     state.data?.let { data ->
-                        //handleConversionSuccess(data)
+                        handleConversionSuccess(data)
                     }
                 }
 
@@ -176,47 +188,41 @@ class DocumentLoadActivity : AppCompatActivity() {
     }
 
     private fun handleConversionSuccess(conversionData: Any) {
-//        when (conversionData) {
-//            is ConversionData -> {
-//                showSuccessDialog(conversionData)
-//            }
-//            else -> {
-//                showMessage("Conversion completed successfully")
-//                // Navigate back or to download screen
-//                onBackPressed()
-//            }
-//        }
+        if (conversionData is ConversionResponse) {
+            val fileList = conversionData.data.fileInfoDTOList
+            if (fileList.isNotEmpty()) {
+                val downloadUrl = fileList[0].downloadUrl
+                if (downloadUrl.isNotEmpty()) {
+                    // Update UI for downloading state
+                    binding.btnConvert.text = getString(R.string.downloading)
+                    binding.loadingBar.visibility = View.VISIBLE
+                    binding.btnConvert.isEnabled = false
+
+                    downloadConvertedFile(downloadUrl)
+                } else {
+                    showError("Download URL not found")
+                }
+            } else {
+                showError("No file info returned")
+            }
+        } else {
+            // Fallback or error handling if data type doesn't match
+            showError("Invalid conversion response")
+        }
     }
 
-    /*
-        private fun showSuccessDialog(conversionData: ConversionData) {
-            android.app.AlertDialog.Builder(this)
-                .setTitle("Conversion Successful!")
-                .setMessage(
-                    """
-                    Original: ${conversionData.originalFileName}
-                    Converted: ${conversionData.convertedFileName}
-                    Size: ${String.format("%.2f MB", conversionData.fileSize / (1024.0 * 1024.0))}
-
-                    Download your file now?
-                    """.trimIndent()
-                )
-                .setPositiveButton("Download") { _, _ ->
-                    downloadConvertedFile(conversionData.downloadUrl)
-                }
-                .setNegativeButton("Later") { _, _ ->
-                    onBackPressed()
-                }
-                .show()
-        }
-    */
-
     private fun downloadConvertedFile(downloadUrl: String) {
-        viewModel.downloadFile(downloadUrl) { success, message ->
+        viewModel.downloadFile(downloadUrl) { success, message, filePath ->
             if (success) {
                 showMessage("File downloaded successfully")
-                onBackPressed()
+                // Navigate to SuccessActivity after successful download
+                startActivity(Intent(this, SuccessActivity::class.java)
+                    .putExtra(Constants.EXTRA_FILE_PATH, filePath)
+                    .putExtra(Constants.EXTRA_FILE_NAME, File(filePath!!).name)
+                )
+                finish() // Optional: finish current activity so back button doesn't come back here
             } else {
+                showLoading(false) // Hide loading bar and reset UI
                 showError(message)
             }
         }
@@ -258,5 +264,26 @@ class DocumentLoadActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         viewModel.resetDownloadState()
+    }
+
+    private fun showExitDialog() {
+        val dialog = android.app.Dialog(this)
+        dialog.setContentView(R.layout.dialog_conversion_exit)
+        dialog.window?.setBackgroundDrawable(android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
+        dialog.window?.setLayout(
+            android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+            android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+
+        dialog.findViewById<View>(R.id.btnExit).setOnClickListener {
+            dialog.dismiss()
+            finish()
+        }
+
+        dialog.findViewById<View>(R.id.btnWait).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 }

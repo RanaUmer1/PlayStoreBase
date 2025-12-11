@@ -96,6 +96,7 @@ This is one of the most fun and educational apps that lets you explore and enjoy
     <string name="loading_pdf">Loading PDF…</string>
     <string name="converting_document">Converting document…</string>
     <string name="your_file_is_in_converting_process_please_wait">Your file is in converting process. \nPlease wait!</string>
+    <string name="wait">Wait</string>
 
 
     <string name="convert_word_to_pdf">Convert Word to PDF</string>
@@ -103,6 +104,7 @@ This is one of the most fun and educational apps that lets you explore and enjoy
     <string name="convert_ppt_to_pdf">Convert PowerPoint to PDF</string>
     <string name="convert_file">Convert File</string>
     <string name="converting">Converting…</string>
+    <string name="downloading">Downloading…</string>
     <string name="file_loaded_ready_to_convert">File loaded. Ready to convert</string>
     <string name="converted_successfully">Converted Successfully</string>
     <string name="share">Share</string>
@@ -129,4 +131,6 @@ This is one of the most fun and educational apps that lets you explore and enjoy
     <string name="cancel_anytime_at_least_24_hours_before_renewal_trial">Payment will be charged to your Google Play account at the end of your trail confirmation of purchase if you are not starting a trial. Subscription automatically renews unless it is canceled at least 24 hours before the end of your trial or current period. Your account will be charged.</string>
     <string name="cancel_anytime_at_least_24_hours_before_renewal_without_trial">Subscriptions renew automatically unless canceled at least 24 hours before the current period ends. Your account will be billed for renewal within hours prior to the end of the current period. You can manage and cancel your subscription at any time through the Google Play Store.</string>
     <string name="loading">Loading</string>
+    <string name="your_converted_file">Your Converted File</string>
+    <string name="view_file">View File</string>
 </resources>

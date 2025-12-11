@@ -12,6 +12,7 @@ import com.cherry.lib.doc.widget.DocView
 import com.professor.pdfconverter.Constants
 import com.professor.pdfconverter.databinding.ActivityDocumentViewerBinding
 import com.professor.pdfconverter.utils.GetPath
+import com.professor.pdfconverter.utils.Utils
 import com.rajat.pdfviewer.PdfRendererView
 import java.io.File
 
@@ -43,11 +44,16 @@ class DocumentViewerActivity : AppCompatActivity() {
         binding.ivTick.setOnClickListener {
             openDocumentLoadActivity()
         }
+
+        binding.ivShare.setOnClickListener {
+            Utils.shareFile(currentFile?.name ?: "", currentFile?.absolutePath ?: "", this)
+        }
     }
+
 
     private fun openDocumentLoadActivity() {
         currentFile?.let { file ->
-            val intent = Intent(this, DocumentLoadActivity::class.java).apply {
+            val intent = Intent(this, DocumentConverterActivity::class.java).apply {
                 putExtra(Constants.EXTRA_FILE_PATH, file.absolutePath)
                 putExtra(Constants.EXTRA_FILE_TYPE, fileType)
                 putExtra(Constants.EXTRA_FILE_NAME, file.name)
@@ -60,8 +66,12 @@ class DocumentViewerActivity : AppCompatActivity() {
     }
 
     private fun loadDocument() {
-        val uriString = intent.getStringExtra(Constants.EXTRA_PDF_URI)
-        val title = intent.getStringExtra(Constants.EXTRA_PDF_NAME) ?: "Document"
+        val uriString = intent.getStringExtra(Constants.EXTRA_FILE_URI)
+        val title = intent.getStringExtra(Constants.EXTRA_FILE_NAME) ?: "Document"
+        val adapterFile = intent.getBooleanExtra(Constants.EXTRA_FILE_VIEW_FROM_ADAPTER, false)
+
+        binding.ivTick.isVisible = !adapterFile
+        binding.ivShare.isVisible = adapterFile
 
         if (uriString.isNullOrEmpty()) {
             showError("No file provided")
@@ -76,22 +86,22 @@ class DocumentViewerActivity : AppCompatActivity() {
         when {
             isPdfFile(title) -> {
                 fileType = "pdf"
-                initializePdfView(uri)
+                initializePdfView(uri,adapterFile)
             }
 
             isDocFile(title) -> {
                 fileType = "doc"
-                initializeDocView(uri)
+                initializeDocView(uri.toString(), adapterFile)
             }
 
             isExcelFile(title) -> {
                 fileType = "excel"
-                initializeDocView(uri)
+                initializeDocView(uri.toString(), adapterFile)
             }
 
             isPowerPointFile(title) -> {
                 fileType = "ppt"
-                initializeDocView(uri)
+                initializeDocView(uri.toString(), adapterFile)
             }
 
             else -> {
@@ -101,7 +111,7 @@ class DocumentViewerActivity : AppCompatActivity() {
         }
     }
 
-    private fun initializePdfView(pdfUri: Uri) {
+    private fun initializePdfView(pdfUri: Uri, adapterFile: Boolean = false) {
         try {
             showLoading()
             binding.pdfContainer.visibility = View.VISIBLE
@@ -128,7 +138,7 @@ class DocumentViewerActivity : AppCompatActivity() {
                         runOnUiThread {
                             hideLoading()
                             // Show convert button when PDF is loaded
-                            binding.ivTick.visibility = View.VISIBLE
+                            binding.ivTick.isVisible = !adapterFile
                             // Update file reference
                             //currentFile = File(absolutePath)
                         }
@@ -161,23 +171,46 @@ class DocumentViewerActivity : AppCompatActivity() {
         }
     }
 
-    private fun initializeDocView(fileUri: Uri) {
+
+    private fun initializeDocView(fileUri: String, adapterFile: Boolean = false) {
         try {
             showLoading()
             binding.pdfContainer.visibility = View.GONE
             binding.docView.visibility = View.VISIBLE
-            binding.ivTick.visibility = View.GONE // Hide convert button initially
+            binding.ivTick.isVisible = !adapterFile// Show convert button
 
-            // Get file from URI
-            val file = GetPath.getFileFromUri(this, fileUri)
+            val uri = fileUri.toUri()
+
+            // Try to get file from URI
+            val file = GetPath.getFileFromUri(this, uri)
+
             if (file != null && file.exists()) {
                 currentFile = file
+
+            } else {
+                // If GetPath doesn't work, try direct approach
+                try {
+                    val inputStream = contentResolver.openInputStream(uri)
+                    if (inputStream != null) {
+                        // Create a temporary file
+                        val tempFile = File(cacheDir, "temp_doc_${System.currentTimeMillis()}")
+                        tempFile.outputStream().use { output ->
+                            inputStream.copyTo(output)
+                        }
+                        currentFile = tempFile
+                    }
+                } catch (e: Exception) {
+                    // Handle error
+                }
             }
 
+            // Pass the URI directly to DocView
             docView = binding.docView
-            docView?.openDoc(this, file?.absolutePath, DocSourceType.PATH)
-            binding.ivTick.isVisible = true
-            // Let the library handle its own internal loading UI
+            if (!adapterFile)
+                docView?.openDoc(this, file?.absolutePath, DocSourceType.PATH)
+            else
+                docView?.openDoc(this, uri.toString(), DocSourceType.PATH)
+
             hideLoading()
 
         } catch (e: Exception) {
@@ -198,13 +231,13 @@ class DocumentViewerActivity : AppCompatActivity() {
         // Try to open as PDF first (some files might be PDF even with wrong extension)
         try {
             showLoading()
-            initializePdfView(uri)
+            initializePdfView(uri, false)
         } catch (e: Exception) {
             // If PDF fails, try with DocView
             try {
                 hideLoading()
                 showLoading()
-                initializeDocView(uri)
+                initializeDocView(uri.toString(), false)
             } catch (e2: Exception) {
                 hideLoading()
                 showError("Unsupported file format: $fileName")
