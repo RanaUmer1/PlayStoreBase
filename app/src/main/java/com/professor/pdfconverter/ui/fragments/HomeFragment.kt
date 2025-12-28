@@ -16,6 +16,8 @@ import com.professor.pdfconverter.utils.Utils
 import com.professor.pdfconverter.utils.setClickWithTimeout
 import dagger.hilt.android.AndroidEntryPoint
 import android.os.Environment
+import androidx.activity.result.ActivityResultLauncher
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.professor.pdfconverter.ui.screens.DocumentViewerActivity
 import com.professor.pdfconverter.ui.screens.PremiumActivity
 import java.io.File
@@ -29,9 +31,9 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var pdfPickerLauncher: androidx.activity.result.ActivityResultLauncher<Array<String>>
-    private lateinit var docPickerLauncher: androidx.activity.result.ActivityResultLauncher<Array<String>>
-
+    private lateinit var pdfPickerLauncher: ActivityResultLauncher<Array<String>>
+    private lateinit var docPickerLauncher: ActivityResultLauncher<Array<String>>
+    private var recentFilesAdapter: RecentFilesAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -102,21 +104,25 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setupAdapter() {
-        val adapter = RecentFilesAdapter(
-            onItemClick = { file ->
-                openFileInViewer(file)
 
-            },
-            onMoreClick = { file ->
-                // Handle more click
-            }
-        )
-        binding.rvRecentFiles.adapter = adapter
-        binding.rvRecentFiles.layoutManager =
-            androidx.recyclerview.widget.LinearLayoutManager(requireContext())
+
+    private fun setupAdapter() {
+        if (recentFilesAdapter == null) {
+            recentFilesAdapter = RecentFilesAdapter(
+                onItemClick = { file ->
+                    openFileInViewer(file)
+                },
+                onMoreClick = { file ->
+                    // Handle more click
+                }
+            )
+            binding.rvRecentFiles.adapter = recentFilesAdapter
+            binding.rvRecentFiles.layoutManager =
+                LinearLayoutManager(requireContext())
+        }
+        
         val list = getRecentFiles()
-        adapter.submitList(list)
+        recentFilesAdapter?.submitList(list)
 
         if (list.isEmpty()) {
             binding.layoutNoData.visibility = View.VISIBLE
@@ -214,5 +220,6 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        recentFilesAdapter = null
     }
 }

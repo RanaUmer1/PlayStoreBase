@@ -18,7 +18,6 @@ class SuccessActivity : AppCompatActivity() {
     private var filePath: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivitySuccessBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setUpUI()

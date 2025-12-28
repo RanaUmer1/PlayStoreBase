@@ -3,6 +3,7 @@ package com.professor.pdfconverter.ui.screens
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
@@ -28,7 +29,6 @@ class DocumentViewerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDocumentViewerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setupToolbar()
         loadDocument()
     }
@@ -86,10 +86,12 @@ class DocumentViewerActivity : AppCompatActivity() {
         when {
             isPdfFile(title) -> {
                 fileType = "pdf"
-                initializePdfView(uri,adapterFile)
+                initializePdfView(uri, adapterFile)
             }
 
             isDocFile(title) -> {
+                Log.e("TAF", "loadDocument: $uri ", )
+                Log.e("TAF2", "loadDocument: $currentFileUri ", )
                 fileType = "doc"
                 initializeDocView(uri.toString(), adapterFile)
             }
@@ -177,39 +179,46 @@ class DocumentViewerActivity : AppCompatActivity() {
             showLoading()
             binding.pdfContainer.visibility = View.GONE
             binding.docView.visibility = View.VISIBLE
-            binding.ivTick.isVisible = !adapterFile// Show convert button
+            binding.ivTick.isVisible = !adapterFile
 
             val uri = fileUri.toUri()
+            var finalFile: File? = null
 
-            // Try to get file from URI
+            // 1. Try to get file directly
             val file = GetPath.getFileFromUri(this, uri)
-
             if (file != null && file.exists()) {
-                currentFile = file
+                finalFile = file
+            }
 
-            } else {
-                // If GetPath doesn't work, try direct approach
+            // 2. If not found or not accessible, try to copy from stream
+            if (finalFile == null) {
                 try {
                     val inputStream = contentResolver.openInputStream(uri)
                     if (inputStream != null) {
-                        // Create a temporary file
-                        val tempFile = File(cacheDir, "temp_doc_${System.currentTimeMillis()}")
+                        val title = binding.tvTitle.text.toString()
+                        // Ensure extension
+                        val extension = if (title.contains(".")) title.substringAfterLast(".") else "doc"
+                        val tempFile = File(cacheDir, "temp_view_${System.currentTimeMillis()}.$extension")
+                        
                         tempFile.outputStream().use { output ->
                             inputStream.copyTo(output)
                         }
-                        currentFile = tempFile
+                        finalFile = tempFile
                     }
                 } catch (e: Exception) {
-                    // Handle error
+                    e.printStackTrace()
                 }
             }
 
-            // Pass the URI directly to DocView
-            docView = binding.docView
-            if (!adapterFile)
-                docView?.openDoc(this, file?.absolutePath, DocSourceType.PATH)
-            else
-                docView?.openDoc(this, uri.toString(), DocSourceType.PATH)
+            currentFile = finalFile
+
+            if (finalFile != null && finalFile.exists()) {
+                docView = binding.docView
+                // ALWAYS use PATH and the absolute path of the local file
+                docView?.openDoc(this, finalFile.absolutePath, DocSourceType.PATH)
+            } else {
+                showError("Unable to load file")
+            }
 
             hideLoading()
 

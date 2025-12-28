@@ -198,7 +198,24 @@ class DocumentConverterActivity : AppCompatActivity() {
                     binding.loadingBar.visibility = View.VISIBLE
                     binding.btnConvert.isEnabled = false
 
-                    downloadConvertedFile(downloadUrl)
+                    // Determine new extension
+                    val newExtension = when (fileType) {
+                        "pdf" -> "docx" // PDF -> Word
+                        "doc", "docx" -> "pdf" // Word -> PDF
+                        "excel", "xls", "xlsx" -> "pdf" // Excel -> PDF
+                        "ppt", "pptx" -> "pdf" // PPT -> PDF
+                        else -> "pdf"
+                    }
+                    
+                    val nameWithoutExt = if (fileName.contains(".")) {
+                        fileName.substringBeforeLast(".")
+                    } else {
+                        fileName
+                    }
+                    
+                    val newFileName = "$nameWithoutExt.$newExtension"
+
+                    downloadConvertedFile(downloadUrl, newFileName)
                 } else {
                     showError("Download URL not found")
                 }
@@ -211,8 +228,8 @@ class DocumentConverterActivity : AppCompatActivity() {
         }
     }
 
-    private fun downloadConvertedFile(downloadUrl: String) {
-        viewModel.downloadFile(downloadUrl) { success, message, filePath ->
+    private fun downloadConvertedFile(downloadUrl: String, fileName: String) {
+        viewModel.downloadFile(downloadUrl, fileName) { success, message, filePath ->
             if (success) {
                 showMessage("File downloaded successfully")
                 // Navigate to SuccessActivity after successful download

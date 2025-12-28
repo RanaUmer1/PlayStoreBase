@@ -89,18 +89,23 @@ class FileListFragment : Fragment() {
         startActivity(intent)
     }
 
+    private var recentFilesAdapter: RecentFilesAdapter? = null
+
     private fun setupAdapter() {
+        if (recentFilesAdapter == null) {
+            recentFilesAdapter = RecentFilesAdapter(
+                onItemClick = { file ->
+                    openFileInViewer(file)
+                },
+                onMoreClick = {}
+            )
+            binding.rvFiles.adapter = recentFilesAdapter
+            binding.rvFiles.layoutManager =
+                androidx.recyclerview.widget.LinearLayoutManager(requireContext())
+        }
+        
         val list = getFiles()
-        val adapter = RecentFilesAdapter(
-            onItemClick = { file ->
-                openFileInViewer(file)
-            },
-            onMoreClick = {}
-        )
-        binding.rvFiles.adapter = adapter
-        binding.rvFiles.layoutManager =
-            androidx.recyclerview.widget.LinearLayoutManager(requireContext())
-        adapter.submitList(list)
+        recentFilesAdapter?.submitList(list)
 
         if (list.isEmpty()) {
             binding.layoutNoData.visibility = View.VISIBLE
@@ -160,5 +165,6 @@ class FileListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        recentFilesAdapter = null
     }
 }

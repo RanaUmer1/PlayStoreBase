@@ -92,10 +92,11 @@ class ConversionViewModel @Inject constructor(
     // Alternative method with callback (for backward compatibility)
     fun downloadFile(
         downloadUrl: String,
+        fileName: String? = null,
         callback: (Boolean, String, String) -> Unit
     ) {
         viewModelScope.launch {
-            val result = downloadFileUseCase(downloadUrl)
+            val result = downloadFileUseCase(downloadUrl, fileName)
 
             if (result.success) {
                 callback(true, "File downloaded: ${result.filePath}","${result.filePath}")
