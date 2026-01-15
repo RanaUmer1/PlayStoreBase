@@ -34,9 +34,43 @@ class RateUsBottomSheet(
             dismiss()
         }
 
+        val stars = listOf(
+            binding.ivStar1,
+            binding.ivStar2,
+            binding.ivStar3,
+            binding.ivStar4,
+            binding.ivStar5
+        )
+
+        stars.forEachIndexed { index, star ->
+            star.setClickWithTimeout {
+                updateRating(index + 1)
+            }
+        }
+
         binding.btnRate.setClickWithTimeout {
             dismiss()
             onRateClick()
+        }
+    }
+
+    private fun updateRating(rating: Int) {
+        val stars = listOf(
+            binding.ivStar1,
+            binding.ivStar2,
+            binding.ivStar3,
+            binding.ivStar4,
+            binding.ivStar5
+        )
+
+        stars.forEachIndexed { index, star ->
+            if (index < rating) {
+                star.setImageResource(com.professor.pdfconverter.R.drawable.ic_star)
+                star.setColorFilter(android.graphics.Color.parseColor("#FFD700"))
+            } else {
+                star.setImageResource(com.professor.pdfconverter.R.drawable.ic_star_non_fil)
+                star.clearColorFilter()
+            }
         }
     }
 

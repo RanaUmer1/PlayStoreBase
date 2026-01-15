@@ -11,6 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.professor.pdfconverter.R
 import com.professor.pdfconverter.databinding.NotificationPermissionBottomSheetBinding
 import com.professor.pdfconverter.ui.screens.MainActivity.Companion.NOTIFICATION_PERMISSION_CODE
+import com.professor.pdfconverter.utils.setClickWithTimeout
 
 class NotificationPermissionBottomSheet : BottomSheetDialogFragment() {
 
@@ -29,7 +30,7 @@ class NotificationPermissionBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-     /*   binding.tvAllow.setOnClickListener {
+        binding.btnAllow.setClickWithTimeout {
             dismiss()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 ActivityCompat.requestPermissions(
@@ -40,9 +41,12 @@ class NotificationPermissionBottomSheet : BottomSheetDialogFragment() {
             }
         }
 
-        binding.tvNotNow.setOnClickListener {
+        binding.btnMaybeLater.setClickWithTimeout {
             dismiss()
-        }*/
+        }
+        binding.ivCross.setClickWithTimeout {
+            dismiss()
+        }
     }
 
     override fun onDestroyView() {

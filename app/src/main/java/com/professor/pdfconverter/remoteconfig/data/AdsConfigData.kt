@@ -2,14 +2,13 @@ package com.professor.pdfconverter.remoteconfig.data
 
 
 data class AdsConfigData(
-
     val interstitialMaxTimer: Int? = null,
     val interstitialMinTimer: Int? = null,
     val interstitialCounter: Int? = null,
     val openAdResumeTimer: Int? = null,
     val firstOpenAdStrategy: Int = 2, // 0 = None, 1 = Interstitial, 2 = OpenApp
     val onBoardingCrossButtonVisible: Boolean = true,
-    val onBoardingMonetizationStrategy: Int = 1, // 0 = None, 1 = PremiumScreen, 2 = Interstitial->MainActivity
+    val onBoardingMonetizationStrategy: Int = 0, // 0 = Main, 1 = PremiumScreen, 2 = Interstitial->MainActivity
     val startupTime: Int = 8,
     val premiumCloseBtnDelay: Int = 0,
     val nativeConfig: List<NativeAdConfigData> = listOf(NativeAdConfigData()),
@@ -30,6 +29,5 @@ data class AdsConfigData(
     val nativeLanguageID: String? = null,
     val nativeAnimalAID: String? = null,
     val bannerInfoID: String? = null,
-
 
     )

@@ -91,6 +91,8 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun initializeActivity() {
+        val shouldShowAd = !RemoteConfigManager.getDisableAds()
+        Log.d(TAG, "Initializing OnboardingActivity - Ads Enabled: $shouldShowAd")
         analyticsManager.sendAnalytics(AnalyticsManager.Action.OPENED, "activity_onboarding")
         setupViewPager()
         initClickListeners()
@@ -200,8 +202,9 @@ class OnboardingActivity : AppCompatActivity() {
 
                 val totalItems = adapter?.itemCount ?: 0
                 val isLastPage = position == totalItems - 1
-                // Full-screen ad is fixed at position 1
-                val isAdPage = position == 1
+                // Full-screen ad is fixed at position 1, but only shown when ads are enabled
+                val shouldShowAd = !RemoteConfigManager.getDisableAds()
+                val isAdPage = shouldShowAd && position == 1
 
                 Log.d(TAG, "Page selected: $position, isLastPage: $isLastPage, isAdPage: $isAdPage")
 
@@ -295,7 +298,8 @@ class OnboardingActivity : AppCompatActivity() {
         val dotContainer = binding.dotContainer
         dotContainer.removeAllViews()
 
-        // Exclude the ad page from dots (since it's at position 1)
+        // Dots represent content pages only (ad page at position 1 doesn't get a dot)
+        // pageCount already reflects the number of onboarding items (not including ad)
         val contentPages = pageCount
         for (i in 0 until contentPages) {
             val dot = TextView(this).apply {
@@ -312,11 +316,13 @@ class OnboardingActivity : AppCompatActivity() {
 
     private fun updateDotsIndicator(position: Int) {
         val dotContainer = binding.dotContainer
-        // Map actual position to content dot index (skip ad page at position 1)
+        val shouldShowAd = !RemoteConfigManager.getDisableAds()
+        // Map actual position to content dot index (skip ad page at position 1 if ads are shown)
         val dotIndex = when {
             position <= 0 -> 0
-            position == 1 -> 1 // keep highlight stable when on ad page, highlight second dot
-            else -> position - 1
+            shouldShowAd && position == 1 -> 1 // keep highlight stable when on ad page, highlight second dot
+            shouldShowAd && position > 1 -> position - 1
+            else -> position
         }
         for (i in 0 until dotContainer.childCount) {
             val dot = dotContainer.getChildAt(i) as TextView

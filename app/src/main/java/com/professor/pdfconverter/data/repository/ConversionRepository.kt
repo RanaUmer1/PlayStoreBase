@@ -29,29 +29,59 @@ class ConversionRepository @Inject constructor(
             return@flow
         }
 
-        try {
+        val maxRetries = 3
+        var currentAttempt = 0
+        var lastException: Exception? = null
 
-            val response = apiService.convertPdfToDoc(
-                filePart,
-                BuildConfig.API_KEY
-            )
+        while (currentAttempt < maxRetries) {
+            try {
+                val response = apiService.convertPdfToDoc(
+                    filePart,
+                    BuildConfig.API_KEY
+                )
 
-            if (response.isSuccessful && response.body()?.code == "200") {
-                val data = response.body()
-                if (data != null) {
-                    emit(ApiResult.success(data))
+                if (response.isSuccessful && response.body()?.code == "200") {
+                    val data = response.body()
+                    if (data != null) {
+                        emit(ApiResult.success(data))
+                        return@flow
+                    } else {
+                        emit(ApiResult.error("Conversion failed: No data received"))
+                        return@flow
+                    }
                 } else {
-                    emit(ApiResult.error("Conversion failed: No data received"))
+                    // Check for 504 Gateway Timeout
+                    if (response.code() == 504 && currentAttempt < maxRetries - 1) {
+                        currentAttempt++
+                        val delayMs = (1000L * (1 shl currentAttempt)) // 2s, 4s, 8s
+                        kotlinx.coroutines.delay(delayMs)
+                        continue
+                    }
+                    
+                    val errorMessage = response.body()?.code
+                        ?: response.message()
+                        ?: "Conversion failed"
+                    emit(ApiResult.error(errorMessage, response.code()))
+                    return@flow
                 }
-            } else {
-                val errorMessage = response.body()?.code
-                    ?: response.message()
-                    ?: "Conversion failed"
-                emit(ApiResult.error(errorMessage, response.code()))
+            } catch (e: Exception) {
+                lastException = e
+                // Retry on timeout exceptions
+                if ((e is java.net.SocketTimeoutException || 
+                     e.message?.contains("timeout", ignoreCase = true) == true) && 
+                    currentAttempt < maxRetries - 1) {
+                    currentAttempt++
+                    val delayMs = (1000L * (1 shl currentAttempt))
+                    kotlinx.coroutines.delay(delayMs)
+                    continue
+                } else {
+                    emit(ApiResult.error(e.message ?: "Unknown error occurred"))
+                    return@flow
+                }
             }
-        } catch (e: Exception) {
-            emit(ApiResult.error(e.message ?: "Unknown error occurred"))
         }
+        
+        emit(ApiResult.error(lastException?.message ?: "Conversion failed after $maxRetries attempts"))
     }
 
     fun convertDocToPdf(

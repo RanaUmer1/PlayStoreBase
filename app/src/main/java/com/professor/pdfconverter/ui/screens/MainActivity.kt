@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.os.LocaleListCompat
 import androidx.core.view.WindowCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.mzalogics.ads.domain.core.AdMobManager
 import com.professor.pdfconverter.R
@@ -24,6 +25,7 @@ import com.professor.pdfconverter.app.AnalyticsManager
 import com.professor.pdfconverter.app.AppPreferences
 import com.professor.pdfconverter.databinding.ActivityMainBinding
 import com.professor.pdfconverter.databinding.DialogExitBinding
+import com.professor.pdfconverter.remoteconfig.RemoteConfigManager
 import com.professor.pdfconverter.ui.fragments.ConvertedFragment
 import com.professor.pdfconverter.ui.fragments.HomeFragment
 import com.professor.pdfconverter.ui.fragments.SettingsFragment
@@ -89,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-         unregisterReceiver(networkChangeReceiver)
+        unregisterReceiver(networkChangeReceiver)
     }
 
     override fun onDestroy() {
@@ -97,6 +99,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
+        binding.ivRemoveAd.isVisible = !RemoteConfigManager.getDisableAds()
         requestPermission()
         setActiveTab(binding.tvHome)
         loadFragment(HomeFragment(), getString(R.string.splash_title))
@@ -117,8 +120,6 @@ class MainActivity : AppCompatActivity() {
             binding.ivBack.visibility = android.view.View.VISIBLE
         }
     }
-
-
 
 
     fun setActiveTab(activeTab: AppCompatTextView) {

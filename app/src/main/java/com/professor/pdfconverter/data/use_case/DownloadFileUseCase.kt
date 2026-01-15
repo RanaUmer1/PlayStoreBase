@@ -29,7 +29,8 @@ class DownloadFileUseCase @Inject constructor(
 
     suspend operator fun invoke(
         downloadUrl: String,
-        fileName: String? = null
+        fileName: String? = null,
+        onProgress: ((Int) -> Unit)? = null
     ): DownloadResult {
         return try {
             // Get response from repository
@@ -40,7 +41,7 @@ class DownloadFileUseCase @Inject constructor(
                 val actualFileName = fileName ?: generateFileName(downloadUrl)
                 
                 // Save file
-                val result = saveFile(response.body()!!, actualFileName)
+                val result = saveFile(response.body()!!, actualFileName, onProgress)
                 
                 if (result.success) {
                     // Get URI for the saved file (for sharing/opening)
@@ -70,7 +71,11 @@ class DownloadFileUseCase @Inject constructor(
         }
     }
 
-    private suspend fun saveFile(body: ResponseBody, fileName: String): SaveFileResult {
+    private suspend fun saveFile(
+        body: ResponseBody,
+        fileName: String,
+        onProgress: ((Int) -> Unit)? = null
+    ): SaveFileResult {
         return withContext(Dispatchers.IO) {
             var inputStream: InputStream? = null
             var outputStream: OutputStream? = null
@@ -105,8 +110,11 @@ class DownloadFileUseCase @Inject constructor(
                     outputStream.write(buffer, 0, bytesRead)
                     totalBytesRead += bytesRead
                     
-                    // You could emit progress here if needed
-                    // val progress = (totalBytesRead * 100 / totalBytes).toInt()
+                    // Emit progress
+                    if (totalBytes > 0 && onProgress != null) {
+                        val progress = (totalBytesRead * 100 / totalBytes).toInt()
+                        onProgress(progress)
+                    }
                 }
                 
                 outputStream.flush()

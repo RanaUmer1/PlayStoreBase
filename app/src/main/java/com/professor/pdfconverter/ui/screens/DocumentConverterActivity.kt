@@ -15,11 +15,13 @@ import com.professor.pdfconverter.data.source.api.ConversionResponse
 import com.professor.pdfconverter.databinding.ActivityDocumentConverterBinding
 import com.professor.pdfconverter.ui.viewmodels.ConversionViewModel
 import com.professor.pdfconverter.utils.ApiResult
+import com.professor.pdfconverter.utils.ProgressRequestBody
+import com.professor.pdfconverter.utils.setClickWithTimeout
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
+import androidx.core.graphics.drawable.toDrawable
 
 @AndroidEntryPoint
 class DocumentConverterActivity : AppCompatActivity() {
@@ -68,11 +70,11 @@ class DocumentConverterActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        binding.btnBack.setOnClickListener {
+        binding.btnBack.setClickWithTimeout {
             onBackPressed()
         }
 
-        binding.btnConvert.setOnClickListener {
+        binding.btnConvert.setClickWithTimeout {
             startConversion()
         }
 
@@ -104,7 +106,6 @@ class DocumentConverterActivity : AppCompatActivity() {
                 }
 
                 ApiResult.Status.SUCCESS -> {
-                    showLoading(false)
                     state.data?.let { data ->
                         handleConversionSuccess(data)
                     }
@@ -128,6 +129,22 @@ class DocumentConverterActivity : AppCompatActivity() {
                 // Still loading
                 binding.loadingBar.visibility = View.VISIBLE
                 binding.btnConvert.visibility = View.GONE
+            }
+        }
+
+        viewModel.uploadProgress.observe(this) { progress ->
+            // Only update during upload phase (when loading bar is visible and not downloading)
+            if (binding.loadingBar.visibility == View.VISIBLE && 
+                !binding.btnConvert.text.toString().startsWith("Downloading")) {
+                binding.btnConvert.text = "Uploading $progress%"
+            }
+        }
+
+        viewModel.downloadProgress.observe(this) { progress ->
+            // Only update if we're in download phase
+            if (binding.loadingBar.visibility == View.VISIBLE && 
+                binding.btnConvert.text.toString().startsWith("Downloading")) {
+                binding.btnConvert.text = "Downloading $progress%"
             }
         }
     }
@@ -163,7 +180,7 @@ class DocumentConverterActivity : AppCompatActivity() {
             else -> Constants.CONVERSION_PDF_TO_WORD // default
         }
 
-        // Create multipart file
+        // Create multipart file with progress tracking
         val filePart = try {
             val mediaType = when (fileType) {
                 "pdf" -> "application/pdf".toMediaType()
@@ -173,10 +190,15 @@ class DocumentConverterActivity : AppCompatActivity() {
                 else -> "*/*".toMediaType()
             }
 
+            // Use ProgressRequestBody to track upload progress
+            val progressRequestBody = ProgressRequestBody(file, mediaType) { progress ->
+                viewModel.updateUploadProgress(progress)
+            }
+
             MultipartBody.Part.createFormData(
                 "file",
                 file.name,
-                file.asRequestBody(mediaType)
+                progressRequestBody
             )
         } catch (e: Exception) {
             showError("Failed to prepare file for upload: ${e.message}")
@@ -194,7 +216,7 @@ class DocumentConverterActivity : AppCompatActivity() {
                 val downloadUrl = fileList[0].downloadUrl
                 if (downloadUrl.isNotEmpty()) {
                     // Update UI for downloading state
-                    binding.btnConvert.text = getString(R.string.downloading)
+                    binding.btnConvert.text = "Downloading 0%"
                     binding.loadingBar.visibility = View.VISIBLE
                     binding.btnConvert.isEnabled = false
 
@@ -248,7 +270,7 @@ class DocumentConverterActivity : AppCompatActivity() {
     private fun showLoading(show: Boolean) {
         if (show) {
             binding.btnConvert.isEnabled = false
-            binding.btnConvert.text = getString(R.string.converting)
+            binding.btnConvert.text = "Uploading 0%"
             binding.loadingBar.visibility = View.VISIBLE
         } else {
             binding.btnConvert.isEnabled = true
@@ -286,18 +308,22 @@ class DocumentConverterActivity : AppCompatActivity() {
     private fun showExitDialog() {
         val dialog = android.app.Dialog(this)
         dialog.setContentView(R.layout.dialog_conversion_exit)
-        dialog.window?.setBackgroundDrawable(android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
+        dialog.window?.setBackgroundDrawable(android.graphics.Color.TRANSPARENT.toDrawable())
+        val displayMetrics = resources.displayMetrics
+        val width = displayMetrics.widthPixels
+        val margin = (20 * displayMetrics.density).toInt()
         dialog.window?.setLayout(
-            android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+            width - (2 * margin),
             android.view.ViewGroup.LayoutParams.WRAP_CONTENT
         )
 
-        dialog.findViewById<View>(R.id.btnExit).setOnClickListener {
+
+        dialog.findViewById<View>(R.id.btnExit).setClickWithTimeout {
             dialog.dismiss()
             finish()
         }
 
-        dialog.findViewById<View>(R.id.btnWait).setOnClickListener {
+        dialog.findViewById<View>(R.id.btnWait).setClickWithTimeout {
             dialog.dismiss()
         }
 

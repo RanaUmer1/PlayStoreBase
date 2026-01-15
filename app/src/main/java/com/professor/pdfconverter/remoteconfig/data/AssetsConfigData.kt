@@ -10,9 +10,6 @@ data class AssetsConfigData(
 ) {
     fun getString(key: String): String {
         return when (key) {
-            RemoteConfigKeys.ANIMAL_CATEGORY_JSON -> category
-            RemoteConfigKeys.ANIMAL_JSON -> animal
-            RemoteConfigKeys.ANIMAL_DETAILS_JSON -> animalDetails
 
             else -> ""
         }

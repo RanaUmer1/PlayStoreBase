@@ -46,7 +46,7 @@ class Application : MultiDexApplication(), LifecycleObserver {
         initializeBilling()
 
         // Setup notifications
-        setupNotifications()
+        //setupNotifications()
 
         // Setup lifecycle observer
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)

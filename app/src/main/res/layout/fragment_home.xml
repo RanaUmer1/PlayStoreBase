@@ -66,17 +66,17 @@
             android:id="@+id/cardRemoveAds"
             android:layout_width="0dp"
             android:layout_height="64dp"
-            android:layout_marginTop="12dp"
             android:layout_marginHorizontal="2dp"
+            android:layout_marginTop="12dp"
             android:layout_marginBottom="2dp"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp"
-            app:strokeWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/word_to_pdf_container">
+            app:layout_constraintTop_toBottomOf="@id/word_to_pdf_container"
+            app:strokeWidth="0dp">
 
             <TextView
                 android:id="@+id/tvRemoveAdsTitle"
@@ -85,7 +85,6 @@
                 android:fontFamily="@font/poppins_semi_bold"
                 android:gravity="center"
                 android:text="@string/remove_ads"
-
                 android:textColor="@color/text_color_primary"
                 android:textSize="16sp" />
 

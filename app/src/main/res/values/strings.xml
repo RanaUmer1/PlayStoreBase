@@ -1,11 +1,6 @@
 <resources>
     <string name="admob_app_id" translatable="false">ca-app-pub-6412217023250030~5996179048</string>
 
-
-    <string name="app_name">Pdf Converter</string>
-    <string name="splash_title">Pdf to Word Converter</string>
-    <string name="splash_description">Easily turn PDFs into Word docs and back again.</string>
-
     <!--    Lang Names-->
     <string name="english">English</string>
     <string name="arabic">Arabic (العربیتہ)</string>
@@ -36,6 +31,10 @@
     <string name="please_select_a_language">Please Select a Language</string>
 
 
+    <string name="app_name">Pdf Converter</string>
+    <string name="splash_title">Pdf to Word Converter</string>
+    <string name="splash_description">Easily turn PDFs into Word docs and back again.</string>
+
     <string name="exit_application">Exit Application</string>
     <string name="are_you_sure_you_want_to_exit_this_application">Are you sure you want to exit this application?</string>
     <string name="no">No</string>
@@ -64,7 +63,7 @@
     <string name="converted">Converted</string>
 
     <string name="shareApp">
-This is one of the most fun and educational apps that lets you explore and enjoy realistic animal sounds from a wide range of creatures including: lions, birds, insects, marine animals, and more.
+Hey! I use this app all the time to turn documents into clean PDFs. Really useful for receipts/forms/notes. Thought you might like it too:
 </string>
     <string name="unable_to_load_ad">Unable to load ad</string>
     <string name="remove_ads">Remove AD</string>
@@ -133,4 +132,10 @@ This is one of the most fun and educational apps that lets you explore and enjoy
     <string name="loading">Loading</string>
     <string name="your_converted_file">Your Converted File</string>
     <string name="view_file">View File</string>
+    <string name="allow">Allow</string>
+    <string name="not_now">Not Now</string>
+    <string name="stay_updated_with_notifications">Stay Updated with Notifications</string>
+    <string name="notification_description">We need notification permission to keep you informed about important updates. This ensures a better user experience with timely alerts.</string>
+    <string name="allow_access">Allow Access</string>
+    <string name="maybe_later">Maybe Later</string>
 </resources>

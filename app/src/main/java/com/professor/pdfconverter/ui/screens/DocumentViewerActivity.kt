@@ -14,6 +14,7 @@ import com.professor.pdfconverter.Constants
 import com.professor.pdfconverter.databinding.ActivityDocumentViewerBinding
 import com.professor.pdfconverter.utils.GetPath
 import com.professor.pdfconverter.utils.Utils
+import com.professor.pdfconverter.utils.setClickWithTimeout
 import com.rajat.pdfviewer.PdfRendererView
 import java.io.File
 
@@ -37,15 +38,15 @@ class DocumentViewerActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        binding.ivBack.setOnClickListener {
+        binding.ivBack.setClickWithTimeout {
             onBackPressed()
         }
 
-        binding.ivTick.setOnClickListener {
+        binding.ivTick.setClickWithTimeout {
             openDocumentLoadActivity()
         }
 
-        binding.ivShare.setOnClickListener {
+        binding.ivShare.setClickWithTimeout {
             Utils.shareFile(currentFile?.name ?: "", currentFile?.absolutePath ?: "", this)
         }
     }
@@ -267,7 +268,7 @@ class DocumentViewerActivity : AppCompatActivity() {
         binding.layoutError.root.visibility = View.VISIBLE
         binding.layoutError.tvErrorMessage.text = message
 
-        binding.layoutError.btnRetry.setOnClickListener {
+        binding.layoutError.btnRetry.setClickWithTimeout {
             binding.layoutError.root.visibility = View.GONE
             showLoading()
             loadDocument()

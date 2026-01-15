@@ -16,8 +16,11 @@ import com.professor.pdfconverter.utils.Utils
 import com.professor.pdfconverter.utils.setClickWithTimeout
 import dagger.hilt.android.AndroidEntryPoint
 import android.os.Environment
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.professor.pdfconverter.remoteconfig.RemoteConfigManager
 import com.professor.pdfconverter.ui.screens.DocumentViewerActivity
 import com.professor.pdfconverter.ui.screens.PremiumActivity
 import java.io.File
@@ -73,13 +76,19 @@ class HomeFragment : Fragment() {
 
     private fun init() {
         setupAdapter()
+
     }
 
     private fun listeners() {
-        binding.cardRemoveAds.setClickWithTimeout {
-            startActivity(Intent(requireContext(), PremiumActivity::class.java))
-        }
 
+
+        binding.cardRemoveAds.setClickWithTimeout {
+            if (!RemoteConfigManager.getDisableAds())
+                startActivity(Intent(requireContext(), PremiumActivity::class.java))
+            else
+                Toast.makeText(requireContext(), "Ads are already disabled", Toast.LENGTH_SHORT)
+                    .show()
+        }
         binding.pdfToDocContainer.setClickWithTimeout {
             pdfPickerLauncher.launch(arrayOf("application/pdf"))
         }
@@ -105,7 +114,6 @@ class HomeFragment : Fragment() {
     }
 
 
-
     private fun setupAdapter() {
         if (recentFilesAdapter == null) {
             recentFilesAdapter = RecentFilesAdapter(
@@ -120,7 +128,7 @@ class HomeFragment : Fragment() {
             binding.rvRecentFiles.layoutManager =
                 LinearLayoutManager(requireContext())
         }
-        
+
         val list = getRecentFiles()
         recentFilesAdapter?.submitList(list)
 
@@ -211,7 +219,10 @@ class HomeFragment : Fragment() {
             DocumentViewerActivity::class.java
         ).apply {
             putExtra(Constants.EXTRA_FILE_URI, uri.toString())
-            putExtra(Constants.EXTRA_FILE_NAME, fileName ?: Utils.getFileNameFromUri(uri, requireContext()))
+            putExtra(
+                Constants.EXTRA_FILE_NAME,
+                fileName ?: Utils.getFileNameFromUri(uri, requireContext())
+            )
         }
 
         startActivity(intent)

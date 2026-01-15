@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "409729597563",
-    "project_id": "playstorebaseproject",
-    "storage_bucket": "playstorebaseproject.firebasestorage.app"
+    "project_number": "407829430496",
+    "project_id": "doc-converter-54821",
+    "storage_bucket": "doc-converter-54821.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:409729597563:android:579030e6b44ad46a6822de",
+        "mobilesdk_app_id": "1:407829430496:android:c5a59913932e097b395085",
         "android_client_info": {
-          "package_name": "com.professor.playstorebaseproject"
+          "package_name": "com.professor.doc_converter"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC3bYdHyywCMpDVopvD6_ovUjKAOUKPLeU"
+          "current_key": "AIzaSyCzACz93v-jDsbVgQvrtmVZj_q5Wg9bOR0"
         }
       ],
       "services": {

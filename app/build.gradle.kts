@@ -14,7 +14,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.professor.playstorebaseproject"
+        applicationId = "com.professor.doc_converter"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -31,14 +31,29 @@ android {
 
         // Set BuildConfig fields
         buildConfigField("String", "API_KEY", "\"${localProperties.getProperty("API_KEY")}\"")
-        buildConfigField("String", "BASE_URL", "\"${localProperties.getProperty("BASE_URL", "https://your-default-api.com/")}\"")
+        buildConfigField(
+            "String",
+            "BASE_URL",
+            "\"${localProperties.getProperty("BASE_URL", "https://your-default-api.com/")}\""
+        )
 
+        resourceConfigurations.addAll(
+            listOf(
+                "en", "ar", "es", "in", "fa", "hi", "ru", "pt", "bn", "tr"
+            )
+        )
+    }
 
+    bundle {
+        language {
+            enableSplit = false
+        }
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -95,7 +110,6 @@ dependencies {
     implementation(libs.lottie)
     implementation(libs.docviewer)
     implementation(libs.pdf.viewer)
-
 
 
     // Networking

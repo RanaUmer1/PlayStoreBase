@@ -14,6 +14,7 @@ import com.professor.pdfconverter.databinding.ItemOnboardingBinding
 import com.professor.pdfconverter.app.AdIds
 import com.professor.pdfconverter.model.OnboardingItem
 import com.professor.pdfconverter.remoteconfig.RemoteConfigManager
+import com.professor.pdfconverter.utils.setClickWithTimeout
 
 class OnboardingAdapter(
     private var items: List<OnboardingItem>,
@@ -30,6 +31,10 @@ class OnboardingAdapter(
     private var isAdLoaded = false
     private var adLoadAttempted = false
     private var adShown = false
+    
+    // Check if ads are disabled from remote config
+    private val shouldShowAd: Boolean
+        get() = !RemoteConfigManager.getDisableAds()
 
     inner class OnboardingViewHolder(val binding: ItemOnboardingBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -45,7 +50,7 @@ class OnboardingAdapter(
     inner class AdViewHolder(val binding: FullNativeAdItemViewPagerBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
-            Log.d(TAG, "Binding full native ad, isAdLoaded: $isAdLoaded, adShown: $adShown")
+            Log.d(TAG, "Binding full native ad, isAdLoaded: $isAdLoaded, adShown: $adShown, shouldShowAd: $shouldShowAd")
 
             if (!adShown) {
                 // Prepare loading UI
@@ -73,8 +78,8 @@ class OnboardingAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        // Show full-screen native ad as the second page (index 1)
-        return if (position == 1) VIEW_TYPE_AD else VIEW_TYPE_ONBOARDING
+        // Show full-screen native ad as the second page (index 1) only if ads are enabled
+        return if (shouldShowAd && position == 1) VIEW_TYPE_AD else VIEW_TYPE_ONBOARDING
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -95,13 +100,20 @@ class OnboardingAdapter(
         }
     }
 
-    override fun getItemCount() = items.size + 1 // +1 for ad as last item
+    override fun getItemCount(): Int {
+        // Add 1 for ad only if ads are enabled
+        return if (shouldShowAd) items.size + 1 else items.size
+    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is OnboardingViewHolder -> {
-                // Adjust index because position 1 is reserved for the full-screen ad
-                val itemIndex = if (position <= 0) position else if (position > 1) position - 1 else 0
+                // Adjust index because position 1 is reserved for the full-screen ad (when ads are enabled)
+                val itemIndex = if (shouldShowAd) {
+                    if (position <= 0) position else if (position > 1) position - 1 else 0
+                } else {
+                    position
+                }
                 holder.bind(items[itemIndex])
             }
             is AdViewHolder -> {
@@ -206,7 +218,7 @@ class OnboardingAdapter(
             val fallback = binding.includeAd.root.findViewById<android.view.View>(R.id.fallbackContainer)
             val btnContinue = binding.includeAd.root.findViewById<android.view.View>(R.id.btnContinue)
             fallback?.visibility = android.view.View.VISIBLE
-            btnContinue?.setOnClickListener {
+            btnContinue?.setClickWithTimeout {
                 try {
                     val activity = binding.root.context as? android.app.Activity
                     val pager = activity?.findViewById<ViewPager2>(R.id.viewPager)

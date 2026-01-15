@@ -57,8 +57,9 @@ object NetworkModule {
                 chain.proceed(request)
             }
             .connectTimeout(60, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .writeTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.MINUTES)
+            .writeTimeout(15, TimeUnit.MINUTES)
+            .callTimeout(15, TimeUnit.MINUTES)
             .build()
     }
 

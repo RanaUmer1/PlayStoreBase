@@ -19,15 +19,15 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="104dp"
+            android:layout_height="104dp"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/foot_step" />
+            android:src="@mipmap/ic_launcher_round" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/poppins_semi_bold"
 
             android:text="@string/splash_title"

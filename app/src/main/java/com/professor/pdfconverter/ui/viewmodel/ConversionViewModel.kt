@@ -40,6 +40,9 @@ class ConversionViewModel @Inject constructor(
     private val _downloadProgress = MutableLiveData<Int>()
     val downloadProgress: LiveData<Int> = _downloadProgress
 
+    private val _uploadProgress = MutableLiveData<Int>()
+    val uploadProgress: LiveData<Int> = _uploadProgress
+
     fun setFileReady(isReady: Boolean) {
         _fileStatus.value = isReady
     }
@@ -71,7 +74,9 @@ class ConversionViewModel @Inject constructor(
         viewModelScope.launch {
             _downloadState.value = DownloadState.Loading(0)
 
-            val result = downloadFileUseCase(downloadUrl, fileName)
+            val result = downloadFileUseCase(downloadUrl, fileName) { progress ->
+                _downloadProgress.postValue(progress)
+            }
 
             when {
                 result.success -> {
@@ -96,7 +101,9 @@ class ConversionViewModel @Inject constructor(
         callback: (Boolean, String, String) -> Unit
     ) {
         viewModelScope.launch {
-            val result = downloadFileUseCase(downloadUrl, fileName)
+            val result = downloadFileUseCase(downloadUrl, fileName) { progress ->
+                _downloadProgress.postValue(progress)
+            }
 
             if (result.success) {
                 callback(true, "File downloaded: ${result.filePath}","${result.filePath}")
@@ -114,5 +121,10 @@ class ConversionViewModel @Inject constructor(
     fun resetDownloadState() {
         _downloadState.value = DownloadState.Idle
         _downloadProgress.value = 0
+        _uploadProgress.value = 0
+    }
+    
+    fun updateUploadProgress(progress: Int) {
+        _uploadProgress.postValue(progress)
     }
 }

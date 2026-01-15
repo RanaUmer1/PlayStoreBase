@@ -66,7 +66,7 @@ object RemoteConfigManager {
     private fun parseFetchData() {
 
         //Ads Config RemoteConfig
-        val json = firebaseRemoteConfig.getString(RemoteConfigKeys.ANIMAL_SOUND_AD_CONFIG)
+        val json = firebaseRemoteConfig.getString(RemoteConfigKeys.AD_CONFIG)
         adsConfigData = try {
             if (json.isNotBlank()) {
                 Log.e(TAG, "remote config: ")
@@ -88,9 +88,6 @@ object RemoteConfigManager {
         showOnboardingNativeMedia =
             firebaseRemoteConfig.getBoolean(RemoteConfigKeys.SHOW_ONBOARDING_NATIVE_MEDIA)
 
-        showAnimalNativeMedia =
-            firebaseRemoteConfig.getBoolean(RemoteConfigKeys.SHOW_ANIMAL_NATIVE_MEDIA)
-
         disableAds =
             firebaseRemoteConfig.getBoolean(RemoteConfigKeys.DISABLE_ADS)
 
@@ -103,13 +100,7 @@ object RemoteConfigManager {
         enableRepeatingNotifications =
             firebaseRemoteConfig.getBoolean(RemoteConfigKeys.ENABLE_REPEATING_NOTIFICATIONS)
 
-        //Assets RemoteConfig
 
-        assetsConfigData = AssetsConfigData(
-            category = firebaseRemoteConfig.getString(RemoteConfigKeys.ANIMAL_CATEGORY_JSON),
-            animal = firebaseRemoteConfig.getString(RemoteConfigKeys.ANIMAL_JSON),
-            animalDetails = firebaseRemoteConfig.getString(RemoteConfigKeys.ANIMAL_DETAILS_JSON),
-        )
     }
 
 

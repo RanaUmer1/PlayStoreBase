@@ -49,7 +49,7 @@ class StartViewModel @Inject constructor(
 
     private fun handleRemoteConfigUpdate() {
         val disableAds = RemoteConfigManager.getDisableAds()
-        appPreferences.setBoolean(AppPreferences.IS_PREMIUM, disableAds)
+        appPreferences.setBoolean(AppPreferences.IS_PREMIUM, !disableAds)
     }
 
     fun getNextScreenIntent(): NextScreen {

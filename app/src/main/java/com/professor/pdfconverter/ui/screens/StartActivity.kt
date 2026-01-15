@@ -239,9 +239,12 @@ class StartActivity : AppCompatActivity() {
     }
 
     private fun setupAdMobManager() {
+        val shouldShowAds = !RemoteConfigManager.getDisableAds()
+        Log.d(TAG, "setupAdMobManager - Ads Enabled: $shouldShowAds")
+        
         adMobManager.setAppOpenAdResumeId(AdIds.getAppOpenAdIdResume())
             .setAppOpenAdStartId(AdIds.getAppOpenAdId())
-            .setShouldShowResumeAd(true)
+            .setShouldShowResumeAd(shouldShowAds)
             .setInterstitialAdMaxTime(
                 RemoteConfigManager.getAdsConfig().interstitialMaxTimer?.toLong() ?: 20
             ).setInterstitialAdMinTime(
@@ -373,17 +376,18 @@ class StartActivity : AppCompatActivity() {
                 Intent(this, OnboardingActivity::class.java)
             }
             NextScreen.MAIN -> {
-                Log.d(TAG, "Navigating to PremiumActivity")
-                Intent(this, PremiumActivity::class.java).apply {
+
+               /* Intent(this, PremiumActivity::class.java).apply {
                     putExtra(Constants.IS_FROM_START_TO_PREMIUM, true)
-                }
+                }*/
+                 Intent(this, MainActivity::class.java)
+
             }
         }
 
         startActivity(nextIntent)
         finish()
     }
-
     override fun onDestroy() {
         super.onDestroy()
         Log.d(TAG, "onDestroy: Cleaning up resources")
