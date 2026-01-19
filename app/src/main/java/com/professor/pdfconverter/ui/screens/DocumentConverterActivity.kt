@@ -136,7 +136,11 @@ class DocumentConverterActivity : AppCompatActivity() {
             // Only update during upload phase (when loading bar is visible and not downloading)
             if (binding.loadingBar.visibility == View.VISIBLE && 
                 !binding.btnConvert.text.toString().startsWith("Downloading")) {
-                binding.btnConvert.text = "Uploading $progress%"
+                if (progress >= 100) {
+                    binding.btnConvert.text = "Converting..."
+                } else {
+                    binding.btnConvert.text = "Uploading $progress%"
+                }
             }
         }
 
