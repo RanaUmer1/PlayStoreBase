@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "407829430496",
+    "project_id": "doc-converter-54821",
+    "storage_bucket": "doc-converter-54821.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407829430496:android:c5a59913932e097b395085",
+        "android_client_info": {
+          "package_name": "com.professor.doc_converter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzACz93v-jDsbVgQvrtmVZj_q5Wg9bOR0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
